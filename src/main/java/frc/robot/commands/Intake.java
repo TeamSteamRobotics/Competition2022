@@ -43,7 +43,7 @@ public class Intake extends CommandBase {
     } else {
       intake.intake();
       while(!tracker.isAtMiddle()){
-        hopper.moveBeltsToShooter();}
+        hopper.moveBeltsForward();}
 
     }
 
@@ -51,7 +51,11 @@ public class Intake extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    /*intake.stop();
+    hopper.stopBelt();
+    hopper.stopMiddleWheel();*/
+  }
 
   // Returns true when the command should end.
   @Override

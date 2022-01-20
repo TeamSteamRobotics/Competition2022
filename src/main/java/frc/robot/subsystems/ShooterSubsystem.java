@@ -26,10 +26,9 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor.set(0);
   }
 
-  public boolean isShooterAtMaxSpeed( /*fix this */ boolean isShooterMax){
-    //create logic
-    return isShooterMax;
-  }
+  public boolean isShooterAtDesiredSpeed(double issuedSpeed){
+    return (shooterMotor.get() >= issuedSpeed);
+  } 
 
   @Override
   public void periodic() {

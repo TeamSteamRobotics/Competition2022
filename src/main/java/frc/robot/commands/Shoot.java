@@ -27,7 +27,7 @@ public class Shoot extends SequentialCommandGroup {
           new ParallelCommandGroup 
               (
               new SpinMiddleWheel(hopper, middleWheelSpeed.getAsDouble()),
-              new MoveBeltToSensor(hopper) 
+              new MoveBelts(hopper) 
               ), 
           new WaitCommand(1),
           /*fix this */isShooterMax) 

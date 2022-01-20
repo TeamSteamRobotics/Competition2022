@@ -15,8 +15,6 @@ public class BallTrackingSubsystem extends SubsystemBase {
 
   public BallTrackingSubsystem() {
 
-
-
   }
 
   public boolean isAtMiddle(){

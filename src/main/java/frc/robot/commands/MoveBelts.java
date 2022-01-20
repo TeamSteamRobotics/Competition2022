@@ -7,10 +7,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HopperSubsystem;
 
-public class MoveBeltToSensor extends CommandBase {
+public class MoveBelts extends CommandBase {
   /** Creates a new MoveBeltToSensor. */
   HopperSubsystem hopper;
-  public MoveBeltToSensor(HopperSubsystem hopper) {
+  public MoveBelts(HopperSubsystem hopper) {
     this.hopper = hopper;
     addRequirements(hopper);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -23,7 +23,7 @@ public class MoveBeltToSensor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.moveBeltsToShooter();
+    hopper.moveBeltsForward();
   }
 
   // Called once the command ends or is interrupted.
