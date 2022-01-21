@@ -6,30 +6,29 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants.VisionTurnConstants;
+import frc.robot.Constants.GyroTurnConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class VisionTurn extends PIDCommand {
-  /** Creates a new VisionTurn. */
-  public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
+public class GyroTurn extends PIDCommand {
+  /** Creates a new AutoTurn. */
+  public GyroTurn(DriveSubsystem drive, double rotation) {
     super(
         // The controller that the command will use
-        new PIDController(VisionTurnConstants.kP, VisionTurnConstants.kI, VisionTurnConstants.kD),
+        new PIDController(GyroTurnConstants.kP, GyroTurnConstants.kI, GyroTurnConstants.kD),
         // This should return the measurement
-        () -> vision.getTargetYaw(),
+        () -> drive.getAngle(),
         // This should return the setpoint (can also be a constant)
-        0,
+        rotation,
         // This uses the output
         output -> {
-          drive.drive(0, output, true);
           // Use the output here
+          drive.drive(0, output, false);
         });
-    addRequirements(drive, vision);
-    getController().setTolerance(VisionTurnConstants.positionTolerance, VisionTurnConstants.velocityTolerance);
+    // Use addRequirements() here to declare subsystem dependencies.
+    // Configure additional PID options by calling `getController` here.
   }
 
   // Returns true when the command should end.

@@ -33,6 +33,20 @@ public class Shoot extends SequentialCommandGroup {
           /*fix this */isShooterMax) 
       
     );
+  }
+    public Shoot(ShooterSubsystem shooter, HopperSubsystem hopper, double shooterWheelSpeed, double middleWheelSpeed, /*fix this */ BooleanSupplier isShooterMax) {
+      super(
+        new SpinShooterWheel(shooter, shooterWheelSpeed), 
+        new ConditionalCommand(
+            new ParallelCommandGroup 
+                (
+                new SpinMiddleWheel(hopper, middleWheelSpeed),
+                new MoveBelts(hopper) 
+                ), 
+            new WaitCommand(1),
+            /*fix this */isShooterMax) 
+        
+      );
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands();

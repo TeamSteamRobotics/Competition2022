@@ -33,4 +33,36 @@ public final class Constants {
         public static final short flywheelMotorID = 4;
         
     }
+
+    public final class HopperConstants {
+        public static final short topHopperMotorID = 5;
+        public static final short bottomHopperMotorID = 6;
+        public static final short middleWheelID = 7;
+    }
+
+    public final class IntakeConstants {
+        public static final short intakeMotorID = 8;
+    }
+
+    public final class ButtonConstants {
+        public static final short shootButton = 1;
+        public static final short intakeButton = 2;
+        public static final short poopyButton = 3;
+        public static final short advanceButton = 4;
+        public static final short spinUpFlywheelButton = 5;
+
+    }
+
+    public final class GyroTurnConstants {
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+    }
+
+    public final class FlywheelConstants {
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+        public static final double feedForward = 0;
+    }
 }

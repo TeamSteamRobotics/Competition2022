@@ -4,31 +4,28 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.BooleanSupplier;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
 
-  WPI_TalonSRX shooterMotor = new WPI_TalonSRX(5);
+  WPI_TalonSRX flywheelMotor = new WPI_TalonSRX(5);
   
 
   public ShooterSubsystem() {}
 
   public void shoot(double speed){
-    shooterMotor.set(speed);
+    flywheelMotor.set(speed);
   }
+
+  
 
   public void stop(){
-    shooterMotor.set(0);
+    flywheelMotor.set(0);
   }
 
-  public boolean isShooterAtDesiredSpeed(double issuedSpeed){
-    return (shooterMotor.get() >= issuedSpeed);
-  } 
 
   @Override
   public void periodic() {
