@@ -15,12 +15,13 @@ public class Drive extends CommandBase {
 DriveSubsystem driveSubsystem;
 DoubleSupplier speed;
 DoubleSupplier rotation; 
-  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed1, DoubleSupplier rotation1) {
+boolean squareInputs;
+  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs) {
     driveSubsystem = m_driveSubsystem;
     addRequirements(driveSubsystem);
-    speed = speed1;
-    rotation = rotation1;
-    //squareInputs = squareInputs1;
+    this.speed = speed;
+    this.rotation = rotation;
+    this.squareInputs = squareInputs;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,7 +32,7 @@ DoubleSupplier rotation;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), true);
+    driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs);
 
   }
 

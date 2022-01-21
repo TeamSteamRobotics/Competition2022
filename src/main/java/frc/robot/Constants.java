@@ -12,4 +12,25 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+
+    public final class VisionTurnConstants {
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+        public static final double velocityTolerance = 100;
+        public static final double positionTolerance = 100;
+    }
+
+    public final class DriveConstants {
+        public static final short leftBackMotorID = 0;
+        public static final short leftFrontMotorID = 1;
+        public static final short rightBackMotorID = 2;
+        public static final short rightFrontMotorID = 3;
+    }
+
+    public final class ShooterConstants {
+        public static final short flywheelMotorID = 4;
+        
+    }
+}

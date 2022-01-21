@@ -4,40 +4,50 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(0);
-WPI_TalonSRX leftBackMotor = new WPI_TalonSRX(1);
-WPI_TalonSRX rightBackMotor = new WPI_TalonSRX(2);
-WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(3);
+
+AHRS gyro = new AHRS();
+
+WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(DriveConstants.leftFrontMotorID);
+WPI_TalonSRX leftBackMotor = new WPI_TalonSRX(DriveConstants.leftBackMotorID);
+WPI_TalonSRX rightBackMotor = new WPI_TalonSRX(DriveConstants.rightBackMotorID);
+WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(DriveConstants.rightFrontMotorID);
 
 MotorControllerGroup rightMotorController = new MotorControllerGroup(rightBackMotor, rightFrontMotor);
 MotorControllerGroup leftMotorController = new MotorControllerGroup(leftBackMotor, leftFrontMotor);
-
 
 DifferentialDrive diffDrive = new DifferentialDrive(leftMotorController, rightMotorController);
 
 public DriveSubsystem() {
   rightMotorController.setInverted(true);
-
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
   diffDrive.arcadeDrive(speed, rotation, squareInputs);
-} 
+}
+
+// Call this command at the start of the game. Sets the gyro reading to zero
+public void resetGyro() {
+  gyro.zeroYaw();
+}
+
+// Returns the gyro's reading of the robots current angle
+public double getAngle() {
+  return gyro.getAngle();
+}
 
 public void stop() {
   rightMotorController.set(0);
   leftMotorController.set(0);
-  
   }
-  /** Creates a new DriveSubsystem. */
 
 
   
