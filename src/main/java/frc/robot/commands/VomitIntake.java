@@ -4,24 +4,15 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class Drive extends CommandBase {
-
-  /** Creates a new Drive. */
-DriveSubsystem driveSubsystem;
-DoubleSupplier speed;
-DoubleSupplier rotation; 
-boolean squareInputs;
-  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs) {
-    driveSubsystem = m_driveSubsystem;
-    addRequirements(driveSubsystem);
-    this.speed = speed;
-    this.rotation = rotation;
-    this.squareInputs = squareInputs;
+public class VomitIntake extends CommandBase {
+  /** Creates a new VomitIntake. */
+  IntakeSubsystem intake;
+  public VomitIntake(IntakeSubsystem intake) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.intake = intake;
   }
 
   // Called when the command is initially scheduled.
@@ -31,14 +22,13 @@ boolean squareInputs;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs);
-   
+    intake.reverseIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.stop();
+    intake.stop();
   }
 
   // Returns true when the command should end.

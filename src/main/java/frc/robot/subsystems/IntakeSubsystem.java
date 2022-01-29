@@ -6,29 +6,43 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
 
-  WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(9);
-  //WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(6);
+  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
 
- // MotorControllerGroup intakeMotors = new MotorControllerGroup(leftIntakeMotor, rightIntakeMotor);
-  
-  public IntakeSubsystem() {
-    
-  }
+  WPI_TalonSRX intakeMotor = new WPI_TalonSRX(IntakeConstants.intakeMotorID);
+
+  public IntakeSubsystem() {}
 
   public void intake(){
-    leftIntakeMotor.set(0.23);
-   
-    //rightIntakeMotor.set(-0.5);
+    intakeMotor.set(0.5);
   }
 
-  public void stopIntake() {
-    leftIntakeMotor.set(0);
+  public void stop(){
+    intakeMotor.set(0);
+  }
+
+  public void reverseIntake(){
+    intakeMotor.set(-0.5);
+  }
+
+  public void deployIntake(){
+    doubleSolenoid.set(Value.kForward);
+  }
+
+  public void undeployIntake(){
+    doubleSolenoid.set(Value.kReverse);
+  }
+  
+  public void stopSolenoid(){
+    doubleSolenoid.set(Value.kOff);
   }
 
   @Override

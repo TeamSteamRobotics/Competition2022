@@ -6,47 +6,35 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants.VisionTurnConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DriveDistance extends PIDCommand {
-  /** Creates a new DriveDistance. */
-  DriveSubsystem drive;
-  double kP;
-  double kI;
-  double kD;
-
-  public DriveDistance(DriveSubsystem drive, double distance) {
+public class VisionTurn extends PIDCommand {
+  /** Creates a new VisionTurn. */
+  public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
-        new PIDController(0.420, 0.05, 0.3),
-        () -> drive.getDistance(),
+        new PIDController(VisionTurnConstants.kP, VisionTurnConstants.kI, VisionTurnConstants.kD),
+        // This should return the measurement
+        () -> vision.getTargetYaw(),
         // This should return the setpoint (can also be a constant)
-        distance,
+        0,
         // This uses the output
         output -> {
-          drive.drive(output, 0, false);
+          drive.drive(0, output, true);
           // Use the output here
         });
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
-    // Configure additional PID options by calling `getController` here.
+    addRequirements(drive, vision);
+    getController().setTolerance(VisionTurnConstants.positionTolerance, VisionTurnConstants.velocityTolerance);
   }
 
   // Returns true when the command should end.
-
-  @Override
-  public void initialize() {
-    drive.resetEncoders();
-    drive.resetGyro();
-  }
   @Override
   public boolean isFinished() {
     return getController().atSetpoint();
   }
-
-
-
 }

@@ -4,21 +4,35 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
+//import javax.swing.plaf.basic.ButtonActionListener;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Constants.ButtonConstants;
+import frc.robot.commands.DeployIntake;
+import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake;
+import frc.robot.commands.MoveBelts;
+import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.Drive;
-import frc.robot.commands.DriveDistance;
+import frc.robot.commands.SpinUpFlywheel;
+import frc.robot.commands.VisionTurn;
+import frc.robot.commands.VomitHopper;
+import frc.robot.commands.VomitIntake;
+import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShootSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,30 +44,36 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final ShootSubsystem m_shootSubsystem = new ShootSubsystem();
+  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+  //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem(); 
+  private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
 
-
-
-  //HID stands for human interface 
-  Joystick jStick = new Joystick(0);
-  //JoystickButton shootButton = new JoystickButton(jStick, 1);
-  JoystickButton intakeButton = new JoystickButton(jStick, 1);
-
+  private final Joystick stick = new Joystick(0);
+  //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
+  JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
+  JoystickButton intakeButton = new JoystickButton(stick, ButtonConstants.intakeButton);
+  //JoystickButton advanceButton = new JoystickButton(stick, ButtonConstants.advanceButton);
+ // JoystickButton vomitButton = new JoystickButton(stick, 12);
+  JoystickButton testButton = new JoystickButton(stick, 11);
+  JoystickButton moveHopperForwardButton = new JoystickButton(stick, 4);
+  JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
+  JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
+  JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
+  JoystickButton vomitHopperButton = new JoystickButton(stick, 6);
+  JoystickButton visionTurnButton = new JoystickButton(stick, 12);
 
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final Drive m_drive = new Drive(m_driveSubsystem, jStick::getY, jStick::getX);
-  private final DriveDistance driveDistance = new DriveDistance(m_driveSubsystem, 3);
-  private final Intake intakeCommand = new Intake(m_intakeSubsystem);
-
-
+ 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
-    m_driveSubsystem.setDefaultCommand(m_drive);
     // Configure the button bindings
     configureButtonBindings();
+    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
+    
   }
 
   /**
@@ -63,8 +83,18 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //shootButton.toggleWhenPressed(new Shoot(m_shootSubsystem));
-    intakeButton.whileHeld(intakeCommand);
+    //shootButton.whenPressed(new Shoot(m_shootSubsystem));
+    intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
+    moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
+    deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
+    undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
+    //vomitButton.whileHeld(new VomitHopper(m_hopperSubsystem)); 
+    vomitHopperButton.whileHeld(new VomitHopper(m_hopperSubsystem));
+    vomitIntakeButton.whileHeld(new VomitIntake(m_intakeSubsystem));
+    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));
+    //Add setpoint later
+   // spinUpFlywheelButton.whileHeld(new SpinUpFlywheel(m_shooterSubsystem, 20000));
+    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem));
     
   }
 
@@ -75,7 +105,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-     
-    return driveDistance;
+    return new Shoot(m_shooterSubsystem);
   }
 }

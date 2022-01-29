@@ -4,41 +4,36 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class Drive extends CommandBase {
+public class DeployIntake extends CommandBase {
+  /** Creates a new DeployIntake. */
 
-  /** Creates a new Drive. */
-DriveSubsystem driveSubsystem;
-DoubleSupplier speed;
-DoubleSupplier rotation; 
-boolean squareInputs;
-  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs) {
-    driveSubsystem = m_driveSubsystem;
-    addRequirements(driveSubsystem);
-    this.speed = speed;
-    this.rotation = rotation;
-    this.squareInputs = squareInputs;
+  IntakeSubsystem intake; 
+  public DeployIntake(IntakeSubsystem intake) {
+    addRequirements(intake);
+    this.intake = intake; 
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs);
-   
+    intake.deployIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.stop();
+    intake.stopSolenoid();
   }
 
   // Returns true when the command should end.

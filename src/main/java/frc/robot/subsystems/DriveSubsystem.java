@@ -4,64 +4,74 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-  /** Creates a new DriveSubsystem. */
 
-  //motors initiated 
+Gyro gyro;
+
+WPI_TalonFX leftFrontMotor = new WPI_TalonFX(DriveConstants.leftFrontMotorID);
+WPI_TalonFX leftBackMotor = new WPI_TalonFX(DriveConstants.leftBackMotorID);
+WPI_TalonFX rightBackMotor = new WPI_TalonFX(DriveConstants.rightBackMotorID);
+WPI_TalonFX rightFrontMotor = new WPI_TalonFX(DriveConstants.rightFrontMotorID);
+
+
+MotorControllerGroup rightMotorController = new MotorControllerGroup(rightBackMotor, rightFrontMotor);
+MotorControllerGroup leftMotorController = new MotorControllerGroup(leftBackMotor, leftFrontMotor);
+
+DifferentialDrive diffDrive = new DifferentialDrive(leftMotorController, rightMotorController);
+
+
+public DriveSubsystem() {
+  rightMotorController.setInverted(true);
+  diffDrive.setSafetyEnabled(true);
   
-  WPI_TalonSRX leftBack = new WPI_TalonSRX(1);
-  WPI_TalonSRX leftFront = new WPI_TalonSRX(0);
-  WPI_TalonSRX rightBack = new WPI_TalonSRX(3);
-  WPI_TalonSRX rightFront = new WPI_TalonSRX(2);
-  //grouping up wheels so same speed for diff drive haha
-
   
-
-  //SpeedControllerGroup left = new SpeedControllerGroup(leftBack, leftFront);
-  //SpeedControllerGroup right = new SpeedControllerGroup(rightBack, rightFront);
-
-  MotorControllerGroup leftGroup = new MotorControllerGroup(leftBack, leftFront);
-  MotorControllerGroup rightGroup = new MotorControllerGroup(rightBack, rightFront);
-
   
-  //drive command stuff yep.
-  DifferentialDrive diffDrive = new DifferentialDrive(leftGroup, rightGroup);
- 
- 
- public DriveSubsystem() {
-   rightGroup.setInverted(true);
- }
+}
 
-  public void drive(double speed, double turn, boolean squareInputs){
-    
-    diffDrive.arcadeDrive(speed, turn, squareInputs);
+public void drive(double speed, double rotation, boolean squareInputs) {
+  diffDrive.arcadeDrive(speed, rotation, squareInputs);
+}
 
+// Call this command at the start of the game. Sets the gyro reading to zero
+public void resetGyro() {
+  //gyro.zeroYaw();
+  gyro.reset();
+}
+
+// Returns the gyro's reading of the robots current angle
+public double getAngle() {
+  return gyro.getAngle();
+}
+
+public void stop() {
+  rightMotorController.set(0);
+  leftMotorController.set(0);
+  
   }
 
-  public void stop(){
+public double getDistance() {
+  return (leftFrontMotor.getSelectedSensorPosition() + rightFrontMotor.getSelectedSensorPosition())/2 * Constants.DriveConstants.ftPerTick;
+  
+}
 
-    diffDrive.arcadeDrive(0, 0);
 
-  }
 
-  public double getDistance(){
-    return 0.5/4096 * (leftFront.getSelectedSensorPosition() - rightFront.getSelectedSensorPosition()) / 2.0;
-  }
+public void  resetEncoders(){
+  leftFrontMotor.setSelectedSensorPosition(0);
+  rightFrontMotor.setSelectedSensorPosition(0);
+
+}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-
-
 }

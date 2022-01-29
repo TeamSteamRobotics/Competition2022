@@ -5,34 +5,56 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BallTrackingSubsystem;
+import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class Intake extends CommandBase {
+
+  /** Creates a new Hopper. */
+
   IntakeSubsystem intake;
-  /** Creates a new Intake. */
-  public Intake(IntakeSubsystem intake) {
+  HopperSubsystem hopper;
+
+  public Intake(IntakeSubsystem intake, HopperSubsystem hopper) {
     this.intake = intake;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    this.hopper = hopper;
+    addRequirements(intake, hopper);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.intake();
-    System.out.println("I'm intaking!!!!!!!!!!!!!!!!!!!!!");
+    intake.intake(); 
+    /*
+    if(tracker.isAtMiddle()){
+      if(tracker.isAtHopper()){
+        intake.stop();
+        hopper.stopBelt();
+        hopper.stopMiddleWheel();
+      } else {
+        intake.intake();
+      }
+    } else {
+      intake.intake();
+      while(!tracker.isAtMiddle()){
+        hopper.moveBeltsForward();}
+
+    }
+    */
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stopIntake();
+    intake.stop();
+    /*hopper.stopBelt();
+    hopper.stopMiddleWheel();*/
   }
 
   // Returns true when the command should end.

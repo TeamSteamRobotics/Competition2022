@@ -6,47 +6,36 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.Constants.FlywheelConstants;
+import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DriveDistance extends PIDCommand {
-  /** Creates a new DriveDistance. */
-  DriveSubsystem drive;
-  double kP;
-  double kI;
-  double kD;
+public class SpinUpFlywheel extends PIDCommand {
+  /** Creates a new SpinUpFlywheel. */
 
-  public DriveDistance(DriveSubsystem drive, double distance) {
+  public SpinUpFlywheel(ShooterSubsystem shooterSubsystem, double setPoint) {
     super(
         // The controller that the command will use
-        new PIDController(0.420, 0.05, 0.3),
-        () -> drive.getDistance(),
+        new PIDController(FlywheelConstants.kP, FlywheelConstants.kI, FlywheelConstants.kD),
+        // This should return the measurement
+        () -> shooterSubsystem.getMotorSpeed(),
         // This should return the setpoint (can also be a constant)
-        distance,
+        () -> setPoint,
         // This uses the output
-        output -> {
-          drive.drive(output, 0, false);
+        output -> {shooterSubsystem.shoot(output);
           // Use the output here
         });
+
+        
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
     // Configure additional PID options by calling `getController` here.
   }
 
   // Returns true when the command should end.
-
-  @Override
-  public void initialize() {
-    drive.resetEncoders();
-    drive.resetGyro();
-  }
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return false;
   }
-
-
-
 }

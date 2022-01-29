@@ -4,24 +4,18 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
-public class Drive extends CommandBase {
-
-  /** Creates a new Drive. */
-DriveSubsystem driveSubsystem;
-DoubleSupplier speed;
-DoubleSupplier rotation; 
-boolean squareInputs;
-  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs) {
-    driveSubsystem = m_driveSubsystem;
-    addRequirements(driveSubsystem);
+public class SpinShooterWheel extends CommandBase {
+  /** Creates a new SpinShooterWheel. */
+  ShooterSubsystem shooter;
+  double speed;
+  public SpinShooterWheel(ShooterSubsystem shooter, double speed) {
+    this.shooter = shooter;
     this.speed = speed;
-    this.rotation = rotation;
-    this.squareInputs = squareInputs;
+    addRequirements(shooter);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -31,14 +25,13 @@ boolean squareInputs;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs);
-   
+    shooter.shoot(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.stop();
+    shooter.stop();
   }
 
   // Returns true when the command should end.
