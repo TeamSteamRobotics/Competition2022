@@ -15,7 +15,7 @@ public class VisionSubsystem extends SubsystemBase {
   /** Creates a new VisionSubsystem. */
 
   NetworkTableInstance table = NetworkTableInstance.getDefault();
-  NetworkTable visionTable = table.getTable("chameleon-vision").getSubTable("Microsoft LifeCam HD-3000");
+  NetworkTable visionTable = table.getTable("photon-vision").getSubTable("Microsoft LifeCam HD-3000");
   NetworkTableEntry poseEntry = visionTable.getEntry("targetPose");
   NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
