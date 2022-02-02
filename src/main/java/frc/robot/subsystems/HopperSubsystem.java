@@ -9,14 +9,14 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.HopperConstants;
+import frc.robot.Constants.MotorIDConstants;
 
 public class HopperSubsystem extends SubsystemBase {
   /** Creates a new HopperSubsystem. */
 
-  WPI_TalonSRX topHopperMotor = new WPI_TalonSRX(HopperConstants.topHopperMotorID);
-  WPI_TalonSRX bottomHopperMotor = new WPI_TalonSRX(HopperConstants.bottomHopperMotorID);
-  WPI_TalonSRX middleWheel = new WPI_TalonSRX(HopperConstants.middleWheelID);
+  WPI_TalonSRX topHopperMotor = new WPI_TalonSRX(MotorIDConstants.topHopperMotorID);
+  WPI_TalonSRX bottomHopperMotor = new WPI_TalonSRX(MotorIDConstants.bottomHopperMotorID);
+  WPI_TalonSRX middleWheel = new WPI_TalonSRX(MotorIDConstants.middleWheelID);
 
   public HopperSubsystem() {
     //bottomHopperMotor.setInverted(InvertType.OpposeMaster);

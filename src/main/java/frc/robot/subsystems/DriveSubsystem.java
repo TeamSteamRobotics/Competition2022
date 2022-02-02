@@ -11,15 +11,16 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.MotorIDConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
 Gyro gyro;
 
-WPI_TalonFX leftFrontMotor = new WPI_TalonFX(DriveConstants.leftFrontMotorID);
-WPI_TalonFX leftBackMotor = new WPI_TalonFX(DriveConstants.leftBackMotorID);
-WPI_TalonFX rightBackMotor = new WPI_TalonFX(DriveConstants.rightBackMotorID);
-WPI_TalonFX rightFrontMotor = new WPI_TalonFX(DriveConstants.rightFrontMotorID);
+WPI_TalonFX leftFrontMotor = new WPI_TalonFX(MotorIDConstants.leftFrontMotorID);
+WPI_TalonFX leftBackMotor = new WPI_TalonFX(MotorIDConstants.leftBackMotorID);
+WPI_TalonFX rightBackMotor = new WPI_TalonFX(MotorIDConstants.rightBackMotorID);
+WPI_TalonFX rightFrontMotor = new WPI_TalonFX(MotorIDConstants.rightFrontMotorID);
 
 
 MotorControllerGroup rightMotorController = new MotorControllerGroup(rightBackMotor, rightFrontMotor);

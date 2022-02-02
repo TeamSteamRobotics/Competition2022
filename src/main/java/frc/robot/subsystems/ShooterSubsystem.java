@@ -12,11 +12,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.FlywheelConstants;
+import frc.robot.Constants.MotorIDConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
 
-  WPI_TalonSRX flywheelMotor = new WPI_TalonSRX(4);
+  WPI_TalonSRX flywheelMotor = new WPI_TalonSRX(MotorIDConstants.flywheelMotorID);
   
 
   public ShooterSubsystem() {
@@ -34,17 +35,21 @@ public class ShooterSubsystem extends SubsystemBase {
   public void shoot(double speed){
     //flywheelMotor.set(-1*speed);
     flywheelMotor.set(ControlMode.Velocity, speed);
-    System.out.println("Shooter RPMs: " + talonUnitsToChadRPM(flywheelMotor.getSelectedSensorVelocity()));
+    System.out.println("Shooter RPMs: " + getRPM());
     System.out.println("Shooter Speed: " + flywheelMotor.getSelectedSensorVelocity());
   }
 
-  public double getMotorSpeed() {
+  public double getSTUs() {
     return flywheelMotor.getSelectedSensorVelocity();
   }
 
-  public double talonUnitsToChadRPM(double STUS)
-  {
-    return (STUS / 4096) * 10;
+  public double getRPM() {
+    return (flywheelMotor.getSelectedSensorVelocity() / 10);
+  }
+
+  // SHould probably fill this out at some time
+  public double getTargetSpeed() {
+    return 0.0;
   }
 
   public void stop(){

@@ -78,14 +78,12 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    
+    CommandScheduler.getInstance().schedule(m_robotContainer.m_smartDashboardOutput);
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    //m_robotContainer.m_smartDashboardOutput.execute();
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {

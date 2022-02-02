@@ -14,6 +14,19 @@ package frc.robot;
  */
 public final class Constants {
 
+    public final class MotorIDConstants {
+        public static final short leftBackMotorID = 1;
+        public static final short leftFrontMotorID = 0;
+        public static final short rightBackMotorID = 2;
+        public static final short rightFrontMotorID = 3;
+        public static final short flywheelMotorID = 4;
+        public static final short topHopperMotorID = 7;
+        public static final short bottomHopperMotorID = 6;
+        public static final short middleWheelID = 77;
+        public static final short intakeMotorID = 8;
+        public static final short intakeMotorOtherID = 9;
+    }
+
     public final class VisionTurnConstants {
         public static final double kP = .2;
         public static final double kI = 0;
@@ -23,10 +36,6 @@ public final class Constants {
     }
 
     public final class DriveConstants {
-        public static final int leftBackMotorID = 1;
-        public static final int leftFrontMotorID = 0;
-        public static final int rightBackMotorID = 2;
-        public static final int rightFrontMotorID = 3;
         public static final double ticksPerFeet = 2048;
         public static final double motorRotationsPerWheelRotation = 10.75;
         public static final double wheelRotationPerInch = 1/(6*Math.PI);
@@ -34,24 +43,6 @@ public final class Constants {
         //    1/(ticksPerFeet * motorRotationsPerWheelRotation * wheelRotationPerInch * inchesPerFeet)
         public static final double ftPerTick = 6*Math.PI/(2048 * 10.75 *12);
     }
-
-    public final class ShooterConstants {
-        public static final short flywheelMotorID = 4;
-        
-    }
-
-    public final class HopperConstants {
-        public static final short topHopperMotorID = 7;
-        public static final short bottomHopperMotorID = 6;
-        public static final short middleWheelID = 77;
-    }
-
-    public final class IntakeConstants {
-        public static final short intakeMotorID = 8;
-        public static final short intakeMotorOtherID = 9;
-    }
-
-    
 
     public final class ButtonConstants {
         public static final short shootButton = 1;

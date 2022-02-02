@@ -4,28 +4,17 @@
 
 package frc.robot;
 
-import java.util.function.BooleanSupplier;
-
-import com.ctre.phoenix.motorcontrol.StickyFaults;
-
-//import javax.swing.plaf.basic.ButtonActionListener;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.ButtonConstants;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveBelts;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
-import frc.robot.commands.SpinUpFlywheel;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VomitHopper;
 import frc.robot.commands.VomitIntake;
@@ -37,7 +26,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -79,8 +67,7 @@ public class RobotContainer {
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
     stick.setThrottleChannel(3);
-    //m_exampleSubsytem.setDefaultCommand(new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem));
-    //CommandScheduler.getInstance().schedule(new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem));
+
     
   }
 
@@ -91,7 +78,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //shootButton.whenPressed(new Shoot(m_shootSubsystem));
     intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
     moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 

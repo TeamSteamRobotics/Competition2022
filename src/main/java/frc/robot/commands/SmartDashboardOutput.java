@@ -29,9 +29,18 @@ public class SmartDashboardOutput extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Shooter Speed", shooter.getMotorSpeed());
-    SmartDashboard.putNumber("Throttle", (stick.getThrottle() - 1) * 20000);
-    System.out.println("test");
+    SmartDashboard.putNumber("Shooter Speed", -shooter.getRPM());
+    SmartDashboard.putNumber("Throttle", (stick.getThrottle() + 1) * 20000); 
+
+    // If the shooter is within +/-100 the value that we want it to be at, be green
+    if((shooter.getSTUs() <= (((stick.getThrottle() - 1) * 20000) + 100) && shooter.getSTUs() >= (((stick.getThrottle() - 1) * 20000) - 100)) || 
+       (shooter.getSTUs() <= (shooter.getTargetSpeed() + 100) && shooter.getSTUs() >= shooter.getTargetSpeed() - 100)) {
+      SmartDashboard.putBoolean("Shooter At Speed", true);
+    }
+    else {
+      SmartDashboard.putBoolean("Shooter At Speed", false);
+    }
+
   }
 
   // Called once the command ends or is interrupted.
