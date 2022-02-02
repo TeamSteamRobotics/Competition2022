@@ -8,6 +8,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.FlywheelConstants;
 
@@ -32,21 +34,18 @@ public class ShooterSubsystem extends SubsystemBase {
   public void shoot(double speed){
     //flywheelMotor.set(-1*speed);
     flywheelMotor.set(ControlMode.Velocity, speed);
-   System.out.println("asfdaf: " + flywheelMotor.getSelectedSensorVelocity());
+    System.out.println("Shooter RPMs: " + talonUnitsToChadRPM(flywheelMotor.getSelectedSensorVelocity()));
+    System.out.println("Shooter Speed: " + flywheelMotor.getSelectedSensorVelocity());
   }
 
   public double getMotorSpeed() {
-    System.out.println("hhhhhhhhhh " + flywheelMotor.getSelectedSensorVelocity());
     return flywheelMotor.getSelectedSensorVelocity();
   }
 
-
-
-  
-  //public double getMotorSpeed() {
-    //return flywheelMotor.getClosedLoopError()
-
-  //}
+  public double talonUnitsToChadRPM(double STUS)
+  {
+    return (STUS / 4096) * 10;
+  }
 
   public void stop(){
     flywheelMotor.set(0);

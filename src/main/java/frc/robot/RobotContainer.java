@@ -6,12 +6,16 @@ package frc.robot;
 
 import java.util.function.BooleanSupplier;
 
+import com.ctre.phoenix.motorcontrol.StickyFaults;
+
 //import javax.swing.plaf.basic.ButtonActionListener;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ButtonConstants;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
@@ -20,6 +24,7 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.MoveBelts;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.SpinUpFlywheel;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VomitHopper;
@@ -32,6 +37,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -42,7 +48,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
@@ -50,13 +55,15 @@ public class RobotContainer {
   private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
-
+  private final ExampleSubsystem m_exampleSubsytem = new ExampleSubsystem();
   private final Joystick stick = new Joystick(0);
+
+
+  SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem);
+
   //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
   JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
-  JoystickButton intakeButton = new JoystickButton(stick, ButtonConstants.intakeButton);
-  //JoystickButton advanceButton = new JoystickButton(stick, ButtonConstants.advanceButton);
- // JoystickButton vomitButton = new JoystickButton(stick, 12);
+  JoystickButton intakeButton = new JoystickButton(stick, 2);
   JoystickButton testButton = new JoystickButton(stick, 11);
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 4);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
@@ -65,14 +72,15 @@ public class RobotContainer {
   JoystickButton vomitHopperButton = new JoystickButton(stick, 6);
   JoystickButton visionTurnButton = new JoystickButton(stick, 12);
 
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
+    stick.setThrottleChannel(3);
+    //m_exampleSubsytem.setDefaultCommand(new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem));
+    //CommandScheduler.getInstance().schedule(new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem));
     
   }
 
@@ -92,10 +100,11 @@ public class RobotContainer {
     vomitHopperButton.whileHeld(new VomitHopper(m_hopperSubsystem));
     vomitIntakeButton.whileHeld(new VomitIntake(m_intakeSubsystem));
     visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));
-    //Add setpoint later
-   // spinUpFlywheelButton.whileHeld(new SpinUpFlywheel(m_shooterSubsystem, 20000));
-    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem));
-    
+    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem,
+                                                                    () -> {
+                                                                      double val = stick.getThrottle();
+                                                                      return (val - 1) * 20000;
+                                                                     } ));    
   }
 
   /**
@@ -105,6 +114,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new Shoot(m_shooterSubsystem);
+    return null;//new Shoot(m_shooterSubsystem, 30000);
   }
 }

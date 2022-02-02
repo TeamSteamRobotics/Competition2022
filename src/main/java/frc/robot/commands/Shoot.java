@@ -22,31 +22,18 @@ public class Shoot extends SequentialCommandGroup {
 
   /*test*/
   ShooterSubsystem shooter; 
-  public Shoot(ShooterSubsystem shooter) {
+  DoubleSupplier m_speed;
+  public Shoot(ShooterSubsystem shooter, DoubleSupplier speed) {
     this.shooter = shooter; 
+    this.m_speed = speed;
     addRequirements(shooter); 
+
   }
-  //public Shoot(ShooterSubsystem shooter, HopperSubsystem hopper, DoubleSupplier shooterWheelSpeed, DoubleSupplier middleWheelSpeed, /*fix this */ BooleanSupplier isShooterMax) {
-    //super(
-      //new SpinShooterWheel(shooter, shooterWheelSpeed.getAsDouble()), 
-      //new ConditionalCommand(
-          //new ParallelCommandGroup 
-              //(
-              //new SpinMiddleWheel(hopper, middleWheelSpeed.getAsDouble()),
-              //new MoveBelts(hopper) 
-              //), 
-          //new WaitCommand(1),*/
-          //*fix this */isShooterMax) 
-      
-    //);
-  //}
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    //addCommands();
-  //}
+
   @Override
   public void execute() {
-    shooter.shoot(25000);
+    System.out.println("Requested Speed: " + m_speed.getAsDouble());
+    shooter.shoot(m_speed.getAsDouble());
   }
 
   @Override
