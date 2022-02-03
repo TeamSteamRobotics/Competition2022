@@ -13,6 +13,9 @@ public class SpinMiddleWheel extends CommandBase {
   double speed;
 
   public SpinMiddleWheel(HopperSubsystem hopper, double speed) {
+    this.hopper = hopper;
+    this.speed = speed;
+    addRequirements(hopper);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

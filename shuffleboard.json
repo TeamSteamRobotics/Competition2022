@@ -2,7 +2,7 @@
   "tabPane": [
     {
       "title": "SmartDashboard",
-      "autoPopulate": true,
+      "autoPopulate": false,
       "autoPopulatePrefix": "SmartDashboard/",
       "widgetPane": {
         "gridSize": 128.0,
@@ -11,7 +11,7 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "3,0": {
+          "0,0": {
             "size": [
               3,
               2
@@ -29,55 +29,134 @@
               "imageHeight": -1
             }
           },
-          "3,2": {
+          "0,3": {
             "size": [
               3,
-              2
-            ],
-            "content": {
-              "_type": "Differential Drivebase",
-              "_title": "Differential Drivebase",
-              "Wheels/Number of wheels": 4,
-              "Wheels/Wheel diameter": 80.0,
-              "Visuals/Show velocity vectors": true
-            }
-          },
-          "6,0": {
-            "size": [
-              4,
               1
             ],
             "content": {
               "_type": "Number Bar",
-              "_title": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Throttle",
+              "_title": "Throttle Value",
               "Range/Min": 0.0,
               "Range/Max": 40000.0,
               "Range/Center": 0.0,
               "Visuals/Num tick marks": 5,
               "Visuals/Show text": true
             }
+          },
+          "0,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic FMS Info",
+              "_source0": "network_table:///FMSInfo",
+              "_title": "Basic FMS Info"
+            }
+          },
+          "3,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_title": "Gyro",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "List Layout",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/Shooter At Speed",
+                  "_title": "Shooter At Speed",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                }
+              ]
+            }
           }
         }
       }
     },
     {
-      "title": "LiveWindow",
-      "autoPopulate": true,
-      "autoPopulatePrefix": "LiveWindow/",
+      "title": "Debuging",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 100.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "0,3": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "PDP",
+              "_title": "PDP",
+              "Visuals/Show voltage and current values": true
+            }
+          },
+          "4,0": {
+            "size": [
+              5,
+              5
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Shooter Speed",
+              "_source1": "network_table:///SmartDashboard/Throttle",
+              "_title": "Flywheel PID",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 40000.0,
+              "Y-axis/Lower bound": -0.0,
+              "Y-axis/Unit": "STU",
+              "Visible data/SmartDashboard/Shooter Speed": true,
+              "Visible data/SmartDashboard/Throttle": false
+            }
+          },
+          "0,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Differential Drivebase",
+              "_source0": "network_table:///SmartDashboard/DifferentialDrive[1]",
+              "_title": "Differential Drivebase",
+              "Wheels/Number of wheels": 4,
+              "Wheels/Wheel diameter": 80.0,
+              "Visuals/Show velocity vectors": true
+            }
+          }
+        }
       }
     }
   ],
   "windowGeometry": {
-    "x": 1280.0,
-    "y": 32.0,
-    "width": 1920.0,
-    "height": 1048.0
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1280.0,
+    "height": 1024.0
   }
 }

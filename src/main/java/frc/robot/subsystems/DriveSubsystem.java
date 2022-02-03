@@ -26,7 +26,7 @@ WPI_TalonFX rightFrontMotor = new WPI_TalonFX(MotorIDConstants.rightFrontMotorID
 MotorControllerGroup rightMotorController = new MotorControllerGroup(rightBackMotor, rightFrontMotor);
 MotorControllerGroup leftMotorController = new MotorControllerGroup(leftBackMotor, leftFrontMotor);
 
-DifferentialDrive diffDrive = new DifferentialDrive(leftMotorController, rightMotorController);
+public DifferentialDrive diffDrive = new DifferentialDrive(leftMotorController, rightMotorController);
 
 
 public DriveSubsystem() {

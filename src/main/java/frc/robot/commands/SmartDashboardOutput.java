@@ -41,6 +41,8 @@ public class SmartDashboardOutput extends CommandBase {
       SmartDashboard.putBoolean("Shooter At Speed", false);
     }
 
+    SmartDashboard.putData(drive.diffDrive);
+
   }
 
   // Called once the command ends or is interrupted.
