@@ -91,8 +91,8 @@ public final class Constants {
         public static final int baseButton8 = 8;
         public static final int baseButton9 = 9;
         public static final int baseButton10 = 10;
-        public static final int buseButton11 = 11;
-        public static final int buseButton12 = 12;
+        public static final int baseButton11 = 11;
+        public static final int baseButton12 = 12;
     }
 
     public final class GyroTurnConstants {

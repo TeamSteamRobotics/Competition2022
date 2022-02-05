@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.ButtonConstants;
+import frc.robot.Constants.JoystickConstants;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
@@ -21,7 +22,7 @@ import frc.robot.commands.MoveBelts;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SpinUpFlywheel;
-import frc.robot.commands.VisionTurn;
+import frc.robot.commands.VisionTurnToBall;
 import frc.robot.commands.VomitHopper;
 import frc.robot.commands.VomitIntake;
 import frc.robot.subsystems.BallTrackingSubsystem;
@@ -54,7 +55,7 @@ public class RobotContainer {
   private final Joystick stick = new Joystick(0);
   //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
   JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
-  JoystickButton intakeButton = new JoystickButton(stick, ButtonConstants.intakeButton);
+  JoystickButton intakeButton = new JoystickButton(stick, JoystickConstants.bottomLeftButton);
   //JoystickButton advanceButton = new JoystickButton(stick, ButtonConstants.advanceButton);
  // JoystickButton vomitButton = new JoystickButton(stick, 12);
   JoystickButton testButton = new JoystickButton(stick, 11);
@@ -63,7 +64,7 @@ public class RobotContainer {
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
   JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
   JoystickButton vomitHopperButton = new JoystickButton(stick, 6);
-  JoystickButton visionTurnButton = new JoystickButton(stick, 12);
+  JoystickButton visionTurnButton = new JoystickButton(stick, JoystickConstants.baseButton12);
 
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -91,7 +92,7 @@ public class RobotContainer {
     //vomitButton.whileHeld(new VomitHopper(m_hopperSubsystem)); 
     vomitHopperButton.whileHeld(new VomitHopper(m_hopperSubsystem));
     vomitIntakeButton.whileHeld(new VomitIntake(m_intakeSubsystem));
-    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));
+    visionTurnButton.whileHeld(new VisionTurnToBall(m_driveSubsystem, m_visionSubsystem));
     //Add setpoint later
    // spinUpFlywheelButton.whileHeld(new SpinUpFlywheel(m_shooterSubsystem, 20000));
     spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem));

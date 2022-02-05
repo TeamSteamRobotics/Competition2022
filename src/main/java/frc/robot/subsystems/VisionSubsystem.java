@@ -29,50 +29,70 @@ public class VisionSubsystem extends SubsystemBase {
   NetworkTableEntry poseEntry = visionTable.getEntry("targetPose");
   NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
+  
+
   Transform2d defaultTransform2d;
 
   PhotonCamera camera = new PhotonCamera("photonvision");
+  /*PhotonPipelineResult result = camera.getLatestResult();
+  PhotonTrackedTarget target = result.getBestTarget();*/
+
 
   public VisionSubsystem() {
-
   }
 
   public boolean isRedAlliance() {
     return isRedAlliance.getBoolean(true);
   }
 
-  public Transform2d getBallDistance() {
-    /*var result = camera.getLatestResult();
-    PhotonTrackedTarget target = result.getBestTarget();
-    if (result.hasTargets()) {
-      if (isRedAlliance()) {
-        camera.setPipelineIndex(1); //change to red ball pipeline
-        return target.getCameraToTarget();
-      } else {
-        camera.setPipelineIndex(0); //change to blue ball pipeline
-        return target.getCameraToTarget();
-      } else {
-        return
-      }*/
-      return defaultTransform2d;
-      
+  public double getBallAngle() {
+    if (isRedAlliance()) {
+      camera.setPipelineIndex(0);
+     //switch to red pipeline
+    } else {
+      camera.setPipelineIndex(1); 
+      //switch to blue pipeline
+    }
+
+    PhotonPipelineResult pipelineResult = camera.getLatestResult();
+
+    if(pipelineResult.hasTargets()) {
+      PhotonTrackedTarget target = pipelineResult.getBestTarget();
+      return target.getYaw();
+    }
+    return 0; //default distance value
+   
   }
  
 
-  public double getTargetDistance() {
-    double[] defaultPose = {0,0,0};
+  public double getHoopDistance() {
+    camera.setPipelineIndex(2); //switch to hoop pipeline
+    PhotonPipelineResult pipelineResult = camera.getLatestResult();
+    if(pipelineResult.hasTargets()) {
+      PhotonTrackedTarget target = pipelineResult.getBestTarget();
+      return Math.hypot(target.getCameraToTarget().getX(), target.getCameraToTarget().getY());
+    }
+    return 0; 
+    //default distance value
+    /*double[] defaultPose = {0,0,0};
     double[] targetPose = poseEntry.getDoubleArray(defaultPose);
-    return Math.hypot(targetPose[0], targetPose[1]);
+    return Math.hypot(targetPose[0], targetPose[1]);*/
   }
 
-  public double getTargetX() {
-    return yawEntry.getDouble(0) / 30;
+  public double getHoopDegrees() {
+    camera.setPipelineIndex(2);
+    PhotonPipelineResult pipelineResult = camera.getLatestResult();
+    if (pipelineResult.hasTargets()) {
+      PhotonTrackedTarget target = pipelineResult.getBestTarget();
+      return target.getYaw();
+    }
+    return 0;
   }
 
-  public double getTargetYaw() {
-    return yawEntry.getDouble(0);
-  }
-
+  /*public double getTargetYaw() {
+    return target.getYaw();
+    //return yawEntry.getDouble(0);
+  }*/
   public double[] getCoordinates() {
     double[] pose = poseEntry.getDoubleArray(new double[3]);
     return Arrays.copyOfRange(pose, 0, 2);
@@ -81,5 +101,6 @@ public class VisionSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
   }
 }
