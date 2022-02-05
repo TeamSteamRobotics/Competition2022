@@ -14,6 +14,7 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.MoveBelts;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootForReal;
 import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VomitHopper;
@@ -49,8 +50,8 @@ public class RobotContainer {
 
   SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem);
 
-  //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
-  JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
+  JoystickButton shootButton = new JoystickButton(stick, 1);
+  JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 10);
   JoystickButton intakeButton = new JoystickButton(stick, 2);
   JoystickButton testButton = new JoystickButton(stick, 11);
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 4);
@@ -90,9 +91,12 @@ public class RobotContainer {
                                                                     () -> {
                                                                       double val = stick.getThrottle();
                                                                       return (val - 1) * 20000;
-                                                                     } ));    
-  }
+                                                                     }, m_hopperSubsystem ));    
 
+
+    shootButton.whenPressed(new ShootForReal(m_shooterSubsystem, () -> {return 30000;}, m_hopperSubsystem, .5));
+  }
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

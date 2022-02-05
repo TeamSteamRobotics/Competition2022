@@ -39,7 +39,7 @@ public class HopperSubsystem extends SubsystemBase {
     bottomHopperMotor.set(0);
   }
 
-  public void spinShooterWheel(double speed){
+  public void spinMiddleWheel(double speed){
     middleWheel.set(speed);
   }
 

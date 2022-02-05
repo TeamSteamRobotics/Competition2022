@@ -36,7 +36,7 @@ public final class Constants {
     }
 
     public final class DriveConstants {
-        public static final double ticksPerFeet = 2048;
+        public static final double ticksPerMotorRotation = 2048;
         public static final double motorRotationsPerWheelRotation = 10.75;
         public static final double wheelRotationPerInch = 1/(6*Math.PI);
         public static final double inchesPerFeet = 12;
@@ -98,5 +98,6 @@ public final class Constants {
         public static final double kI = 0;
         public static final double kD = 0;
         public static final double kFfeedForward = 0;
+        public static final double tolerance = 600;
     }
 }

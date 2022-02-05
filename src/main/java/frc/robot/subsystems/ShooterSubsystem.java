@@ -5,12 +5,15 @@
 package frc.robot.subsystems;
 
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.MotorIDConstants;
 
@@ -35,13 +38,19 @@ public class ShooterSubsystem extends SubsystemBase {
   public void shoot(double speed){
     //flywheelMotor.set(-1*speed);
     flywheelMotor.set(ControlMode.Velocity, speed);
-    System.out.println("Shooter RPMs: " + getRPM());
+    //System.out.println("Shooter RPMs: " + getRPM());
     System.out.println("Shooter Speed: " + flywheelMotor.getSelectedSensorVelocity());
   }
 
   public double getSTUs() {
     return flywheelMotor.getSelectedSensorVelocity();
   }
+
+  
+public boolean isAtSpeed(){
+  return (Math.abs(flywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.tolerance);
+}
+
 
   public double getRPM() {
     return (flywheelMotor.getSelectedSensorVelocity() / 10);
