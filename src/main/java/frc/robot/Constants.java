@@ -45,14 +45,13 @@ public final class Constants {
     }
 
     public final class ButtonConstants {
-        public static final short shootButton = 1;
+        /*public static final short shootButton = 1;
         public static final short intakeButton = 2;
         public static final short poopyButton = 3;
         //public static final short advanceButton = 4;
         /*Formerly spinUpFlywheelButton was 0; there is no 0 button on the joystick: Fix*/
         //public static final short spinUpFlywheelButton = 1;
-
-    }
+    } 
 
     public static final class XboxControllerConstants {
         public static final int leftTrigger = 5;

@@ -13,19 +13,19 @@ import frc.robot.subsystems.VisionSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class VisionTurn extends PIDCommand {
+public class VisionTurnToBall extends PIDCommand {
   /** Creates a new VisionTurn. */
-  public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
+  public VisionTurnToBall(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
         new PIDController(VisionTurnConstants.kP, VisionTurnConstants.kI, VisionTurnConstants.kD),
         // This should return the measurement
-        () -> vision.getTargetYaw(),
+        () -> vision.getBallAngle(),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          drive.drive(0, output, true);
+          drive.drive(0, output, false);
           // Use the output here
         });
     addRequirements(drive, vision);

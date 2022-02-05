@@ -132,7 +132,11 @@
               "Y-axis/Lower bound": -0.0,
               "Y-axis/Unit": "STU",
               "Visible data/SmartDashboard/Shooter Speed": true,
+<<<<<<< HEAD
               "Visible data/SmartDashboard/Throttle": false
+=======
+              "Visible data/SmartDashboard/Throttle": true
+>>>>>>> vision
             }
           },
           "0,0": {
@@ -157,6 +161,10 @@
     "x": 0.0,
     "y": 0.0,
     "width": 1280.0,
+<<<<<<< HEAD
     "height": 1024.0
+=======
+    "height": 920.0
+>>>>>>> vision
   }
 }
