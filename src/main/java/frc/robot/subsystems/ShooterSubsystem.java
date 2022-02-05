@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -37,7 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void shoot(double speed){
     //flywheelMotor.set(-1*speed);
-    flywheelMotor.set(ControlMode.Velocity, speed);
+    flywheelMotor.set(ControlMode.Velocity, -1*speed);
     //System.out.println("Shooter RPMs: " + getRPM());
     System.out.println("Shooter Speed: " + flywheelMotor.getSelectedSensorVelocity());
   }
@@ -47,8 +48,8 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   
-public boolean isAtSpeed(){
-  return (Math.abs(flywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.tolerance);
+public boolean isAtSpeed(DoubleSupplier speed){
+  return (Math.abs(flywheelMotor.getSelectedSensorVelocity()+speed.getAsDouble()) < Constants.FlywheelConstants.tolerance);
 }
 
 

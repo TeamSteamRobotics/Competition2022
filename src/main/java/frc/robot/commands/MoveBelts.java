@@ -23,7 +23,7 @@ public class MoveBelts extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //hopper.moveBeltsForward();
+    hopper.moveBeltsForward();
     System.out.println("asdfghjhfds");
   }
 

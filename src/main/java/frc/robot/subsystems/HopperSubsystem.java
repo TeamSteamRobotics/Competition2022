@@ -25,8 +25,9 @@ public class HopperSubsystem extends SubsystemBase {
   }
 
   public void moveBeltsForward(){
-  topHopperMotor.set(0.5);
-  bottomHopperMotor.set(.5);
+  topHopperMotor.set(0.4);
+  bottomHopperMotor.set(.4);
+  System.out.println("hoppers moving kid");
   }
 
   public void moveBeltsToIntake(){

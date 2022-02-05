@@ -54,11 +54,11 @@ public class RobotContainer {
   JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 10);
   JoystickButton intakeButton = new JoystickButton(stick, 2);
   JoystickButton testButton = new JoystickButton(stick, 11);
-  JoystickButton moveHopperForwardButton = new JoystickButton(stick, 4);
+  JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
   JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
-  JoystickButton vomitHopperButton = new JoystickButton(stick, 6);
+  JoystickButton vomitHopperButton = new JoystickButton(stick, 4);
   JoystickButton visionTurnButton = new JoystickButton(stick, 12);
 
  
@@ -87,11 +87,11 @@ public class RobotContainer {
     vomitHopperButton.whileHeld(new VomitHopper(m_hopperSubsystem));
     vomitIntakeButton.whileHeld(new VomitIntake(m_intakeSubsystem));
     visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));
-    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem,
-                                                                    () -> {
+    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem, () -> {return 30000;},
+                                                                    /*() -> {
                                                                       double val = stick.getThrottle();
                                                                       return (val - 1) * 20000;
-                                                                     }, m_hopperSubsystem ));    
+                                                                    //  }, */ m_hopperSubsystem ));    
 
 
     shootButton.whenPressed(new ShootForReal(m_shooterSubsystem, () -> {return 30000;}, m_hopperSubsystem, .5));

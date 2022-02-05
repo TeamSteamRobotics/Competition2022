@@ -34,10 +34,10 @@ public class Shoot extends CommandBase {
 
   @Override
   public void execute() {
-    System.out.println("Requested Speed: " + m_speed.getAsDouble());
-    System.out.println(shooter.isAtSpeed());
+    //System.out.println("Requested Speed: " + m_speed.getAsDouble());
+    System.out.println(shooter.isAtSpeed(m_speed));
     shooter.shoot(m_speed.getAsDouble());
-    if(shooter.isAtSpeed()){
+    if(shooter.isAtSpeed(m_speed)){
       hopper.moveBeltsForward();
     }
     else{hopper.stopBelt();}
@@ -46,6 +46,7 @@ public class Shoot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     shooter.stop(); 
+    hopper.stopBelt();
   }
 
   @Override
