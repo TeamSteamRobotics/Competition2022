@@ -23,17 +23,13 @@ public class VisionSubsystem extends SubsystemBase {
   /** Creates a new VisionSubsystem. */
 
   NetworkTableInstance table = NetworkTableInstance.getDefault();
-  NetworkTable visionTable = table.getTable("photonvision").getSubTable("Microsoft LifeCam HD-3000");
+  //NetworkTable visionTable = table.getTable("photonvision").getSubTable("Microsoft LifeCam HD-3000");
   NetworkTable fmsTable = table.getTable("FMSInfo");
   NetworkTableEntry isRedAlliance = fmsTable.getEntry("IsRedAlliance");
-  NetworkTableEntry poseEntry = visionTable.getEntry("targetPose");
-  NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
+ // NetworkTableEntry poseEntry = visionTable.getEntry("targetPose");
+  //NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
-  
-
-  Transform2d defaultTransform2d;
-
-  PhotonCamera camera = new PhotonCamera("photonvision");
+  PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
   /*PhotonPipelineResult result = camera.getLatestResult();
   PhotonTrackedTarget target = result.getBestTarget();*/
 
@@ -46,21 +42,23 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getBallAngle() {
-    if (isRedAlliance()) {
-      camera.setPipelineIndex(0);
-     //switch to red pipeline
-    } else {
-      camera.setPipelineIndex(1); 
-      //switch to blue pipeline
-    }
-
-    PhotonPipelineResult pipelineResult = camera.getLatestResult();
+      if (isRedAlliance()) {
+        camera.setPipelineIndex(1);
+        //switch to red pipeline
+      } else {
+        camera.setPipelineIndex(2); 
+        //switch to blue pipeline
+      }
+    var pipelineResult = camera.getLatestResult();
+    PhotonTrackedTarget target = pipelineResult.getBestTarget();
 
     if(pipelineResult.hasTargets()) {
-      PhotonTrackedTarget target = pipelineResult.getBestTarget();
+      System.out.println("Yaw:: " + target.getYaw());
       return target.getYaw();
+    } else {
+      return 0; //default distance value
     }
-    return 0; //default distance value
+    
    
   }
  
@@ -93,10 +91,10 @@ public class VisionSubsystem extends SubsystemBase {
     return target.getYaw();
     //return yawEntry.getDouble(0);
   }*/
-  public double[] getCoordinates() {
+  /*public double[] getCoordinates() {
     double[] pose = poseEntry.getDoubleArray(new double[3]);
     return Arrays.copyOfRange(pose, 0, 2);
-  }
+  }*/
 
   @Override
   public void periodic() {
