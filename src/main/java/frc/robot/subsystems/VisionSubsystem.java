@@ -62,6 +62,20 @@ public class VisionSubsystem extends SubsystemBase {
    
   }
  
+  public double getBallDistance() {
+    if (isRedAlliance()) {
+      camera.setPipelineIndex(1);
+      //switch to red pipeline
+    } else {
+      camera.setPipelineIndex(2);  
+    }
+      PhotonPipelineResult pipelineResult = camera.getLatestResult();
+    if(pipelineResult.hasTargets()) {
+      PhotonTrackedTarget target = pipelineResult.getBestTarget();
+      return target.getCameraToTarget().getX();
+    }
+  return 0;
+  }
 
   public double getHoopDistance() {
     camera.setPipelineIndex(2); //switch to hoop pipeline
