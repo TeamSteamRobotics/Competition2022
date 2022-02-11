@@ -19,12 +19,15 @@ public final class Constants {
         public static final short leftFrontMotorID = 0;
         public static final short rightBackMotorID = 2;
         public static final short rightFrontMotorID = 3;
-        public static final short flywheelMotorID = 4;
+        public static final short leftFlywheelMotorID = 4;
+        public static final short rightFlywheelMotorID = 12;
         public static final short topHopperMotorID = 7;
         public static final short bottomHopperMotorID = 6;
         public static final short middleWheelID = 77;
         public static final short intakeMotorID = 8;
-        public static final short intakeMotorOtherID = 9;
+       // public static final short intakeMotorOtherID = 9;
+        public static final short kickerMotorID = 5;
+        public static final short backspinMotorID = 9;
     }
 
     public final class VisionTurnConstants {
