@@ -4,24 +4,23 @@
 
 package frc.robot.subsystems;
 
-import java.util.Arrays;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Main;
-import frc.robot.Robot;
 
 public class VisionSubsystem extends SubsystemBase {
   /** Creates a new VisionSubsystem. */
 
+
+
+
+  
   NetworkTableInstance table = NetworkTableInstance.getDefault();
   //NetworkTable visionTable = table.getTable("photonvision").getSubTable("Microsoft LifeCam HD-3000");
   NetworkTable fmsTable = table.getTable("FMSInfo");
@@ -29,7 +28,7 @@ public class VisionSubsystem extends SubsystemBase {
  // NetworkTableEntry poseEntry = visionTable.getEntry("targetPose");
   //NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
-  PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
+  PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000 (1)");
   /*PhotonPipelineResult result = camera.getLatestResult();
   PhotonTrackedTarget target = result.getBestTarget();*/
 
@@ -44,22 +43,37 @@ public class VisionSubsystem extends SubsystemBase {
   public double getBallAngle() {
       if (isRedAlliance()) {
         camera.setPipelineIndex(1);
+        System.out.println("red");
         //switch to red pipeline
       } else {
-        camera.setPipelineIndex(2); 
+        camera.setPipelineIndex(0); 
+        System.out.println("blue");
         //switch to blue pipeline
       }
-    var pipelineResult = camera.getLatestResult();
+    PhotonPipelineResult pipelineResult = camera.getLatestResult();
     PhotonTrackedTarget target = pipelineResult.getBestTarget();
-
+  
     if(pipelineResult.hasTargets()) {
+      
       System.out.println("Yaw:: " + target.getYaw());
       return target.getYaw();
     } else {
+      
       return 0; //default distance value
     }
     
    
+  }
+
+  public double getGoalAngle() {
+    camera.setPipelineIndex(0);
+    PhotonPipelineResult res = camera.getLatestResult();
+    PhotonTrackedTarget goal = res.getBestTarget();
+    if(res.hasTargets())
+    {
+    return goal.getYaw();
+    }
+    return 0;
   }
  
   public double getBallDistance() {
@@ -72,7 +86,9 @@ public class VisionSubsystem extends SubsystemBase {
       PhotonPipelineResult pipelineResult = camera.getLatestResult();
     if(pipelineResult.hasTargets()) {
       PhotonTrackedTarget target = pipelineResult.getBestTarget();
-      return target.getCameraToTarget().getX();
+      System.out.println(target.getCameraToTarget().getX()); 
+       return target.getCameraToTarget().getX();
+    
     }
   return 0;
   }

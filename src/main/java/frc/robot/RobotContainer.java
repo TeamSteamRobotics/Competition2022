@@ -10,12 +10,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
+import frc.robot.commands.DriveToBall;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveBelts;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShootForReal;
 import frc.robot.commands.SmartDashboardOutput;
+import frc.robot.commands.TurnToGoal;
 import frc.robot.commands.VisionTurnToBall;
 import frc.robot.commands.VomitHopper;
 import frc.robot.commands.VomitIntake;
@@ -56,7 +58,7 @@ public class RobotContainer {
   JoystickButton intakeButton = new JoystickButton(stick, 3);
   //JoystickButton advanceButton = new JoystickButton(stick, ButtonConstants.advanceButton);
  // JoystickButton vomitButton = new JoystickButton(stick, 12);
-  JoystickButton testButton = new JoystickButton(stick, 11);
+  //JoystickButton testButton = new JoystickButton(stick, 11);
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
@@ -64,7 +66,7 @@ public class RobotContainer {
   JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
   JoystickButton vomitHopperButton = new JoystickButton(stick, 4);
   JoystickButton visionTurnButton = new JoystickButton(stick, 12);
-
+  JoystickButton driveToBallButton = new JoystickButton(stick, 11);
  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -83,7 +85,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
+  //  intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
+    intakeButton.whenPressed(new TurnToGoal(m_visionSubsystem, m_driveSubsystem));
     moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
@@ -96,7 +99,7 @@ public class RobotContainer {
                                                                       double val = stick.getThrottle();
                                                                       return (val - 1) * 20000;
                                                                     //  }, */ m_hopperSubsystem ));    
-
+    driveToBallButton.whileHeld(new DriveToBall(m_driveSubsystem, m_visionSubsystem))                                                                                                                           ;                                                             
 
     //shootButton.whenPressed(new ShootForReal(m_shooterSubsystem, () -> {return 30000;}, m_hopperSubsystem, .5));
   }

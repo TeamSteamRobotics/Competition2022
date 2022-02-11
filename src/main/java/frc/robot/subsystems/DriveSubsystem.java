@@ -38,7 +38,7 @@ public DriveSubsystem() {
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
-  diffDrive.arcadeDrive(speed, rotation, squareInputs);
+  diffDrive.arcadeDrive(.7 * speed,.7 * rotation, squareInputs);
 }
 
 // Call this command at the start of the game. Sets the gyro reading to zero

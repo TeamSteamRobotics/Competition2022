@@ -6,36 +6,34 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants.VisionTurnConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DriveToBall extends PIDCommand {
-  /** Creates a new VisionTurn. */
-  public DriveToBall(DriveSubsystem drive, VisionSubsystem vision) {
+public class TurnToGoal extends PIDCommand {
+  /** Creates a new TurnToGoal. */
+  public TurnToGoal(VisionSubsystem vision, DriveSubsystem drive) {
     super(
         // The controller that the command will use
-        new PIDController(.008, .0003, .0005),
+        new PIDController(0.2, 0.0005, 0.01),
         // This should return the measurement
-        () -> vision.getBallDistance()-7,
+        () -> vision.getGoalAngle(),
         // This should return the setpoint (can also be a constant)
-        0,
+        () -> 0,
         // This uses the output
-        output -> {
-          drive.drive(output, 0, false);
+        output -> { 
+          drive.drive(0, output, false);
           // Use the output here
         });
-    addRequirements(drive, vision);
-    getController().setTolerance(VisionTurnConstants.positionTolerance, VisionTurnConstants.velocityTolerance);
-    
+    // Use addRequirements() here to declare subsystem dependencies.
+    // Configure additional PID options by calling `getController` here.
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return false;
   }
 }
