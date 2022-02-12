@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -15,8 +16,8 @@ import frc.robot.Constants.MotorIDConstants;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
 
-  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
-
+  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(10, PneumaticsModuleType.CTREPCM, 0, 1);
+  Compressor compressor = new Compressor(10, PneumaticsModuleType.CTREPCM);
   WPI_TalonSRX intakeMotor = new WPI_TalonSRX(MotorIDConstants.intakeMotorID);
 
   public IntakeSubsystem() {}
@@ -34,7 +35,9 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void deployIntake(){
+
     doubleSolenoid.set(Value.kForward);
+    System.out.println("compressor pressure: " + compressor.enabled() );
   }
 
   public void undeployIntake(){

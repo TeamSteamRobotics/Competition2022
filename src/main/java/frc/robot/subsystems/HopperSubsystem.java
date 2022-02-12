@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorIDConstants;
@@ -14,38 +15,42 @@ import frc.robot.Constants.MotorIDConstants;
 public class HopperSubsystem extends SubsystemBase {
   /** Creates a new HopperSubsystem. */
 
-  WPI_TalonSRX topHopperMotor = new WPI_TalonSRX(MotorIDConstants.topHopperMotorID);
-  WPI_TalonSRX bottomHopperMotor = new WPI_TalonSRX(MotorIDConstants.bottomHopperMotorID);
-  WPI_TalonSRX middleWheel = new WPI_TalonSRX(MotorIDConstants.middleWheelID);
+  WPI_VictorSPX topHopperMotor = new WPI_VictorSPX(MotorIDConstants.topHopperMotorID);
+  WPI_VictorSPX bottomHopperMotor = new WPI_VictorSPX(MotorIDConstants.bottomHopperMotorID);
+  WPI_VictorSPX kickerWheel = new WPI_VictorSPX(MotorIDConstants.kickerMotorID);
 
   public HopperSubsystem() {
-    //bottomHopperMotor.setInverted(InvertType.OpposeMaster);
-    //bottomHopperMotor.set(ControlMode.Follower, 0);
+    bottomHopperMotor.follow(topHopperMotor);
+    //bottomHopperMotor.set(ControlMode.Follower, MotorIDConstants.topHopperMotorID);
+    bottomHopperMotor.setInverted(InvertType.OpposeMaster);
+    
 
   }
 
   public void moveBeltsForward(){
   topHopperMotor.set(0.4);
-  bottomHopperMotor.set(.4);
+  //bottomHopperMotor.set(-.4);
   System.out.println("hoppers moving kid");
+  
   }
 
   public void moveBeltsToIntake(){
    topHopperMotor.set(-0.5);
-   bottomHopperMotor.set(-0.5); 
+   System.out.println(topHopperMotor.getSelectedSensorVelocity());
+   //bottomHopperMotor.set(0.5); 
   }
 
   public void stopBelt(){
     topHopperMotor.set(0);
-    bottomHopperMotor.set(0);
+    //bottomHopperMotor.set(0);
   }
 
-  public void spinMiddleWheel(double speed){
-    middleWheel.set(speed);
+  public void spinKickerWheel(double speed){
+    kickerWheel.set(-speed);
   }
 
-  public void stopMiddleWheel(){
-    middleWheel.set(0);
+  public void stopKickerWheel(){
+    kickerWheel.set(0);
   }
 
   

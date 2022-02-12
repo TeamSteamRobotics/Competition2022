@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,15 +23,17 @@ import frc.robot.Constants.MotorIDConstants;
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
 
-  WPI_TalonSRX leftFlywheelMotor = new WPI_TalonSRX(MotorIDConstants.leftFlywheelMotorID); //follower
+  WPI_VictorSPX leftFlywheelMotor = new WPI_VictorSPX(MotorIDConstants.leftFlywheelMotorID); //follower
   WPI_TalonSRX rightFlywheelMotor = new WPI_TalonSRX(MotorIDConstants.rightFlywheelMotorID); //master
 
   public ShooterSubsystem() {
     rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
     rightFlywheelMotor.setSensorPhase(true);
     rightFlywheelMotor.selectProfileSlot(0, 0);
+    leftFlywheelMotor.follow(rightFlywheelMotor);
     leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
-    leftFlywheelMotor.set(ControlMode.Follower, MotorIDConstants.rightFlywheelMotorID);
+    //leftFlywheelMotor.set(ControlMode.Follower, MotorIDConstants.rightFlywheelMotorID);
+    
 
     rightFlywheelMotor.config_kP(0, .2);
     rightFlywheelMotor.config_kI(0, .00004);
@@ -41,18 +44,23 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void shoot(double speed){
     //flywheelMotor.set(-1*speed);
-    rightFlywheelMotor.set(ControlMode.Velocity, -1*speed);
+    rightFlywheelMotor.set(ControlMode.Velocity, speed);
     //System.out.println("Shooter RPMs: " + getRPM());
-    System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity());
+    System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorPosition());
   }
 
+  public void shoot2(double speed){
+    rightFlywheelMotor.set(.1);
+    System.out.println(rightFlywheelMotor.getSelectedSensorVelocity());
+  }
+  
   public double getSTUs() {
     return rightFlywheelMotor.getSelectedSensorVelocity();
   }
 
   
 public boolean isAtSpeed(DoubleSupplier speed){
-  return (Math.abs(rightFlywheelMotor.getSelectedSensorVelocity() +speed.getAsDouble()) < Constants.FlywheelConstants.tolerance);
+  return (Math.abs(rightFlywheelMotor.getSelectedSensorVelocity() -speed.getAsDouble()) < Constants.FlywheelConstants.tolerance);
 }
 
 

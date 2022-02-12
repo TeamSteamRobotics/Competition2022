@@ -17,6 +17,7 @@ import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShootForReal;
 import frc.robot.commands.SmartDashboardOutput;
+import frc.robot.commands.SpinKickerWheel;
 import frc.robot.commands.TurnToGoal;
 import frc.robot.commands.VisionTurnToBall;
 import frc.robot.commands.VomitHopper;
@@ -62,6 +63,7 @@ public class RobotContainer {
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
+  JoystickButton kickerButton = new JoystickButton(stick, 2);
   
   JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
   JoystickButton vomitHopperButton = new JoystickButton(stick, 4);
@@ -93,8 +95,9 @@ public class RobotContainer {
     //vomitButton.whileHeld(new VomitHopper(m_hopperSubsystem)); 
     vomitHopperButton.whileHeld(new VomitHopper(m_hopperSubsystem));
     vomitIntakeButton.whileHeld(new VomitIntake(m_intakeSubsystem));
+    kickerButton.whenPressed(new SpinKickerWheel(m_hopperSubsystem, .2));
     visionTurnButton.whileHeld(new VisionTurnToBall(m_driveSubsystem, m_visionSubsystem));
-    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem, () -> {return 30000;},
+    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem, () -> {return 10000;},
                                                                     /*() -> {
                                                                       double val = stick.getThrottle();
                                                                       return (val - 1) * 20000;

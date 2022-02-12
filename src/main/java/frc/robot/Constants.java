@@ -23,7 +23,7 @@ public final class Constants {
         public static final short rightFlywheelMotorID = 12;
         public static final short topHopperMotorID = 7;
         public static final short bottomHopperMotorID = 6;
-        public static final short middleWheelID = 77;
+        //public static final short middleWheelID = 77;
         public static final short intakeMotorID = 8;
        // public static final short intakeMotorOtherID = 9;
         public static final short kickerMotorID = 5;
