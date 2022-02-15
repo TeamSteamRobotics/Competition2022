@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorIDConstants;
@@ -16,8 +17,7 @@ import frc.robot.Constants.MotorIDConstants;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
 
-  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(10, PneumaticsModuleType.CTREPCM, 0, 1);
-  Compressor compressor = new Compressor(10, PneumaticsModuleType.CTREPCM);
+  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(10, PneumaticsModuleType.CTREPCM, 0, 5);
   WPI_TalonSRX intakeMotor = new WPI_TalonSRX(MotorIDConstants.intakeMotorID);
 
   public IntakeSubsystem() {}
@@ -33,19 +33,20 @@ public class IntakeSubsystem extends SubsystemBase {
   public void reverseIntake(){
     intakeMotor.set(-0.5);
   }
-
   public void deployIntake(){
+    doubleSolenoid.set(Value.kForward); //kickerbar
 
-    doubleSolenoid.set(Value.kForward);
-    System.out.println("compressor pressure: " + compressor.enabled() );
+    //doubleSolenoid.set(Value.kReverse);
+    //System.out.println("Value forward: " + Value.kForward);
   }
-
   public void undeployIntake(){
-    doubleSolenoid.set(Value.kReverse);
+    doubleSolenoid.set(Value.kReverse); //kickerbar
+    //System.out.println("Value reverse: " + Value.kReverse);
   }
   
   public void stopSolenoid(){
     doubleSolenoid.set(Value.kOff);
+    //System.out.println("Value off: " + Value.kOff);
   }
 
   @Override

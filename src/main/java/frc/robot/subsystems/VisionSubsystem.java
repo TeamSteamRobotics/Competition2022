@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
@@ -29,6 +30,7 @@ public class VisionSubsystem extends SubsystemBase {
   //NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
   PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000 (1)");
+
   /*PhotonPipelineResult result = camera.getLatestResult();
   PhotonTrackedTarget target = result.getBestTarget();*/
 
@@ -58,7 +60,6 @@ public class VisionSubsystem extends SubsystemBase {
       System.out.println("Yaw:: " + target.getYaw());
       return target.getYaw();
     } else {
-      
       return 0; //default distance value
     }
     
