@@ -30,6 +30,7 @@ public class Intake extends CommandBase {
   @Override
   public void execute() {
     intake.intake(); 
+    System.out.println("intakine");
     /*
     if(tracker.isAtMiddle()){
       if(tracker.isAtHopper()){

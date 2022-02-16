@@ -51,7 +51,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void shoot2(double speed){
     rightFlywheelMotor.set(.1);
-    System.out.println(rightFlywheelMotor.getSelectedSensorVelocity());
+    //System.out.println(rightFlywheelMotor.getSelectedSensorVelocity());
   }
   
   public double getSTUs() {

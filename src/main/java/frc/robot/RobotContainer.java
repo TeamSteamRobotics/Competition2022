@@ -87,8 +87,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-  //  intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
-    intakeButton.whenPressed(new TurnToGoal(m_visionSubsystem, m_driveSubsystem));
+    intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
+    //intakeButton.whenPressed(new TurnToGoal(m_visionSubsystem, m_driveSubsystem));
     moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 

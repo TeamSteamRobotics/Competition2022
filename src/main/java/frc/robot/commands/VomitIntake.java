@@ -23,6 +23,7 @@ public class VomitIntake extends CommandBase {
   @Override
   public void execute() {
     intake.reverseIntake();
+    System.out.println("puking intake");
   }
 
   // Called once the command ends or is interrupted.

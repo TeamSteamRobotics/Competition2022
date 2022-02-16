@@ -16,8 +16,9 @@ import frc.robot.Constants.MotorIDConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-
-  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(10, PneumaticsModuleType.CTREPCM, 0, 5);
+  Solenoid intakeSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, 0);
+  Solenoid kickerBarSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, 1);
+  //DoubleSolenoid doubleSolenoid = new DoubleSolenoid(10, PneumaticsModuleType.CTREPCM, 0, 5);
   WPI_TalonSRX intakeMotor = new WPI_TalonSRX(MotorIDConstants.intakeMotorID);
 
   public IntakeSubsystem() {}
@@ -34,20 +35,18 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(-0.5);
   }
   public void deployIntake(){
-    doubleSolenoid.set(Value.kForward); //kickerbar
+    intakeSolenoid.set(true); //kickerbar
+    kickerBarSolenoid.set(true);
 
     //doubleSolenoid.set(Value.kReverse);
     //System.out.println("Value forward: " + Value.kForward);
   }
   public void undeployIntake(){
-    doubleSolenoid.set(Value.kReverse); //kickerbar
-    //System.out.println("Value reverse: " + Value.kReverse);
+    intakeSolenoid.set(false); //kickerbar
+    kickerBarSolenoid.set(false);
   }
   
-  public void stopSolenoid(){
-    doubleSolenoid.set(Value.kOff);
-    //System.out.println("Value off: " + Value.kOff);
-  }
+  public void stopSolenoid(){}
 
   @Override
   public void periodic() {
