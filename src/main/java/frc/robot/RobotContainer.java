@@ -20,6 +20,7 @@ import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.SpinKickerWheel;
 import frc.robot.commands.TurnToGoal;
 import frc.robot.commands.VisionTurnToBall;
+import frc.robot.commands.VomitAll;
 import frc.robot.commands.VomitHopper;
 import frc.robot.commands.VomitIntake;
 import frc.robot.subsystems.BallTrackingSubsystem;
@@ -30,6 +31,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -87,15 +89,15 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
+    intakeButton.whileHeld(new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem)));
     //intakeButton.whenPressed(new TurnToGoal(m_visionSubsystem, m_driveSubsystem));
     moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     //vomitButton.whileHeld(new VomitHopper(m_hopperSubsystem)); 
     vomitHopperButton.whileHeld(new VomitHopper(m_hopperSubsystem));
-    vomitIntakeButton.whileHeld(new VomitIntake(m_intakeSubsystem));
-    kickerButton.whenPressed(new SpinKickerWheel(m_hopperSubsystem, .2));
+    vomitIntakeButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
+    kickerButton.whileHeld(new SpinKickerWheel(m_hopperSubsystem, .4));
     visionTurnButton.whileHeld(new VisionTurnToBall(m_driveSubsystem, m_visionSubsystem));
     spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem, () -> {return 10000;},
                                                                     /*() -> {

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -19,12 +20,13 @@ public class IntakeSubsystem extends SubsystemBase {
   Solenoid intakeSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, 0);
   Solenoid kickerBarSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, 1);
   //DoubleSolenoid doubleSolenoid = new DoubleSolenoid(10, PneumaticsModuleType.CTREPCM, 0, 5);
-  WPI_TalonSRX intakeMotor = new WPI_TalonSRX(MotorIDConstants.intakeMotorID);
+  WPI_VictorSPX intakeMotor = new WPI_VictorSPX(MotorIDConstants.intakeMotorID);
 
   public IntakeSubsystem() {}
 
   public void intake(){
     intakeMotor.set(0.5);
+    //System.out.println("INTAKE");
   }
 
   public void stop(){

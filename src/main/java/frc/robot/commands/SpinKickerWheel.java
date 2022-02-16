@@ -29,12 +29,14 @@ public class SpinKickerWheel extends CommandBase {
   @Override
   public void execute() {
     hopper.spinKickerWheel(speed);
+    hopper.moveBeltsForward();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     hopper.stopKickerWheel();
+    hopper.stopBelt();
   }
 
   // Returns true when the command should end.
