@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 
+import java.beans.Encoder;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -25,19 +26,21 @@ public class ShooterSubsystem extends SubsystemBase {
 
   WPI_VictorSPX leftFlywheelMotor = new WPI_VictorSPX(MotorIDConstants.leftFlywheelMotorID); //follower
   WPI_TalonSRX rightFlywheelMotor = new WPI_TalonSRX(MotorIDConstants.rightFlywheelMotorID); //master
-
+  WPI_VictorSPX backspinMotor = new WPI_VictorSPX(MotorIDConstants.backspinMotorID);
+  //Encoder encoder = new Encoder();
   public ShooterSubsystem() {
-    rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
-    rightFlywheelMotor.setSensorPhase(true);
-    rightFlywheelMotor.selectProfileSlot(0, 0);
+    //rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
+    //rightFlywheelMotor.setSensorPhase(false);
+    //rightFlywheelMotor.selectProfileSlot(0, 0);
     leftFlywheelMotor.follow(rightFlywheelMotor);
     leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
     //leftFlywheelMotor.set(ControlMode.Follower, MotorIDConstants.rightFlywheelMotorID);
     
 
-    rightFlywheelMotor.config_kP(0, .2);
-    rightFlywheelMotor.config_kI(0, .00004);
-    rightFlywheelMotor.config_kD(0, .05);
+
+    //rightFlywheelMotor.config_kP(0, .2);
+    //rightFlywheelMotor.config_kI(0, .00004);
+    //rightFlywheelMotor.config_kD(0, .05);
     //flywheelMotor.config_kF(0, .01760006);
     //flywheelMotor.config_kF(0, .02);
   }
@@ -46,14 +49,21 @@ public class ShooterSubsystem extends SubsystemBase {
     //flywheelMotor.set(-1*speed);
     rightFlywheelMotor.set(ControlMode.Velocity, speed);
     //System.out.println("Shooter RPMs: " + getRPM());
-    System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorPosition());
+    //System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorPosition());
   }
 
   public void shoot2(double speed){
-    rightFlywheelMotor.set(.1);
-    //System.out.println(rightFlywheelMotor.getSelectedSensorVelocity());
+    rightFlywheelMotor.set(speed);
+    //rightFlywheelMotor.set //ActiveTrajectoryVelocity(0);
+    //System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity()); 
+    System.out.println("Backspin Speed:" + backspinMotor.getSelectedSensorVelocity());
   }
   
+  public void backspin(){
+    backspinMotor.set(.25*rightFlywheelMotor.get());
+    System.out.println("Backspin Speed:" + backspinMotor.getSelectedSensorVelocity());
+  }
+
   public double getSTUs() {
     return rightFlywheelMotor.getSelectedSensorVelocity();
   }
@@ -75,6 +85,9 @@ public boolean isAtSpeed(DoubleSupplier speed){
 
   public void stop(){
     rightFlywheelMotor.set(0);
+  }
+  public void stopBackspin(){
+    backspinMotor.set(0);
   }
 
 

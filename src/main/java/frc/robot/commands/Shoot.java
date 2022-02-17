@@ -28,6 +28,7 @@ public class Shoot extends CommandBase {
     addRequirements(shooter); 
 
   }
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -36,18 +37,38 @@ public class Shoot extends CommandBase {
   public void execute() {
     //System.out.println("Requested Speed: " + m_speed.getAsDouble());
     System.out.println(shooter.isAtSpeed(m_speed));
-    shooter.shoot2(m_speed.getAsDouble());
+    /*shooter.shoot2(m_speed.getAsDouble());
     if(shooter.isAtSpeed(m_speed)){
       hopper.moveBeltsForward();
+      shooter.backspin();
       hopper.spinKickerWheel(0.3);
     }
     else{hopper.stopBelt();
-    hopper.stopKickerWheel();}
+    hopper.stopKickerWheel();
+    shooter.stopBackspin();
+  }*/
+  shooter.shoot2(.5);
+
+  //new shooter logic
+  
+
+
+
+
+
+  
+
+
+
+
+
+
   }
 
   @Override
   public void end(boolean interrupted) {
     shooter.stop(); 
+    shooter.stopBackspin();
     hopper.stopBelt();
     hopper.stopKickerWheel();
   }
