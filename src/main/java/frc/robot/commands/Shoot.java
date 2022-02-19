@@ -35,14 +35,14 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     //System.out.println("Requested Speed: " + m_speed.getAsDouble());
-    System.out.println(shooter.isAtSpeed());
+    //System.out.println(shooter.isAtSpeed());
     shooter.shoot(m_speed.getAsDouble());
-    if(shooter.isAtSpeed()){
+    /*if(shooter.isAtSpeed()){
       hopper.moveBeltsForward();
       hopper.spinKickerWheel(0.3);
     }
     else{hopper.stopBelt();
-    hopper.stopKickerWheel();}
+    hopper.stopKickerWheel();} */
   }
   
 

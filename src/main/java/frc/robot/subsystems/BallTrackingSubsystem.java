@@ -11,19 +11,26 @@ public class BallTrackingSubsystem extends SubsystemBase {
   /** Creates a new BallTrackingSubsystem. */
 
   DigitalInput hopperSensor = new DigitalInput(0);
-  DigitalInput middleSensor = new DigitalInput(1);
+  DigitalInput kickerSensor = new DigitalInput(1);
+  DigitalInput intakeSensor = new DigitalInput(2);
 
   public BallTrackingSubsystem() {
 
   }
-
-  public boolean isAtMiddle(){
-    return middleSensor.get();
+  
+  public boolean isAtKicker(){
+    return kickerSensor.get();
   }
 
   public boolean isAtHopper(){
     return hopperSensor.get();
   }
+
+  public boolean isAtIntake(){
+    return intakeSensor.get();
+  }
+
+  
 
   @Override
   public void periodic() {

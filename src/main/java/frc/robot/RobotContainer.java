@@ -98,7 +98,7 @@ public class RobotContainer {
     vomitIntakeButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
     kickerButton.whileHeld(new SpinKickerWheel(m_hopperSubsystem, .4));
     visionTurnButton.whileHeld(new VisionTurnToBall(m_driveSubsystem, m_visionSubsystem));
-    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem, () -> {return 10000;},
+    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem, () -> {return 25000;},
                                                                     /*() -> {
                                                                       double val = stick.getThrottle();
                                                                       return (val - 1) * 20000;

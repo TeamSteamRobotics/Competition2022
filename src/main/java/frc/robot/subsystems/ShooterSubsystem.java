@@ -30,41 +30,45 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public ShooterSubsystem() {
     rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
-    //rightFlywheelMotor.setSensorPhase(true);
+    rightFlywheelMotor.setSensorPhase(true);
     rightFlywheelMotor.selectProfileSlot(0, 0);
     leftFlywheelMotor.follow(rightFlywheelMotor);
     leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
     //leftFlywheelMotor.set(ControlMode.Follower, MotorIDConstants.rightFlywheelMotorID);
     
+    backspinMotor.setNeutralMode(NeutralMode.Coast);
+    backspinMotor.setSensorPhase(false);
+    backspinMotor.selectProfileSlot(0, 0);
+    backspinMotor.config_kP(0, 0.1);
+    backspinMotor.config_kI(0, .00002);
+    backspinMotor.config_kD(0, .115);
+    //backspinMotor.config_kF(0, .011);
 
-    rightFlywheelMotor.config_kP(0, .2);
-    rightFlywheelMotor.config_kI(0, .00004);
-    rightFlywheelMotor.config_kD(0, .05);
-    //flywheelMotor.config_kF(0, .01760006);
+    rightFlywheelMotor.config_kP(0, .23);
+    rightFlywheelMotor.config_kI(0, .00002);
+    rightFlywheelMotor.config_kD(0, .115);
+    rightFlywheelMotor.config_kF(0, .011);
     //flywheelMotor.config_kF(0, .02);
   }
 
   public void shoot(double speed){
     //flywheelMotor.set(-1*speed);
     rightFlywheelMotor.set(ControlMode.Velocity, speed);
+    //rightFlywheelMotor.set(1);
+    backspinMotor.set(ControlMode.Velocity, speed *.5);
     //System.out.println("Shooter RPMs: " + getRPM());
-    System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorPosition());
+    //System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity(0));
+    System.out.println("backspinMotor Speed: " + backspinMotor.getSelectedSensorVelocity(0));
   }
 
-  public void shoot2(double speed){
-    rightFlywheelMotor.set(.1);
-    //System.out.println(rightFlywheelMotor.getSelectedSensorVelocity());
-  }
-  
   public double getSTUs() {
     return rightFlywheelMotor.getSelectedSensorVelocity();
   }
 
   
-public boolean isAtSpeed(){
-  return (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.tolerance);
-}
-
+  public boolean isAtSpeed() {
+    return (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.tolerance);
+  }
 
   public double getRPM() {
     return (rightFlywheelMotor.getSelectedSensorVelocity() / 10);
@@ -77,6 +81,7 @@ public boolean isAtSpeed(){
 
   public void stop(){
     rightFlywheelMotor.set(0);
+    backspinMotor.set(0);
   }
 
 
