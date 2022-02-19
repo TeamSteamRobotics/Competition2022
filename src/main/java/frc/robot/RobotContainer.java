@@ -15,7 +15,6 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.MoveBelts;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.ShootForReal;
 import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.SpinKickerWheel;
 import frc.robot.commands.TurnToGoal;
@@ -116,6 +115,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;//new Shoot(m_shooterSubsystem, 30000);
+    return null;
   }
 }
