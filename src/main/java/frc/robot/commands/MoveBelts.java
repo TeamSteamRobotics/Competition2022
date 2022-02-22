@@ -10,9 +10,11 @@ import frc.robot.subsystems.HopperSubsystem;
 public class MoveBelts extends CommandBase {
   /** Creates a new MoveBeltToSensor. */
   HopperSubsystem hopper;
-  public MoveBelts(HopperSubsystem hopper) { 
+  double speed; 
+  public MoveBelts(HopperSubsystem hopper, double speed) { 
     addRequirements(hopper);
     this.hopper = hopper;
+    this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,6 +26,7 @@ public class MoveBelts extends CommandBase {
   @Override
   public void execute() {
     hopper.moveBeltsForward();
+    hopper.spinKickerWheel(speed);
     System.out.println("asdfghjhfds");
   }
 

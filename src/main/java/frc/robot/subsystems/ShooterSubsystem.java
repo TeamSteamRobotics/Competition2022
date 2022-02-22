@@ -39,9 +39,9 @@ public class ShooterSubsystem extends SubsystemBase {
     backspinMotor.setNeutralMode(NeutralMode.Coast);
     backspinMotor.setSensorPhase(false);
     backspinMotor.selectProfileSlot(0, 0);
-    backspinMotor.config_kP(0, 0.1);
-    backspinMotor.config_kI(0, .00002);
-    backspinMotor.config_kD(0, .115);
+    backspinMotor.config_kP(0, 0.01);
+    backspinMotor.config_kI(0, .0000);
+    backspinMotor.config_kD(0, 00);
     //backspinMotor.config_kF(0, .011);
 
     rightFlywheelMotor.config_kP(0, .23);
@@ -52,11 +52,8 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void shoot(double speed){
-    //flywheelMotor.set(-1*speed);
-    rightFlywheelMotor.set(ControlMode.Velocity, speed);
-    //rightFlywheelMotor.set(1);
-    backspinMotor.set(ControlMode.Velocity, speed *.5);
-    //System.out.println("Shooter RPMs: " + getRPM());
+   rightFlywheelMotor.set(ControlMode.Velocity, speed);
+   // backspinMotor.set(ControlMode.Velocity, speed *.5);
     //System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity(0));
     System.out.println("backspinMotor Speed: " + backspinMotor.getSelectedSensorVelocity(0));
   }

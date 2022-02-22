@@ -38,7 +38,7 @@ public DriveSubsystem() {
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
-  //diffDrive.arcadeDrive(-.7 * speed,-.7 * rotation, squareInputs);
+  diffDrive.arcadeDrive(-.7 * speed,-.7 * rotation, squareInputs);
   //System.out.println(rightBackMotor.getSelectedSensorVelocity());
 }
 

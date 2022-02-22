@@ -31,6 +31,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -66,6 +68,7 @@ public class RobotContainer {
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
   JoystickButton kickerButton = new JoystickButton(stick, 2);
   
+  JoystickButton allInOneButton = new JoystickButton(stick, 9);
   JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
   JoystickButton vomitHopperButton = new JoystickButton(stick, 4);
   JoystickButton visionTurnButton = new JoystickButton(stick, 12);
@@ -88,9 +91,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    intakeButton.whileHeld(new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem)));
+    intakeButton.whileHeld(new Intake(m_intakeSubsystem));//new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem, 5000)));
     //intakeButton.whenPressed(new TurnToGoal(m_visionSubsystem, m_driveSubsystem));
-    moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
+    moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem, 5000));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     //vomitButton.whileHeld(new VomitHopper(m_hopperSubsystem)); 
@@ -104,6 +107,13 @@ public class RobotContainer {
                                                                       return (val - 1) * 20000;
                                                                     //  }, */ m_hopperSubsystem ));    
     driveToBallButton.whileHeld(new DriveToBall(m_driveSubsystem, m_visionSubsystem))                                                                                                                           ;                                                             
+    allInOneButton.whileHeld(
+        new ParallelCommandGroup(
+          new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
+          new MoveBelts(m_hopperSubsystem, .3), 
+          new Intake(m_intakeSubsystem)
+          )); 
+                                                            
 
     //shootButton.whenPressed(new ShootForReal(m_shooterSubsystem, () -> {return 30000;}, m_hopperSubsystem, .5));
   }
