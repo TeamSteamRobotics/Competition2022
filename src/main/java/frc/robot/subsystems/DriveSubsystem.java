@@ -31,14 +31,14 @@ public DifferentialDrive diffDrive = new DifferentialDrive(leftMotorController, 
 
 public DriveSubsystem() {
   rightMotorController.setInverted(true);
-  diffDrive.setSafetyEnabled(true);
+  //diffDrive.setSafetyEnabled(true);
   
   
   
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
-  diffDrive.arcadeDrive(-.7 * speed,-.7 * rotation, squareInputs);
+  diffDrive.arcadeDrive(-speed, rotation, squareInputs);
   //System.out.println(rightBackMotor.getSelectedSensorVelocity());
 }
 

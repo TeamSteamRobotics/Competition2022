@@ -26,8 +26,8 @@ public class MoveBelts extends CommandBase {
   @Override
   public void execute() {
     hopper.moveBeltsForward();
-    hopper.spinKickerWheel(speed);
-    System.out.println("asdfghjhfds");
+    //hopper.spinKickerWheel(speed);
+    //System.out.println("asdfghjhfds");
   }
 
   // Called once the command ends or is interrupted.

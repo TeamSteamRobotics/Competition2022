@@ -55,7 +55,7 @@ public class ShooterSubsystem extends SubsystemBase {
    rightFlywheelMotor.set(ControlMode.Velocity, speed);
    // backspinMotor.set(ControlMode.Velocity, speed *.5);
     //System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity(0));
-    System.out.println("backspinMotor Speed: " + backspinMotor.getSelectedSensorVelocity(0));
+    //System.out.println("backspinMotor Speed: " + backspinMotor.getSelectedSensorVelocity(0));
   }
 
   public double getSTUs() {

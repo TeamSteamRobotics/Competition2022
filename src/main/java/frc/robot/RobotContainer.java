@@ -51,35 +51,38 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final ExampleSubsystem m_exampleSubsytem = new ExampleSubsystem();
+  
   private final Joystick stick = new Joystick(0);
-
+  //private final XboxController xbox = new XboxController()
 
   SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem);
 
   //JoystickButton shootButton = new JoystickButton(stick, 1);
   //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
-  JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
+
+  //JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
   JoystickButton intakeButton = new JoystickButton(stick, 3);
-  //JoystickButton advanceButton = new JoystickButton(stick, ButtonConstants.advanceButton);
- // JoystickButton vomitButton = new JoystickButton(stick, 12);
-  //JoystickButton testButton = new JoystickButton(stick, 11);
-  JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
+  //JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
   JoystickButton kickerButton = new JoystickButton(stick, 2);
   
-  JoystickButton allInOneButton = new JoystickButton(stick, 9);
-  JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
-  JoystickButton vomitHopperButton = new JoystickButton(stick, 4);
-  JoystickButton visionTurnButton = new JoystickButton(stick, 12);
-  JoystickButton driveToBallButton = new JoystickButton(stick, 11);
+  JoystickButton allInOneButton = new JoystickButton(stick, 1);
+  //JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
+  //JoystickButton vomitHopperButton = new JoystickButton(stick, 4);
+  JoystickButton vomit = new JoystickButton(stick, 5);
+  JoystickButton visionTurnButton = new JoystickButton(stick, 6);
+  JoystickButton driveToBallButton = new JoystickButton(stick, 4);
+
+
  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+    //System.out.println("Robot Initialized");
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
-    stick.setThrottleChannel(3);
+    //stick.setThrottleChannel(3);
 
     
   }
@@ -91,31 +94,24 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    intakeButton.whileHeld(new Intake(m_intakeSubsystem));//new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem, 5000)));
-    //intakeButton.whenPressed(new TurnToGoal(m_visionSubsystem, m_driveSubsystem));
-    moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem, 5000));
+    /*intakeButton.whileHeld(
+      new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem, 0.4))
+    );*/
+    intakeButton.whileHeld(new Intake(m_intakeSubsystem));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
-    //vomitButton.whileHeld(new VomitHopper(m_hopperSubsystem)); 
-    vomitHopperButton.whileHeld(new VomitHopper(m_hopperSubsystem));
-    vomitIntakeButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
+    vomit.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
+ 
     kickerButton.whileHeld(new SpinKickerWheel(m_hopperSubsystem, .4));
     visionTurnButton.whileHeld(new VisionTurnToBall(m_driveSubsystem, m_visionSubsystem));
-    spinUpFlywheelButton.whileHeld(new Shoot(m_shooterSubsystem, () -> {return 25000;},
-                                                                    /*() -> {
-                                                                      double val = stick.getThrottle();
-                                                                      return (val - 1) * 20000;
-                                                                    //  }, */ m_hopperSubsystem ));    
     driveToBallButton.whileHeld(new DriveToBall(m_driveSubsystem, m_visionSubsystem))                                                                                                                           ;                                                             
-    allInOneButton.whileHeld(
+    /*allInOneButton.whileHeld(
         new ParallelCommandGroup(
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
-          new MoveBelts(m_hopperSubsystem, .3), 
-          new Intake(m_intakeSubsystem)
-          )); 
+          new MoveBelts(m_hopperSubsystem, .3) 
+          )); */
                                                             
 
-    //shootButton.whenPressed(new ShootForReal(m_shooterSubsystem, () -> {return 30000;}, m_hopperSubsystem, .5));
   }
 
   /**
