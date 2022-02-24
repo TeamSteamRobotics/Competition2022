@@ -16,8 +16,9 @@ public class Intake extends CommandBase {
   IntakeSubsystem intake;
   HopperSubsystem hopper;
 
-  public Intake(IntakeSubsystem intake) {
+  public Intake(IntakeSubsystem intake, HopperSubsystem hopper) {
     this.intake = intake;
+    this.hopper = hopper;
     addRequirements(intake);
   }
 
@@ -29,6 +30,7 @@ public class Intake extends CommandBase {
   @Override
   public void execute() {
     intake.intake(); 
+    hopper.moveBeltsForward();
     //System.out.println("intakine");
     /*
     if(tracker.isAtMiddle()){
@@ -53,8 +55,8 @@ public class Intake extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.stop();
-    /*hopper.stopBelt();
-    hopper.stopMiddleWheel();*/
+    hopper.stopBelt();
+   // hopper.stopMiddleWheel();
   }
 
   // Returns true when the command should end.

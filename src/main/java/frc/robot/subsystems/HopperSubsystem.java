@@ -44,6 +44,7 @@ public class HopperSubsystem extends SubsystemBase {
 
   public void spinKickerWheel(double speed){
     kickerWheel.set(-speed);
+    System.out.println("kicker moving");
   }
 
   public void stopKickerWheel(){

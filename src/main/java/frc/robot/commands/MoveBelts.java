@@ -10,11 +10,11 @@ import frc.robot.subsystems.HopperSubsystem;
 public class MoveBelts extends CommandBase {
   /** Creates a new MoveBeltToSensor. */
   HopperSubsystem hopper;
-  double speed; 
-  public MoveBelts(HopperSubsystem hopper, double speed) { 
+   
+  public MoveBelts(HopperSubsystem hopper) { 
     addRequirements(hopper);
     this.hopper = hopper;
-    this.speed = speed;
+    
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

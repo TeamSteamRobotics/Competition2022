@@ -10,11 +10,11 @@ import frc.robot.subsystems.HopperSubsystem;
 public class SpinKickerWheel extends CommandBase {
   /** Creates a new SpinMiddleWheel. */
   HopperSubsystem hopper;
-  double speed;
+  
 
-  public SpinKickerWheel(HopperSubsystem hopper, double speed) {
+  public SpinKickerWheel(HopperSubsystem hopper) {
     this.hopper = hopper;
-    this.speed = speed;
+    
     addRequirements(hopper);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -28,8 +28,9 @@ public class SpinKickerWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.spinKickerWheel(speed);
+    hopper.spinKickerWheel(.4);
     hopper.moveBeltsForward();
+    
   }
 
   // Called once the command ends or is interrupted.
