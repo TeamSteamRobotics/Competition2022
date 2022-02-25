@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HopperSubsystem;
 
+
 public class MoveBelts extends CommandBase {
   /** Creates a new MoveBeltToSensor. */
   HopperSubsystem hopper;
@@ -14,7 +15,8 @@ public class MoveBelts extends CommandBase {
   public MoveBelts(HopperSubsystem hopper) { 
     addRequirements(hopper);
     this.hopper = hopper;
-    
+   
+  
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,8 +28,9 @@ public class MoveBelts extends CommandBase {
   @Override
   public void execute() {
     hopper.moveBeltsForward();
-    //hopper.spinKickerWheel(speed);
-    //System.out.println("asdfghjhfds");
+    System.out.println("asdfghjhfds");
+
+    
   }
 
   // Called once the command ends or is interrupted.

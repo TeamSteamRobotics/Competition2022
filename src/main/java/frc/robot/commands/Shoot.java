@@ -28,6 +28,7 @@ public class Shoot extends CommandBase {
     addRequirements(shooter); 
 
   }
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -53,6 +54,7 @@ public class Shoot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     shooter.stop(); 
+    shooter.stopBackspin();
     hopper.stopBelt();
     hopper.stopKickerWheel();
     shooter.resetIntegral();

@@ -38,8 +38,8 @@ public DriveSubsystem() {
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
-  diffDrive.arcadeDrive(-speed, rotation, squareInputs);
-  //System.out.println(rightBackMotor.getSelectedSensorVelocity());
+  //diffDrive.arcadeDrive(-.7 * speed,-.7 * rotation, squareInputs);
+  // System.out.println(rightBackMotor.getSelectedSensorVelocity());
 }
 
 // Call this command at the start of the game. Sets the gyro reading to zero

@@ -4,10 +4,14 @@
 
 package frc.robot.commands;
 
+import com.fasterxml.jackson.databind.ser.std.StdArraySerializers.BooleanArraySerializer;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallTrackingSubsystem;
+
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+
 
 public class Intake extends CommandBase {
 
@@ -15,6 +19,10 @@ public class Intake extends CommandBase {
 
   IntakeSubsystem intake;
   HopperSubsystem hopper;
+  BallTrackingSubsystem ballTrackingSubsystem;
+  int counter;
+  Boolean[] array = new Boolean[2];
+  int loopCounter = 0;
 
   public Intake(IntakeSubsystem intake, HopperSubsystem hopper) {
     this.intake = intake;
@@ -24,14 +32,25 @@ public class Intake extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    counter = 0;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     intake.intake(); 
-    hopper.moveBeltsForward();
-    //System.out.println("intakine");
+    System.out.println("intakine");
+
+    if (!ballTrackingSubsystem.isHopperFull()) {
+      hopper.moveBeltsForward();
+      hopper.spinKickerWheel(0.1);
+      intake.intake();
+    } else {
+      hopper.stopKickerWheel();
+      hopper.stopBelt();
+      intake.stop();
+    } 
     /*
     if(tracker.isAtMiddle()){
       if(tracker.isAtHopper()){
@@ -48,8 +67,30 @@ public class Intake extends CommandBase {
 
     }
     */
-
+  /*
+  loopCounter = (loopCounter + 1 ) % 2;
+  //consectutive isAtIntake() loop values is stored in array, then compared to each other to see if the value changed
+  array[loopCounter] = ballTrackingSubsystem.isAtIntake();
+  if(array[0] != array[1]){
+    counter++;
   }
+
+    if (ballTrackingSubsystem.isAtIntake()){
+
+    }
+
+if (counter == 2) {
+  intake.undeployIntake();
+}
+else if (counter == 1) {
+  intake.intake();
+    
+  } 
+else{
+
+}
+*/
+}
 
   // Called once the command ends or is interrupted.
   @Override

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 
+import java.beans.Encoder;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -29,9 +30,9 @@ public class ShooterSubsystem extends SubsystemBase {
   WPI_TalonSRX backspinMotor = new WPI_TalonSRX(MotorIDConstants.backspinMotorID);
 
   public ShooterSubsystem() {
-    rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
-    rightFlywheelMotor.setSensorPhase(true);
-    rightFlywheelMotor.selectProfileSlot(0, 0);
+    //rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
+    //rightFlywheelMotor.setSensorPhase(false);
+    //rightFlywheelMotor.selectProfileSlot(0, 0);
     leftFlywheelMotor.follow(rightFlywheelMotor);
     leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
     //leftFlywheelMotor.set(ControlMode.Follower, MotorIDConstants.rightFlywheelMotorID);
@@ -87,6 +88,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stop(){
     rightFlywheelMotor.set(0);
+    backspinMotor.set(0);
+  }
+  public void stopBackspin(){
     backspinMotor.set(0);
   }
 
