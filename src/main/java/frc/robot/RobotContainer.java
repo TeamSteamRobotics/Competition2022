@@ -20,8 +20,6 @@ import frc.robot.commands.SpinKickerWheel;
 import frc.robot.commands.TurnToGoal;
 import frc.robot.commands.VisionTurnToBall;
 import frc.robot.commands.VomitAll;
-import frc.robot.commands.VomitHopper;
-import frc.robot.commands.VomitIntake;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -68,8 +66,6 @@ public class RobotContainer {
   JoystickButton kickerButton = new JoystickButton(stick, 2);
   
   JoystickButton allInOneButton = new JoystickButton(stick, 1);
-  //JoystickButton vomitIntakeButton = new JoystickButton(stick, 5);
-  //JoystickButton vomitHopperButton = new JoystickButton(stick, 4);
   JoystickButton vomit = new JoystickButton(stick, 5);
   JoystickButton visionTurnButton = new JoystickButton(stick, 9);
   JoystickButton driveToBallButton = new JoystickButton(stick, 4);
@@ -79,7 +75,6 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    //System.out.println("Robot Initialized");
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
     //stick.setThrottleChannel(3);

@@ -50,8 +50,6 @@ public class ShooterSubsystem extends SubsystemBase {
     rightFlywheelMotor.config_kD(0, .115);
     rightFlywheelMotor.config_kF(0, .011);
     rightFlywheelMotor.config_IntegralZone(0, 1000000);
-    
-    //flywheelMotor.config_kF(0, .02);
   }
 
   public void shoot(double speed){
@@ -59,7 +57,6 @@ public class ShooterSubsystem extends SubsystemBase {
     backspinMotor.set(.2);
     
     System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity(0));
-    //System.out.println("backspinMotor Speed: " + backspinMotor.getSelectedSensorVelocity(0));
   }
 
   public double getSTUs() {

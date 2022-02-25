@@ -20,7 +20,6 @@ public class Intake extends CommandBase {
   IntakeSubsystem intake;
   HopperSubsystem hopper;
   BallTrackingSubsystem ballTrackingSubsystem;
-  int counter = 0;
   
 
   public Intake(IntakeSubsystem intake, HopperSubsystem hopper, BallTrackingSubsystem ballTrackingSubsystem) {
@@ -40,27 +39,17 @@ public class Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    /*if(ballTrackingSubsystem.isAtHopper() && ballTrackingSubsystem.isAtKicker()){
-      counter++;
-    }*/
-
-    
-   // System.out.println(ballTrackingSubsystem.isAtKicker() + " Kicker Sensor");
-    System.out.println(ballTrackingSubsystem.isAtHopper() + " Hopper Sensor"); 
-   // System.out.println(ballTrackingSubsystem.isAtIntake() + " Intake Sensor");
-    
     if (!ballTrackingSubsystem.isAtKicker()) {
       hopper.moveBeltsForward();
-      System.out.println("Running if Statement");
       hopper.spinKickerWheel(0.15);
       intake.intake();
+      intake.deployIntake();
     } 
-      else if (!ballTrackingSubsystem.isHopperFull() /*&& counter<1*/) {
+    else if (!ballTrackingSubsystem.isHopperFull()) {
+        intake.deployIntake();
         hopper.moveBeltsForward();
         hopper.stopKickerWheel();
         intake.intake();
-        System.out.println("Running If-else Statement");
       }
     else {
       hopper.stopKickerWheel();
@@ -76,7 +65,6 @@ public class Intake extends CommandBase {
     intake.stop();
     hopper.stopBelt();
     hopper.stopKickerWheel();
-   // hopper.stopMiddleWheel();
   }
 
   // Returns true when the command should end.

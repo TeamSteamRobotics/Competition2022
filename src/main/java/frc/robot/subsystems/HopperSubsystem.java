@@ -33,18 +33,14 @@ public class HopperSubsystem extends SubsystemBase {
 
   public void moveBeltsToIntake(){
    topHopperMotor.set(-0.5);
-   //System.out.println(topHopperMotor.getSelectedSensorVelocity());
-   //bottomHopperMotor.set(0.5); 
   }
 
   public void stopBelt(){
     topHopperMotor.set(0);
-    //bottomHopperMotor.set(0);
   }
 
   public void spinKickerWheel(double speed){
     kickerWheel.set(-speed);
-    System.out.println("kicker moving");
   }
 
   public void stopKickerWheel(){

@@ -13,20 +13,22 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.IntakeSubsystemConstants;
 import frc.robot.Constants.MotorIDConstants;
+import frc.robot.commands.Intake;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  Solenoid intakeSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, 0);
-  Solenoid kickerBarSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, 1);
-  //DoubleSolenoid doubleSolenoid = new DoubleSolenoid(10, PneumaticsModuleType.CTREPCM, 0, 5);
+  
+  Solenoid intakeSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, Constants.IntakeSubsystemConstants.intakeSolenoidChannel);
+  Solenoid kickerBarSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, Constants.IntakeSubsystemConstants.kickerBarSolenoidChannel);
   WPI_VictorSPX intakeMotor = new WPI_VictorSPX(MotorIDConstants.intakeMotorID);
 
   public IntakeSubsystem() {}
 
   public void intake(){
-    intakeMotor.set(0.5);
-    //System.out.println("intakeMotor ::: " + intakeMotor.get());
+    intakeMotor.set(IntakeSubsystemConstants.intakeMotorSpeed);
   }
 
   public void stop(){
@@ -34,24 +36,18 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void reverseIntake(){
-    intakeMotor.set(-0.5);
+    intakeMotor.set(-IntakeSubsystemConstants.intakeMotorSpeed);
   }
   public void deployIntake(){
     intakeSolenoid.set(true); //kickerbar
-    
-
-    //doubleSolenoid.set(Value.kReverse);
-    //System.out.println("Value forward: " + Value.kForward);
   }
   public void deployKicker(){
     kickerBarSolenoid.set(true);
   }
   public void undeployIntake(){
     intakeSolenoid.set(false); //kickerbar
-    
   }
   public void undeployKicker(){
-    
     kickerBarSolenoid.set(false);
   }
   

@@ -30,21 +30,15 @@ public DifferentialDrive diffDrive = new DifferentialDrive(leftMotorController, 
 
 
 public DriveSubsystem() {
-  rightMotorController.setInverted(true);
-  //diffDrive.setSafetyEnabled(true);
-  
-  
-  
+  rightMotorController.setInverted(true);  
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
-  diffDrive.arcadeDrive(-.7 * speed,.7 * rotation, squareInputs);
-  // System.out.println(rightBackMotor.getSelectedSensorVelocity());
+  diffDrive.arcadeDrive(-speed, rotation, squareInputs);
 }
 
 // Call this command at the start of the game. Sets the gyro reading to zero
 public void resetGyro() {
-  //gyro.zeroYaw();
   gyro.reset();
 }
 
@@ -56,20 +50,15 @@ public double getAngle() {
 public void stop() {
   rightMotorController.set(0);
   leftMotorController.set(0);
-  
   }
 
 public double getDistance() {
   return (leftFrontMotor.getSelectedSensorPosition() + rightFrontMotor.getSelectedSensorPosition())/2 * Constants.DriveConstants.ftPerTick;
-  
 }
-
-
 
 public void  resetEncoders(){
   leftFrontMotor.setSelectedSensorPosition(0);
   rightFrontMotor.setSelectedSensorPosition(0);
-
 }
 
   @Override

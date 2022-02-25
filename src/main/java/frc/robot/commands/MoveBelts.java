@@ -28,9 +28,6 @@ public class MoveBelts extends CommandBase {
   @Override
   public void execute() {
     hopper.moveBeltsForward();
-    System.out.println("asdfghjhfds");
-
-    
   }
 
   // Called once the command ends or is interrupted.

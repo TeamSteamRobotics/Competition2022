@@ -30,6 +30,12 @@ public final class Constants {
         public static final short backspinMotorID = 9;
     }
 
+    public final class IntakeSubsystemConstants {
+        public static final double intakeMotorSpeed = 0.5;
+        public static final short intakeSolenoidChannel = 0;
+        public static final short kickerBarSolenoidChannel = 1;
+    }
+
     public final class VisionTurnConstants {
         public static final double kP = .008;
         public static final double kI = 0.005;
