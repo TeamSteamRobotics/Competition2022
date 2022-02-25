@@ -40,6 +40,16 @@ public class Intake extends CommandBase {
   public void execute() {
     intake.intake(); 
     System.out.println("intakine");
+
+    if (!ballTrackingSubsystem.isHopperFull()) {
+      hopper.moveBeltsForward();
+      hopper.spinKickerWheel(0.1);
+      intake.intake();
+    } else {
+      hopper.stopKickerWheel();
+      hopper.stopBelt();
+      intake.stop();
+    } 
     /*
     if(tracker.isAtMiddle()){
       if(tracker.isAtHopper()){

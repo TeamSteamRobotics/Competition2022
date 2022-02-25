@@ -35,6 +35,10 @@ public class BallTrackingSubsystem extends SubsystemBase {
     return hopperSensor.get();
   }
 
+  public boolean isHopperFull() {
+    return isAtKicker() && (isAtHopper() || isAtIntake());
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
