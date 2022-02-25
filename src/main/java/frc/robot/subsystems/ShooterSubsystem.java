@@ -30,9 +30,9 @@ public class ShooterSubsystem extends SubsystemBase {
   WPI_TalonSRX backspinMotor = new WPI_TalonSRX(MotorIDConstants.backspinMotorID);
 
   public ShooterSubsystem() {
-    //rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
-    //rightFlywheelMotor.setSensorPhase(false);
-    //rightFlywheelMotor.selectProfileSlot(0, 0);
+    rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
+    rightFlywheelMotor.setSensorPhase(true);
+    rightFlywheelMotor.selectProfileSlot(0, 0);
     leftFlywheelMotor.follow(rightFlywheelMotor);
     leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
     //leftFlywheelMotor.set(ControlMode.Follower, MotorIDConstants.rightFlywheelMotorID);
@@ -53,7 +53,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void shoot(double speed){
-    rightFlywheelMotor.set(ControlMode.Velocity, -speed);
+    rightFlywheelMotor.set(ControlMode.Velocity, speed);
     backspinMotor.set(.2);
     
     System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity(0));
