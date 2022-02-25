@@ -38,13 +38,20 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   public void deployIntake(){
     intakeSolenoid.set(true); //kickerbar
-    kickerBarSolenoid.set(true);
+    
 
     //doubleSolenoid.set(Value.kReverse);
     //System.out.println("Value forward: " + Value.kForward);
   }
+  public void deployKicker(){
+    kickerBarSolenoid.set(true);
+  }
   public void undeployIntake(){
     intakeSolenoid.set(false); //kickerbar
+    
+  }
+  public void undeployKicker(){
+    
     kickerBarSolenoid.set(false);
   }
   

@@ -20,76 +20,54 @@ public class Intake extends CommandBase {
   IntakeSubsystem intake;
   HopperSubsystem hopper;
   BallTrackingSubsystem ballTrackingSubsystem;
-  int counter;
-  Boolean[] array = new Boolean[2];
-  int loopCounter = 0;
+  int counter = 0;
+  
 
-  public Intake(IntakeSubsystem intake, HopperSubsystem hopper) {
+  public Intake(IntakeSubsystem intake, HopperSubsystem hopper, BallTrackingSubsystem ballTrackingSubsystem) {
     this.intake = intake;
     this.hopper = hopper;
+    this.ballTrackingSubsystem = ballTrackingSubsystem;
     addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    counter = 0;
+    
+    //counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.intake(); 
-    System.out.println("intakine");
 
-    if (!ballTrackingSubsystem.isHopperFull()) {
+    /*if(ballTrackingSubsystem.isAtHopper() && ballTrackingSubsystem.isAtKicker()){
+      counter++;
+    }*/
+
+    
+   // System.out.println(ballTrackingSubsystem.isAtKicker() + " Kicker Sensor");
+    System.out.println(ballTrackingSubsystem.isAtHopper() + " Hopper Sensor"); 
+   // System.out.println(ballTrackingSubsystem.isAtIntake() + " Intake Sensor");
+    
+    if (!ballTrackingSubsystem.isAtKicker()) {
       hopper.moveBeltsForward();
-      hopper.spinKickerWheel(0.1);
+      System.out.println("Running if Statement");
+      hopper.spinKickerWheel(0.15);
       intake.intake();
-    } else {
+    } 
+      else if (!ballTrackingSubsystem.isHopperFull() /*&& counter<1*/) {
+        hopper.moveBeltsForward();
+        hopper.stopKickerWheel();
+        intake.intake();
+        System.out.println("Running If-else Statement");
+      }
+    else {
       hopper.stopKickerWheel();
       hopper.stopBelt();
       intake.stop();
+      intake.undeployIntake();
     } 
-    /*
-    if(tracker.isAtMiddle()){
-      if(tracker.isAtHopper()){
-        intake.stop();
-        hopper.stopBelt();
-        hopper.stopMiddleWheel();
-      } else {
-        intake.intake();
-      }
-    } else {
-      intake.intake();
-      while(!tracker.isAtMiddle()){
-        hopper.moveBeltsForward();}
-
-    }
-    */
-  /*
-  loopCounter = (loopCounter + 1 ) % 2;
-  //consectutive isAtIntake() loop values is stored in array, then compared to each other to see if the value changed
-  array[loopCounter] = ballTrackingSubsystem.isAtIntake();
-  if(array[0] != array[1]){
-    counter++;
-  }
-
-    if (ballTrackingSubsystem.isAtIntake()){
-
-    }
-
-if (counter == 2) {
-  intake.undeployIntake();
-}
-else if (counter == 1) {
-  intake.intake();
-    
-  } 
-else{
-
-}
-*/
 }
 
   // Called once the command ends or is interrupted.
@@ -97,6 +75,7 @@ else{
   public void end(boolean interrupted) {
     intake.stop();
     hopper.stopBelt();
+    hopper.stopKickerWheel();
    // hopper.stopMiddleWheel();
   }
 

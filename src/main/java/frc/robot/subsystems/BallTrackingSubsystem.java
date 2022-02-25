@@ -10,21 +10,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class BallTrackingSubsystem extends SubsystemBase {
   /** Creates a new BallTrackingSubsystem. */
 
-  DigitalInput hopperSensor = new DigitalInput(0);
+  DigitalInput hopperSensor = new DigitalInput(3);
   //DigitalInput middleSensor = new DigitalInput(1);
   DigitalInput intakeSensor = new DigitalInput(1);
-  DigitalInput kickerSensor = new DigitalInput(2);
+  DigitalInput kickerSensor = new DigitalInput(0);
 
   public BallTrackingSubsystem() {
 
   }
 
   public boolean isAtIntake(){
-    return intakeSensor.get();
+    return !intakeSensor.get();
+
   }
 
   public boolean isAtKicker(){
-    return kickerSensor.get();
+    return !kickerSensor.get();
   }
 
   /*public boolean isAtMiddle(){
@@ -32,11 +33,11 @@ public class BallTrackingSubsystem extends SubsystemBase {
   }*/
 
   public boolean isAtHopper(){
-    return hopperSensor.get();
+    return !hopperSensor.get();
   }
 
   public boolean isHopperFull() {
-    return isAtKicker() && (isAtHopper() || isAtIntake());
+    return isAtKicker() && (isAtHopper());
   }
 
   @Override

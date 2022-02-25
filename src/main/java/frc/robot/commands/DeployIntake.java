@@ -27,6 +27,7 @@ public class DeployIntake extends CommandBase {
   @Override
   public void execute() {
     intake.deployIntake(); 
+    intake.deployKicker();
   }
 
   // Called once the command ends or is interrupted.

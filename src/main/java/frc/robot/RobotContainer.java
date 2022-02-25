@@ -97,7 +97,7 @@ public class RobotContainer {
     /*intakeButton.whileHeld(
       new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem, 0.4))
     );*/
-    intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem));
+    intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     vomit.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
