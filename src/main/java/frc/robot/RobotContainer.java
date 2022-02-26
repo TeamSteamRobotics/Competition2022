@@ -66,7 +66,7 @@ public class RobotContainer {
   JoystickButton kickerButton = new JoystickButton(stick, 2);
   
   JoystickButton allInOneButton = new JoystickButton(stick, 1);
-  JoystickButton vomit = new JoystickButton(stick, 5);
+  JoystickButton vomitButton = new JoystickButton(stick, 5);
   JoystickButton visionTurnButton = new JoystickButton(stick, 9);
   JoystickButton driveToBallButton = new JoystickButton(stick, 4);
 
@@ -95,7 +95,7 @@ public class RobotContainer {
     intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem));
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
-    vomit.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
+    vomitButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
     moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
  
     kickerButton.whileHeld(new SpinKickerWheel(m_hopperSubsystem));
