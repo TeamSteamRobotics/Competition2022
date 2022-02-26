@@ -39,7 +39,7 @@ public class Shoot extends CommandBase {
     shooter.shoot(m_speed.getAsDouble());
     if(shooter.isAtSpeed()){
       hopper.moveBeltsForward();
-      hopper.spinKickerWheel(0.6);
+      hopper.spinKickerWheel(0.3);
     }
     else{
       hopper.stopKickerWheel();
