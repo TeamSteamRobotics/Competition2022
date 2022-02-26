@@ -35,7 +35,6 @@ public class ShooterSubsystem extends SubsystemBase {
     rightFlywheelMotor.selectProfileSlot(0, 0);
     leftFlywheelMotor.follow(rightFlywheelMotor);
     leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
-    //leftFlywheelMotor.set(ControlMode.Follower, MotorIDConstants.rightFlywheelMotorID);
     
     backspinMotor.setNeutralMode(NeutralMode.Coast);
     backspinMotor.setSensorPhase(false);
@@ -55,7 +54,6 @@ public class ShooterSubsystem extends SubsystemBase {
   public void shoot(double speed){
     rightFlywheelMotor.set(ControlMode.Velocity, speed);
     backspinMotor.set(.2);
-    
     System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity(0));
   }
 

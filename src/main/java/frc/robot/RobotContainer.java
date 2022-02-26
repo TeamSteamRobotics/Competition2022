@@ -10,19 +10,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
-import frc.robot.commands.DriveToBall;
 import frc.robot.commands.Intake;
-import frc.robot.commands.MoveBelts;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
-import frc.robot.commands.SpinKickerWheel;
-import frc.robot.commands.TurnToGoal;
-import frc.robot.commands.VisionTurnToBall;
+import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VomitAll;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -48,7 +43,6 @@ public class RobotContainer {
   private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
   public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
-  private final ExampleSubsystem m_exampleSubsytem = new ExampleSubsystem();
   
   private final Joystick stick = new Joystick(0);
   //private final XboxController xbox = new XboxController()
@@ -59,13 +53,12 @@ public class RobotContainer {
   //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
 
   //JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
-  JoystickButton intakeButton = new JoystickButton(stick, 3);
+  JoystickButton intakeButton = new JoystickButton(stick, 2);
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
-  JoystickButton kickerButton = new JoystickButton(stick, 2);
   
-  JoystickButton allInOneButton = new JoystickButton(stick, 1);
+  JoystickButton shootButton = new JoystickButton(stick, 1);
   JoystickButton vomitButton = new JoystickButton(stick, 5);
   JoystickButton visionTurnButton = new JoystickButton(stick, 9);
   JoystickButton driveToBallButton = new JoystickButton(stick, 4);
@@ -96,17 +89,14 @@ public class RobotContainer {
     deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     vomitButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
-    moveHopperForwardButton.whileHeld(new MoveBelts(m_hopperSubsystem));
  
-    kickerButton.whileHeld(new SpinKickerWheel(m_hopperSubsystem));
-    visionTurnButton.whileHeld(new VisionTurnToBall(m_driveSubsystem, m_visionSubsystem));
-    driveToBallButton.whileHeld(new DriveToBall(m_driveSubsystem, m_visionSubsystem));                                                             
+    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));                                                            
     /*allInOneButton.whileHeld(
         new ParallelCommandGroup(
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
-    allInOneButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem, m_ballTrackingSubsystem));
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem, m_ballTrackingSubsystem));
                                                             
 
   }

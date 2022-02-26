@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
@@ -60,7 +59,7 @@ public class VisionSubsystem extends SubsystemBase {
       System.out.println("Yaw:: " + target.getYaw());
       return target.getYaw();
     } else {
-      return 0; //default distance value
+      return 0; 
     }
     
    
@@ -80,7 +79,6 @@ public class VisionSubsystem extends SubsystemBase {
   public double getBallDistance() {
     if (isRedAlliance()) {
       camera.setPipelineIndex(1);
-      //switch to red pipeline
     } else {
       camera.setPipelineIndex(2);  
     }
@@ -95,17 +93,13 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getHoopDistance() {
-    camera.setPipelineIndex(2); //switch to hoop pipeline
+    camera.setPipelineIndex(2); 
     PhotonPipelineResult pipelineResult = camera.getLatestResult();
     if(pipelineResult.hasTargets()) {
       PhotonTrackedTarget target = pipelineResult.getBestTarget();
       return Math.hypot(target.getCameraToTarget().getX(), target.getCameraToTarget().getY());
     }
     return 0; 
-    //default distance value
-    /*double[] defaultPose = {0,0,0};
-    double[] targetPose = poseEntry.getDoubleArray(defaultPose);
-    return Math.hypot(targetPose[0], targetPose[1]);*/
   }
 
   public double getHoopDegrees() {
@@ -117,16 +111,7 @@ public class VisionSubsystem extends SubsystemBase {
     }
     return 0;
   }
-
-  /*public double getTargetYaw() {
-    return target.getYaw();
-    //return yawEntry.getDouble(0);
-  }*/
-  /*public double[] getCoordinates() {
-    double[] pose = poseEntry.getDoubleArray(new double[3]);
-    return Arrays.copyOfRange(pose, 0, 2);
-  }*/
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

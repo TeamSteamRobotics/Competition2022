@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class BallTrackingSubsystem extends SubsystemBase {
   /** Creates a new BallTrackingSubsystem. */
 
-  DigitalInput hopperSensor = new DigitalInput(3);
-  //DigitalInput middleSensor = new DigitalInput(1);
+  DigitalInput hopperSensor = new DigitalInput(2);
   DigitalInput intakeSensor = new DigitalInput(1);
   DigitalInput kickerSensor = new DigitalInput(0);
 

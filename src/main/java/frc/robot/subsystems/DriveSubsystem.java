@@ -37,12 +37,10 @@ public void drive(double speed, double rotation, boolean squareInputs) {
   diffDrive.arcadeDrive(-speed, rotation, squareInputs);
 }
 
-// Call this command at the start of the game. Sets the gyro reading to zero
 public void resetGyro() {
   gyro.reset();
 }
 
-// Returns the gyro's reading of the robots current angle
 public double getAngle() {
   return gyro.getAngle();
 }

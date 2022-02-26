@@ -39,13 +39,13 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(-IntakeSubsystemConstants.intakeMotorSpeed);
   }
   public void deployIntake(){
-    intakeSolenoid.set(true); //kickerbar
+    intakeSolenoid.set(true);
   }
   public void deployKicker(){
     kickerBarSolenoid.set(true);
   }
   public void undeployIntake(){
-    intakeSolenoid.set(false); //kickerbar
+    intakeSolenoid.set(false); 
   }
   public void undeployKicker(){
     kickerBarSolenoid.set(false);

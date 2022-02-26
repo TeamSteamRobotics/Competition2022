@@ -21,10 +21,7 @@ public class HopperSubsystem extends SubsystemBase {
 
   public HopperSubsystem() {
     bottomHopperMotor.follow(topHopperMotor);
-    //bottomHopperMotor.set(ControlMode.Follower, MotorIDConstants.topHopperMotorID);
     bottomHopperMotor.setInverted(InvertType.OpposeMaster);
-    
-
   }
 
   public void moveBeltsForward(){

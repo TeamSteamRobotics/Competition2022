@@ -41,13 +41,11 @@ public class Shoot extends CommandBase {
 
     shooter.shoot(m_speed.getAsDouble());
     if(shooter.isAtSpeed()){
-      //hopper.moveBeltsForward();
       hopper.spinKickerWheel(0.6);
     } else if (!ballTrackingSubsystem.isAtKicker() && ballTrackingSubsystem.isAtHopper()) {
       hopper.moveBeltsForward();
       hopper.spinKickerWheel(0.15);
-    }
-    else{
+    } else{
       hopper.stopKickerWheel();
       hopper.stopBelt();
     } 
@@ -60,7 +58,6 @@ public class Shoot extends CommandBase {
     shooter.stopBackspin();
     hopper.stopBelt();
     hopper.stopKickerWheel();
-    //shooter.resetIntegral();
   }
 
   @Override
