@@ -32,7 +32,6 @@ public class Intake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
     //counter = 0;
   }
 
@@ -51,6 +50,7 @@ public class Intake extends CommandBase {
         hopper.stopKickerWheel();
         intake.intake();
       }
+    
     else {
       hopper.stopKickerWheel();
       hopper.stopBelt();

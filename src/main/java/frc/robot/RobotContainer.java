@@ -46,7 +46,7 @@ public class RobotContainer {
   //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem(); 
   private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final ExampleSubsystem m_exampleSubsytem = new ExampleSubsystem();
   
@@ -106,7 +106,7 @@ public class RobotContainer {
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
-    allInOneButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 24000, m_hopperSubsystem));
+    allInOneButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem, m_ballTrackingSubsystem));
                                                             
 
   }

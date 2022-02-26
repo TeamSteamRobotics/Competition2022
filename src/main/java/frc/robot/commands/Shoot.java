@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -21,10 +22,12 @@ public class Shoot extends CommandBase {
   ShooterSubsystem shooter; 
   DoubleSupplier m_speed;
   HopperSubsystem hopper;
-  public Shoot(ShooterSubsystem shooter, DoubleSupplier speed, HopperSubsystem hopper) {
+  BallTrackingSubsystem ballTrackingSubsystem;
+  public Shoot(ShooterSubsystem shooter, DoubleSupplier speed, HopperSubsystem hopper, BallTrackingSubsystem ballTrackingSubsystem) {
     this.shooter = shooter; 
     this.m_speed = speed;
     this.hopper = hopper;
+    this.ballTrackingSubsystem = ballTrackingSubsystem;
     addRequirements(shooter); 
 
   }
@@ -38,8 +41,11 @@ public class Shoot extends CommandBase {
 
     shooter.shoot(m_speed.getAsDouble());
     if(shooter.isAtSpeed()){
+      //hopper.moveBeltsForward();
+      hopper.spinKickerWheel(0.6);
+    } else if (!ballTrackingSubsystem.isAtKicker() && ballTrackingSubsystem.isAtHopper()) {
       hopper.moveBeltsForward();
-      hopper.spinKickerWheel(0.3);
+      hopper.spinKickerWheel(0.15);
     }
     else{
       hopper.stopKickerWheel();
@@ -54,7 +60,7 @@ public class Shoot extends CommandBase {
     shooter.stopBackspin();
     hopper.stopBelt();
     hopper.stopKickerWheel();
-    shooter.resetIntegral();
+    //shooter.resetIntegral();
   }
 
   @Override

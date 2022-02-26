@@ -45,11 +45,11 @@ public class ShooterSubsystem extends SubsystemBase {
     backspinMotor.config_kD(0, 00);
     //backspinMotor.config_kF(0, .011);
 
-    rightFlywheelMotor.config_kP(0, .262);
-    rightFlywheelMotor.config_kI(0, .00002);
-    rightFlywheelMotor.config_kD(0, .115);
-    rightFlywheelMotor.config_kF(0, .011);
-    rightFlywheelMotor.config_IntegralZone(0, 1000000);
+    rightFlywheelMotor.config_kP(0, .21);
+    rightFlywheelMotor.config_kI(0, .0);
+    rightFlywheelMotor.config_kD(0, .0);
+    rightFlywheelMotor.config_kF(0, .017);
+    //rightFlywheelMotor.config_IntegralZone(0, 1000000);
   }
 
   public void shoot(double speed){
