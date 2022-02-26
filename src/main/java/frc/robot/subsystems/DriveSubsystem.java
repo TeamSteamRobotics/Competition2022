@@ -34,7 +34,7 @@ public DriveSubsystem() {
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
-  diffDrive.arcadeDrive(-speed, rotation, squareInputs);
+  diffDrive.arcadeDrive(-.8*speed, .8*rotation, squareInputs);
 }
 
 public void resetGyro() {
