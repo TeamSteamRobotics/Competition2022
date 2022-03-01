@@ -57,10 +57,6 @@ public class RobotContainer {
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
-<<<<<<< HEAD
-=======
-  JoystickButton kickerButton = new JoystickButton(stick, 3);
->>>>>>> 0683afc6adce3bfc63c69da5b1d474bc26501527
   
   JoystickButton shootButton = new JoystickButton(stick, 1);
   JoystickButton vomitButton = new JoystickButton(stick, 5);
@@ -94,7 +90,7 @@ public class RobotContainer {
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     vomitButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
  
-    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));                                                            
+    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem, true));                                                            
     /*allInOneButton.whileHeld(
         new ParallelCommandGroup(
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),

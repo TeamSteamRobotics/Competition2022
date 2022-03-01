@@ -28,7 +28,8 @@ public class VisionSubsystem extends SubsystemBase {
  // NetworkTableEntry poseEntry = visionTable.getEntry("targetPose");
   //NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
-  PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000 (1)");
+  PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
+  PhotonCamera camera2 = new PhotonCamera("Microsoft_LifeCam_HD-3000 (1)");
 
   /*PhotonPipelineResult result = camera.getLatestResult();
   PhotonTrackedTarget target = result.getBestTarget();*/
@@ -43,11 +44,11 @@ public class VisionSubsystem extends SubsystemBase {
 
   public double getBallAngle() {
       if (isRedAlliance()) {
-        camera.setPipelineIndex(1);
+        camera2.setPipelineIndex(1);
         System.out.println("red");
         //switch to red pipeline
       } else {
-        camera.setPipelineIndex(0); 
+        camera2.setPipelineIndex(0); 
         System.out.println("blue");
         //switch to blue pipeline
       }
@@ -102,14 +103,20 @@ public class VisionSubsystem extends SubsystemBase {
     return 0; 
   }
 
-  public double getHoopDegrees() {
-    camera.setPipelineIndex(2);
-    PhotonPipelineResult pipelineResult = camera.getLatestResult();
-    if (pipelineResult.hasTargets()) {
-      PhotonTrackedTarget target = pipelineResult.getBestTarget();
-      return target.getYaw();
+  public double getTargetDegrees(boolean aimingForGoal) {
+    
+    if(aimingForGoal){
+      camera.setPipelineIndex(0);
+      PhotonPipelineResult pipelineResult = camera.getLatestResult();
+      if (pipelineResult.hasTargets()) {
+        PhotonTrackedTarget target = pipelineResult.getBestTarget();
+        System.out.println(target.getYaw());
+        return target.getYaw();
+        
+      }
+      return 0;
     }
-    return 0;
+    else{return getBallAngle();}
   }
   
   @Override
