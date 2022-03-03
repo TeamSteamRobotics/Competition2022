@@ -37,9 +37,9 @@ public final class Constants {
     }
 
     public final class VisionTurnConstants {
-        public static final double kP = 0.1;
-        public static final double kI = 0.0;
-        public static final double kD = 0;
+        public static final double kP = .02;
+        public static final double kI = 0;
+        public static final double kD = .005;
         public static final double velocityTolerance = 0;
         public static final double positionTolerance = 0;
     }
