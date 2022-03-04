@@ -20,7 +20,7 @@ public class VisionTurn extends PIDCommand {
         // The controller that the command will use
         new PIDController(VisionTurnConstants.kP, VisionTurnConstants.kI, VisionTurnConstants.kD),
         // This should return the measurement
-        () -> -vision.getBallAngle(),
+        () -> -vision.getHoopDegrees(),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output

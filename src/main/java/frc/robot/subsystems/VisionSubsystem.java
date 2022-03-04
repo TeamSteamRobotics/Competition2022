@@ -28,7 +28,7 @@ public class VisionSubsystem extends SubsystemBase {
  // NetworkTableEntry poseEntry = visionTable.getEntry("targetPose");
   //NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
-  PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000 (1)");
+  PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
 
   /*PhotonPipelineResult result = camera.getLatestResult();
   PhotonTrackedTarget target = result.getBestTarget();*/
@@ -103,12 +103,14 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getHoopDegrees() {
-    camera.setPipelineIndex(2);
+    camera.setPipelineIndex(0);
     PhotonPipelineResult pipelineResult = camera.getLatestResult();
     if (pipelineResult.hasTargets()) {
       PhotonTrackedTarget target = pipelineResult.getBestTarget();
+      System.out.println("Yaw:: " + target.getYaw());
       return target.getYaw();
     }
+    System.out.println("Pipeline doesn't have targets");
     return 0;
   }
   

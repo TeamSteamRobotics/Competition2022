@@ -37,11 +37,12 @@ public final class Constants {
     }
 
     public final class VisionTurnConstants {
-        public static final double kP = .008;
-        public static final double kI = 0.005;
-        public static final double kD = 0.0005;
-        public static final double velocityTolerance = 0;
-        public static final double positionTolerance = 0;
+        //jerky but pretty solid PIDit
+        public static final double kP = .02;
+        public static final double kI = 0;
+        public static final double kD = .009;
+        public static final double velocityTolerance = .5;
+        public static final double positionTolerance = 2;
     }
 
     public final class DriveConstants {

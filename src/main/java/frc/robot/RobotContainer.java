@@ -57,11 +57,6 @@ public class RobotContainer {
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
-<<<<<<< HEAD
-=======
-  JoystickButton kickerButton = new JoystickButton(stick, 3);
->>>>>>> 0683afc6adce3bfc63c69da5b1d474bc26501527
-  
   JoystickButton shootButton = new JoystickButton(stick, 1);
   JoystickButton vomitButton = new JoystickButton(stick, 5);
   JoystickButton visionTurnButton = new JoystickButton(stick, 9);
@@ -105,6 +100,7 @@ public class RobotContainer {
 
   }
 
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
