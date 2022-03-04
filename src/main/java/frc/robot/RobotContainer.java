@@ -90,7 +90,7 @@ public class RobotContainer {
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     vomitButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
  
-    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem, true));                                                            
+    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem, false));                                                            
     /*allInOneButton.whileHeld(
         new ParallelCommandGroup(
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),

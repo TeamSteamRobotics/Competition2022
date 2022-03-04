@@ -41,6 +41,9 @@ public final class Constants {
         public static final double kP = .02;
         public static final double kI = 0;
         public static final double kD = .009;
+        public static final double kPBY = .01; //ball yith for kPBY, kIBY, kDBY
+        public static final double kIBY = 0;
+        public static final double kDBY = 0;
         public static final double velocityTolerance = .5;
         public static final double positionTolerance = 2;
     }

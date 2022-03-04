@@ -46,7 +46,7 @@ public class SequentialAuto extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       
-    
+      new VisionTurn(drive, vision, false),
       new ParallelRaceGroup(
         new Drive(drive, () -> .5, () -> 0, false),
         new Intake(intake, hopper, tracker)
@@ -56,8 +56,11 @@ public class SequentialAuto extends SequentialCommandGroup {
 
       new ParallelRaceGroup(
         new WaitCommand(.3),
-        new Drive(drive, () -> -.3, ()-> 0, false))
+        new Drive(drive, () -> -.3, ()-> 0, false)),
+
+      new VisionTurn(drive, vision, true)
       );
+      
       //new Drive(drive, () -> .5, () -> 0, false).withInterrupt(() ->(tracker.isAtHopper() || tracker.isAtIntake() || tracker.isAtKicker()));
       /*new Shoot(shooter, () -> 25000, hopper, tracker),
       //need to move back a little from the wall to get turning room?

@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
@@ -43,23 +44,25 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getBallAngle() {
-      if (isRedAlliance()) {
-        camera2.setPipelineIndex(1);
-        System.out.println("red");
+      /*if (isRedAlliance()) {
+        camera.setPipelineIndex(0);
+        //System.out.println("red");
         //switch to red pipeline
       } else {
-        camera2.setPipelineIndex(0); 
-        System.out.println("blue");
+        camera.setPipelineIndex(0); 
+        //System.out.println("blue");
         //switch to blue pipeline
-      }
+      }*/
+    camera.setPipelineIndex(0);
     PhotonPipelineResult pipelineResult = camera.getLatestResult();
     PhotonTrackedTarget target = pipelineResult.getBestTarget();
-  
+      System.out.println("looking for targets");
     if(pipelineResult.hasTargets()) {
-      
+      System.out.println("found targets");
       System.out.println("Yaw:: " + target.getYaw());
-      return target.getYaw();
+      return -target.getYaw();
     } else {
+      System.out.println("no targets or something");
       return 0; 
     }
     
@@ -67,16 +70,19 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getGoalAngle() {
-    camera.setPipelineIndex(0);
-    PhotonPipelineResult res = camera.getLatestResult();
-    PhotonTrackedTarget goal = res.getBestTarget();
-    if(res.hasTargets())
-    {
-    return goal.getYaw();
-    }
-    return 0;
-  }
- 
+    camera.setPipelineIndex(3);
+      PhotonPipelineResult pipelineResult = camera.getLatestResult();
+      if (pipelineResult.hasTargets()) {
+        PhotonTrackedTarget target = pipelineResult.getBestTarget();
+        System.out.println(target.getYaw());
+        return target.getYaw();
+      }
+         return 0;
+       }
+
+
+
+  
   public double getBallDistance() {
     if (isRedAlliance()) {
       camera.setPipelineIndex(1);
@@ -104,20 +110,15 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getTargetDegrees(boolean aimingForGoal) {
-    
     if(aimingForGoal){
-      camera.setPipelineIndex(0);
-      PhotonPipelineResult pipelineResult = camera.getLatestResult();
-      if (pipelineResult.hasTargets()) {
-        PhotonTrackedTarget target = pipelineResult.getBestTarget();
-        System.out.println(target.getYaw());
-        return target.getYaw();
-        
-      }
-      return 0;
+      System.out.println("running getGoalAngle");
+      return getGoalAngle();
+    }  
+    else{
+        System.out.println("running getBallAngle");
+        return getBallAngle();}
     }
-    else{return getBallAngle();}
-  }
+  
   
   @Override
   public void periodic() {
