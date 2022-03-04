@@ -15,12 +15,12 @@ import frc.robot.subsystems.VisionSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class VisionTurn extends PIDCommand {
   /** Creates a new VisionTurn. */
-  public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
+  public VisionTurn(DriveSubsystem drive, VisionSubsystem vision, boolean aimingForGoal) {
     super(
         // The controller that the command will use
         new PIDController(VisionTurnConstants.kP, VisionTurnConstants.kI, VisionTurnConstants.kD),
         // This should return the measurement
-        () -> -vision.getHoopDegrees(),
+        () -> -vision.getTargetDegrees(aimingForGoal),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output

@@ -12,6 +12,7 @@ import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Intake;
 import frc.robot.commands.RetractIntake;
+import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.VisionTurn;
@@ -89,7 +90,7 @@ public class RobotContainer {
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     vomitButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
  
-    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));                                                            
+    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem, true));                                                            
     /*allInOneButton.whileHeld(
         new ParallelCommandGroup(
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
@@ -108,6 +109,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem);
+    //return null;
   }
 }
