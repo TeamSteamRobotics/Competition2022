@@ -38,14 +38,14 @@ public final class Constants {
 
     public final class VisionTurnConstants {
         //jerky but pretty solid PIDit
-        public static final double kP = .02;
+        public static final double kP = .01;
         public static final double kI = 0;
-        public static final double kD = .009;
+        public static final double kD = .00;
         public static final double kPBY = .01; //ball yith for kPBY, kIBY, kDBY
         public static final double kIBY = 0;
         public static final double kDBY = 0;
-        public static final double velocityTolerance =0;// .5;
-        public static final double positionTolerance =0;// 2;
+        public static final double velocityTolerance =0;
+        public static final double positionTolerance = 0;
     }
 
     public final class DriveConstants {
@@ -100,13 +100,14 @@ public final class Constants {
     }
 
     public final class GyroTurnConstants {
-        public static final double kP = 0;
+        public static final double kP = .01;
         public static final double kI = 0;
         public static final double kD = 0;
     }
 
     public final class FlywheelConstants {
         public static final double shooterSpeed = 25000;
+        public static final double maxShooterSpeed = 40000;
         public static final double kP = 5;
         public static final double kI = 0;
         public static final double kD = 0;

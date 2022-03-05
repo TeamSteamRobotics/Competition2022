@@ -60,6 +60,7 @@ public class RobotContainer {
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
   JoystickButton shootButton = new JoystickButton(stick, 1);
+  JoystickButton maxShootButton = new JoystickButton(stick, 12);
   JoystickButton vomitButton = new JoystickButton(stick, 5);
   JoystickButton visionTurnButton = new JoystickButton(stick, 9);
   JoystickButton driveToBallButton = new JoystickButton(stick, 4);
@@ -99,10 +100,9 @@ public class RobotContainer {
           )); */
     shootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
                                                             
+    maxShootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 30000, m_hopperSubsystem, m_ballTrackingSubsystem));
 
-  }
-
-  
+  }  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

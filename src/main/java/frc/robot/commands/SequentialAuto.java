@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.PerpetualCommand;
@@ -49,35 +50,24 @@ public class SequentialAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      /*new Drive(drive, () -> .4, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<160)),
-      new Drive(drive, () -> -.4, () -> 0, true, sonic)*/
-
-      new VisionTurn(drive, vision, false)
+      new InstantCommand(drive::resetGyro, drive),
+      new ParallelRaceGroup(
+        new WaitCommand(3),
+        new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker)),
       
-  
-      /*
-      new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker),
 
       new ParallelRaceGroup(
-        new WaitCommand(.3),
-        new Drive(drive, () -> .3, ()-> 0, false, sonic)),
-
-      new VisionTurn(drive, vision, false),
-
-      new ParallelRaceGroup(
-        new Drive(drive, () -> .5, () -> 0, false, sonic),
+        //new Drive(drive, () -> .5, () -> 0, false, sonic),
+        new VisionTurn(drive, vision, false),
         new Intake(intake, hopper, tracker)
       ).withInterrupt(tracker::isAtHopper),
 
-      new ParallelRaceGroup(
-        new WaitCommand(.3),
-        new Drive(drive, () -> -.3, ()-> 0, false, sonic)),
-
-      new VisionTurn(drive, vision, true),
-
-      new Drive(drive, () -> .4, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<40)),
-
-      new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker)*/
+      new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <40),
+      new GyroTurn(drive, 0),
+      //new VisionTurn(drive, vision, false).withInterrupt(() -> (sonic.getDistance()<40)),
+      //new Drive(drive, () -> -.4, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<40)),
+      new ParallelDeadlineGroup(new WaitCommand(1), 
+      new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker))
 );
       /*new Drive(drive, () -> -.5, ()-> 0, false, sonic).withInterrupt(()->(sonic.getDistance()<40)),
       new Drive(drive, () -> .2, ()-> 0, false, sonic)*/

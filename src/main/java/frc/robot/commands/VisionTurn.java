@@ -18,14 +18,14 @@ public class VisionTurn extends PIDCommand {
   public VisionTurn(DriveSubsystem drive, VisionSubsystem vision, boolean aimingForGoal) {
     super(
         // The controller that the command will use
-        new PIDController(VisionTurnConstants.kPBY, VisionTurnConstants.kIBY, VisionTurnConstants.kDBY),
+        new PIDController(VisionTurnConstants.kP, VisionTurnConstants.kI, VisionTurnConstants.kD),
         // This should return the measurement
         () -> vision.getTargetDegrees(aimingForGoal),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          drive.drive(.2, output, false);
+          drive.drive(.3, output, false, aimingForGoal);
           // Use the output here
         });
     addRequirements(drive, vision);

@@ -41,22 +41,23 @@ public class VisionSubsystem extends SubsystemBase {
 
   public boolean isRedAlliance() {
     return isRedAlliance.getBoolean(true);
+    
   }
 
   public double getBallAngle() {
-      /*if (isRedAlliance()) {
-        camera.setPipelineIndex(0);
-        //System.out.println("red");
+      if (isRedAlliance()) {
+        camera.setPipelineIndex(1);
+        System.out.println("red");
         //switch to red pipeline
       } else {
         camera.setPipelineIndex(0); 
-        //System.out.println("blue");
+        System.out.println("blue");
         //switch to blue pipeline
-      }*/
-    camera.setPipelineIndex(0);
+      }
+   // camera.setPipelineIndex(0);
     PhotonPipelineResult pipelineResult = camera.getLatestResult();
     PhotonTrackedTarget target = pipelineResult.getBestTarget();
-      System.out.println("looking for targets");
+    //System.out.println("looking for targets");
     if(pipelineResult.hasTargets()) {
       System.out.println("found targets");
       System.out.println("Yaw:: " + target.getYaw());
@@ -64,6 +65,8 @@ public class VisionSubsystem extends SubsystemBase {
     } else {
       System.out.println("no targets or something");
       return 0; 
+
+    
     }
     
    
