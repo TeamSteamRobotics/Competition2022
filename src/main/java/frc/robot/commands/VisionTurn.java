@@ -25,7 +25,7 @@ public class VisionTurn extends PIDCommand {
         0,
         // This uses the output
         output -> {
-          drive.drive(0, output, false);
+          drive.drive(.2, output, false);
           // Use the output here
         });
     addRequirements(drive, vision);

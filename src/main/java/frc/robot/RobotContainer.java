@@ -12,6 +12,7 @@ import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Intake;
 import frc.robot.commands.RetractIntake;
+import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.VisionTurn;
@@ -21,6 +22,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -43,7 +45,7 @@ public class RobotContainer {
   private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
   public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
-  
+  private final UltrasonicSubsystem m_sonicSubsystem = new UltrasonicSubsystem();
   private final Joystick stick = new Joystick(0);
   //private final XboxController xbox = new XboxController()
 
@@ -69,7 +71,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
+    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true, m_sonicSubsystem));
     //stick.setThrottleChannel(3);
 
     
@@ -96,7 +98,7 @@ public class RobotContainer {
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem, m_ballTrackingSubsystem));
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
                                                             
 
   }
@@ -108,6 +110,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+    //return null;
   }
 }

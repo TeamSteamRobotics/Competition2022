@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.UltrasonicSubsystem;
 
 public class Drive extends CommandBase {
 
@@ -16,23 +17,28 @@ DriveSubsystem driveSubsystem;
 DoubleSupplier speed;
 DoubleSupplier rotation; 
 boolean squareInputs;
-  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs) {
+UltrasonicSubsystem sonic;
+  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs, UltrasonicSubsystem sonic) {
     driveSubsystem = m_driveSubsystem;
     addRequirements(driveSubsystem);
     this.speed = speed;
     this.rotation = rotation;
     this.squareInputs = squareInputs;
+    this.sonic = sonic;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("h");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs);
-   
+    
+   System.out.println(sonic.getDistance());
   }
 
   // Called once the command ends or is interrupted.

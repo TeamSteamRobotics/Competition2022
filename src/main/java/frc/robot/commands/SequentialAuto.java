@@ -17,8 +17,10 @@ import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -32,9 +34,10 @@ public class SequentialAuto extends SequentialCommandGroup {
   HopperSubsystem hopper;
   BallTrackingSubsystem tracker;
   VisionSubsystem vision;
+  UltrasonicSubsystem sonic;
   BooleanSupplier end = () -> (tracker.isAtHopper() || tracker.isAtIntake() || tracker.isAtKicker());
 
-  public SequentialAuto(ShooterSubsystem shooter, DriveSubsystem drive, IntakeSubsystem intake, HopperSubsystem hopper, BallTrackingSubsystem tracker, VisionSubsystem vision) {
+  public SequentialAuto(ShooterSubsystem shooter, DriveSubsystem drive, IntakeSubsystem intake, HopperSubsystem hopper, BallTrackingSubsystem tracker, VisionSubsystem vision, UltrasonicSubsystem sonic) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
     this.drive = drive;
@@ -42,24 +45,43 @@ public class SequentialAuto extends SequentialCommandGroup {
     this.hopper = hopper;
     this.tracker = tracker;
     this.vision = vision;
+    this.sonic = sonic;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      /*new Drive(drive, () -> .4, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<160)),
+      new Drive(drive, () -> -.4, () -> 0, true, sonic)*/
+
+      new VisionTurn(drive, vision, false)
       
-      new VisionTurn(drive, vision, false),
+  
+      /*
+      new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker),
+
       new ParallelRaceGroup(
-        new Drive(drive, () -> .5, () -> 0, false),
+        new WaitCommand(.3),
+        new Drive(drive, () -> .3, ()-> 0, false, sonic)),
+
+      new VisionTurn(drive, vision, false),
+
+      new ParallelRaceGroup(
+        new Drive(drive, () -> .5, () -> 0, false, sonic),
         new Intake(intake, hopper, tracker)
-        
-        //new WaitUntilCommand( () ->  (tracker::isAtHopper || tracker::isAtIntake || tracker::isAtKicker) )
       ).withInterrupt(tracker::isAtHopper),
 
       new ParallelRaceGroup(
         new WaitCommand(.3),
-        new Drive(drive, () -> -.3, ()-> 0, false)),
+        new Drive(drive, () -> -.3, ()-> 0, false, sonic)),
 
-      new VisionTurn(drive, vision, true)
-      );
+      new VisionTurn(drive, vision, true),
+
+      new Drive(drive, () -> .4, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<40)),
+
+      new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker)*/
+);
+      /*new Drive(drive, () -> -.5, ()-> 0, false, sonic).withInterrupt(()->(sonic.getDistance()<40)),
+      new Drive(drive, () -> .2, ()-> 0, false, sonic)*/
+      //new Shoot(shooter, ()->Constants.FlywheelConstants.shooterSpeed, hopper, tracker)
       
       //new Drive(drive, () -> .5, () -> 0, false).withInterrupt(() ->(tracker.isAtHopper() || tracker.isAtIntake() || tracker.isAtKicker()));
       /*new Shoot(shooter, () -> 25000, hopper, tracker),
