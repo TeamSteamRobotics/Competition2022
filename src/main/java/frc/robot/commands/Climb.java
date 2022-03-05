@@ -5,14 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.HopperSubsystem;
 
-public class VomitHopper extends CommandBase {
-  /** Creates a new VomitHopper. */
-  HopperSubsystem hopper;
-  public VomitHopper(HopperSubsystem hopper) {
-    addRequirements(hopper); 
-    this.hopper = hopper; 
+public class Climb extends CommandBase {
+  /** Creates a new Climb. */
+  public Climb() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,15 +18,11 @@ public class VomitHopper extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() { 
-    hopper.moveBeltsToIntake(); 
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    hopper.stopBelt();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

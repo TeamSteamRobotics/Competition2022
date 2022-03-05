@@ -4,54 +4,60 @@
 
 package frc.robot.commands;
 
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Shoot extends SequentialCommandGroup {
+public class Shoot extends CommandBase {
   /** Creates a new Shoot. */
 
   /*test*/
   ShooterSubsystem shooter; 
-  public Shoot(ShooterSubsystem shooter) {
+  DoubleSupplier m_speed;
+  HopperSubsystem hopper;
+  BallTrackingSubsystem ballTrackingSubsystem;
+  public Shoot(ShooterSubsystem shooter, DoubleSupplier speed, HopperSubsystem hopper, BallTrackingSubsystem ballTrackingSubsystem) {
     this.shooter = shooter; 
+    this.m_speed = speed;
+    this.hopper = hopper;
+    this.ballTrackingSubsystem = ballTrackingSubsystem;
     addRequirements(shooter); 
+
   }
-  //public Shoot(ShooterSubsystem shooter, HopperSubsystem hopper, DoubleSupplier shooterWheelSpeed, DoubleSupplier middleWheelSpeed, /*fix this */ BooleanSupplier isShooterMax) {
-    //super(
-      //new SpinShooterWheel(shooter, shooterWheelSpeed.getAsDouble()), 
-      //new ConditionalCommand(
-          //new ParallelCommandGroup 
-              //(
-              //new SpinMiddleWheel(hopper, middleWheelSpeed.getAsDouble()),
-              //new MoveBelts(hopper) 
-              //), 
-          //new WaitCommand(1),*/
-          //*fix this */isShooterMax) 
-      
-    //);
-  //}
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    //addCommands();
-  //}
+  
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {}
+
   @Override
   public void execute() {
-    shooter.shoot(25000);
+
+    shooter.shoot(m_speed.getAsDouble());
+    if(shooter.isAtSpeed()){
+      hopper.spinKickerWheel(0.6);
+    } else if (!ballTrackingSubsystem.isAtKicker() && ballTrackingSubsystem.isAtHopper()) {
+      hopper.moveBeltsForward();
+      hopper.spinKickerWheel(0.15);
+    } else{
+      hopper.stopKickerWheel();
+      hopper.stopBelt();
+    } 
   }
+  
 
   @Override
   public void end(boolean interrupted) {
     shooter.stop(); 
+    shooter.stopBackspin();
+    hopper.stopBelt();
+    hopper.stopKickerWheel();
   }
 
   @Override
