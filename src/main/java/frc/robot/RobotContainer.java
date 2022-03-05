@@ -12,7 +12,6 @@ import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Intake;
 import frc.robot.commands.RetractIntake;
-import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.VisionTurn;
@@ -58,6 +57,7 @@ public class RobotContainer {
   JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
+  
   JoystickButton shootButton = new JoystickButton(stick, 1);
   JoystickButton vomitButton = new JoystickButton(stick, 5);
   JoystickButton visionTurnButton = new JoystickButton(stick, 9);
@@ -101,7 +101,6 @@ public class RobotContainer {
 
   }
 
-  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -109,7 +108,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem);
-    //return null;
+    return null;
   }
 }
