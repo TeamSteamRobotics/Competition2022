@@ -28,6 +28,8 @@ public final class Constants {
        // public static final short intakeMotorOtherID = 9;
         public static final short kickerMotorID = 5;
         public static final short backspinMotorID = 9;
+        public static final short upperClimbMotorID = 10;
+        public static final short lowerClimbMotorID = 11;
     }
 
     public final class IntakeSubsystemConstants {

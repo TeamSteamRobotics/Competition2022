@@ -8,6 +8,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ClimbDown;
+import frc.robot.commands.ClimbUp;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
 import frc.robot.commands.Intake;
@@ -18,6 +20,7 @@ import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VomitAll;
 import frc.robot.subsystems.BallTrackingSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -46,6 +49,7 @@ public class RobotContainer {
   public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final UltrasonicSubsystem m_sonicSubsystem = new UltrasonicSubsystem();
+  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
   private final Joystick stick = new Joystick(0);
   //private final XboxController xbox = new XboxController()
 
@@ -64,6 +68,9 @@ public class RobotContainer {
   JoystickButton vomitButton = new JoystickButton(stick, 5);
   JoystickButton visionTurnButton = new JoystickButton(stick, 9);
   JoystickButton driveToBallButton = new JoystickButton(stick, 4);
+  JoystickButton climbUpButton = new JoystickButton(stick, 13);
+  JoystickButton climbDownButton = new JoystickButton(stick, 14);
+
 
 
  
@@ -101,6 +108,9 @@ public class RobotContainer {
     shootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
                                                             
     maxShootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 30000, m_hopperSubsystem, m_ballTrackingSubsystem));
+
+    climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
+    climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
 
   }  
   /**
