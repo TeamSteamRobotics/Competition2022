@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ClimbDown;
+import frc.robot.commands.ClimbHeight;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
@@ -70,6 +71,7 @@ public class RobotContainer {
   JoystickButton driveToBallButton = new JoystickButton(stick, 4);
   JoystickButton climbUpButton = new JoystickButton(stick, 13);
   JoystickButton climbDownButton = new JoystickButton(stick, 14);
+  JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
 
 
 
@@ -111,6 +113,7 @@ public class RobotContainer {
 
     climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
     climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
+    climbToHeightButton.whileHeld(new ClimbHeight(m_climbSubsystem, 0));
 
   }  
   /**

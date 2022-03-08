@@ -59,6 +59,11 @@ public final class Constants {
         public static final double ftPerTick = 6*Math.PI/(2048 * 10.75 *12);
     }
 
+    public final class ClimbConstants {
+        public static final double positionTolerance = 0;
+        public static final double velocityTolerance = 0;
+    }
+
     public final class ButtonConstants {
         /*public static final short shootButton = 1;
         public static final short intakeButton = 2;
