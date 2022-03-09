@@ -28,8 +28,8 @@ public final class Constants {
        // public static final short intakeMotorOtherID = 9;
         public static final short kickerMotorID = 5;
         public static final short backspinMotorID = 9;
-        public static final short upperClimbMotorID = 10;
-        public static final short lowerClimbMotorID = 11;
+        public static final short rightClimbMotorID = 10;
+        public static final short leftClimbMotorID = 11;
     }
 
     public final class IntakeSubsystemConstants {
@@ -40,7 +40,7 @@ public final class Constants {
 
     public final class VisionTurnConstants {
         //jerky but pretty solid PIDit
-        public static final double kP = .01;
+        public static final double kP = .005;
         public static final double kI = 0;
         public static final double kD = .00;
         public static final double kPBY = .01; //ball yith for kPBY, kIBY, kDBY

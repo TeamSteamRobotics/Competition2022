@@ -19,8 +19,8 @@ import frc.robot.Constants.MotorIDConstants;
 public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new ClimbSubsystem. */
   
-  CANSparkMax leftClimb = new CANSparkMax(Constants.MotorIDConstants.lowerClimbMotorID, MotorType.kBrushless);
-  CANSparkMax rightClimb = new CANSparkMax(Constants.MotorIDConstants.rightBackMotorID, MotorType.kBrushless);
+  CANSparkMax leftClimb = new CANSparkMax(Constants.MotorIDConstants.leftClimbMotorID, MotorType.kBrushless);
+  CANSparkMax rightClimb = new CANSparkMax(Constants.MotorIDConstants.rightClimbMotorID, MotorType.kBrushless);
 
   public ClimbSubsystem() {
     leftClimb.follow(rightClimb, true);

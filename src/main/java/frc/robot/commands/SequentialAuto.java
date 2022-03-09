@@ -52,7 +52,7 @@ public class SequentialAuto extends SequentialCommandGroup {
     addCommands(
       new InstantCommand(drive::resetGyro, drive),
 
-      new SequentialCommandGroup(
+      /*new SequentialCommandGroup(
         new ParallelRaceGroup(
           new WaitCommand(1),
           new Drive(drive, () -> 0, () -> -.2, false, sonic)),
@@ -60,38 +60,19 @@ public class SequentialAuto extends SequentialCommandGroup {
           new WaitCommand(2),
           new Drive(drive, () -> 0, () -> .2, false, sonic))
         
-      ).withInterrupt(()->vision.isThereABall()),
+      ).withInterrupt(()->vision.isThereABall()),*/
 
       
       new ParallelRaceGroup(
         new WaitCommand(3),
-        new VisionTurn(drive, vision, false)),
+        new VisionTurn(drive, vision, false)).withInterrupt(() -> tracker.isAtIntake()),
 
-      new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <100),
-
-      new GyroTurn(drive, 0)
-      
-
-    
-    /*
-      new InstantCommand(drive::resetGyro, drive),
+      //new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <100),
       new ParallelRaceGroup(
         new WaitCommand(3),
-        new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker)),
-      
-
-      new ParallelRaceGroup(
-        //new Drive(drive, () -> .5, () -> 0, false, sonic),
-        new VisionTurn(drive, vision, false),
-        new Intake(intake, hopper, tracker)
-      ).withInterrupt(tracker::isAtHopper),
-
-      new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <40),
-      new GyroTurn(drive, 0),
-      //new VisionTurn(drive, vision, false).withInterrupt(() -> (sonic.getDistance()<40)),
-      //new Drive(drive, () -> -.4, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<40)),
-      new ParallelDeadlineGroup(new WaitCommand(1), 
-      new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker))*/
+        new GyroTurn(drive, 0)
+        //new Drive(drive, () -> -0.3, () -> 0, false, sonic)
+      )
 );
       
   }
