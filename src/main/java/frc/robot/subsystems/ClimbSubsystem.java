@@ -7,54 +7,53 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ClimbConstants;
 import frc.robot.Constants.MotorIDConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new ClimbSubsystem. */
-  WPI_TalonSRX upperClimbMotor = new WPI_TalonSRX(MotorIDConstants.upperClimbMotorID);
-  WPI_VictorSPX lowerClimbMotor = new WPI_VictorSPX(MotorIDConstants.lowerClimbMotorID);
-
-  MotorControllerGroup climbMotors = new MotorControllerGroup(upperClimbMotor, lowerClimbMotor);
+  
+  CANSparkMax leftClimb = new CANSparkMax(Constants.MotorIDConstants.lowerClimbMotorID, MotorType.kBrushless);
+  CANSparkMax rightClimb = new CANSparkMax(Constants.MotorIDConstants.rightBackMotorID, MotorType.kBrushless);
 
   public ClimbSubsystem() {
-    lowerClimbMotor.follow(upperClimbMotor);
-    upperClimbMotor.selectProfileSlot(0, 0); //may need to change this idk though
-    upperClimbMotor.config_kP(0, 0);
-    upperClimbMotor.config_kI(0, 0);
-    upperClimbMotor.config_kD(0, 0);
+    leftClimb.follow(rightClimb, true);
   }
 
- 
-  public void climbUp() {
-    upperClimbMotor.set(.5);
+  public void raiseClimb() {
+    rightClimb.set(-.5);
   }
 
-  public void climbDown() {
-    upperClimbMotor.set(.5);
+  public void retractClimb() {
+    rightClimb.set(.75);
   }
+  
   public void stopClimb() {
-    upperClimbMotor.set(0);
+    rightClimb.set(0);
+    leftClimb.set(0);
   }
 
-  public double getClimbPosition() {
-    return upperClimbMotor.getSelectedSensorPosition();
-  }
+  // public double getClimbPosition() {
+  //   return upperClimbMotor.getSelectedSensorPosition();
+  // }
 
-  public void climbToPosition(double position) {
-    upperClimbMotor.set(ControlMode.Position, position); //you may need to do this for lowerMotor but im not sure
-  }
+  // public void climbToPosition(double position) {
+  //   upperClimbMotor.set(ControlMode.Position, position); //you may need to do this for lowerMotor but im not sure
+  // }
 
-  public void resetClimbPosition() {
-    upperClimbMotor.setSelectedSensorPosition(0);
-  }
+  // public void resetClimbPosition() {
+  //   upperClimbMotor.setSelectedSensorPosition(0);
+  // }
 
-  public boolean isAtClimbHeight() {
-    return (Math.abs(upperClimbMotor.getClosedLoopError()) < ClimbConstants.positionTolerance);
-  }
+  // public boolean isAtClimbHeight() {
+  //   return (Math.abs(upperClimbMotor.getClosedLoopError()) < ClimbConstants.positionTolerance);
+  // }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

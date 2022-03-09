@@ -8,16 +8,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ClimbDown;
-import frc.robot.commands.ClimbHeight;
-import frc.robot.commands.ClimbUp;
+import frc.robot.commands.RaiseClimb;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
+import frc.robot.commands.GyroTurn;
 import frc.robot.commands.Intake;
+import frc.robot.commands.LowerClimb;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
+import frc.robot.commands.ThreeBallAuto;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VomitAll;
 import frc.robot.subsystems.BallTrackingSubsystem;
@@ -61,17 +62,20 @@ public class RobotContainer {
 
   //JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
   JoystickButton intakeButton = new JoystickButton(stick, 2);
-  JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
+  //JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
-  JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
+  //JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
   JoystickButton shootButton = new JoystickButton(stick, 1);
-  JoystickButton maxShootButton = new JoystickButton(stick, 12);
+  //JoystickButton maxShootButton = new JoystickButton(stick, 12);
+  JoystickButton raiseClimbButton = new JoystickButton(stick, 6);
+  JoystickButton lowerClimbButton = new JoystickButton(stick, 4);
   JoystickButton vomitButton = new JoystickButton(stick, 5);
-  JoystickButton visionTurnButton = new JoystickButton(stick, 9);
-  JoystickButton driveToBallButton = new JoystickButton(stick, 4);
-  JoystickButton climbUpButton = new JoystickButton(stick, 13);
-  JoystickButton climbDownButton = new JoystickButton(stick, 14);
-  JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
+  //JoystickButton visionTurnButton = new JoystickButton(stick, 9);
+  //JoystickButton driveToBallButton = new JoystickButton(stick, 4);
+  //JoystickButton climbUpButton = new JoystickButton(stick, 13);
+  //JoystickButton climbDownButton = new JoystickButton(stick, 14);
+  //JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
+ // JoystickButton gyroTurnButton = new JoystickButton(stick, 11);
 
 
 
@@ -80,6 +84,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    //m_driveSubsystem.setDefaultCommand(new GyroTurn(m_driveSubsystem, 0));
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true, m_sonicSubsystem));
     //stick.setThrottleChannel(3);
 
@@ -97,11 +102,12 @@ public class RobotContainer {
       new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem, 0.4))
     );*/
     intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem));
-    deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
+    // deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     vomitButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
- 
-    visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem, false));                                                            
+    raiseClimbButton.whileHeld(new RaiseClimb(m_climbSubsystem));
+    lowerClimbButton.whileHeld(new LowerClimb(m_climbSubsystem));
+    // visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem, false));                                                            
     /*allInOneButton.whileHeld(
         new ParallelCommandGroup(
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
@@ -109,12 +115,11 @@ public class RobotContainer {
           )); */
     shootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
                                                             
-    maxShootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> 30000, m_hopperSubsystem, m_ballTrackingSubsystem));
 
-    climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
-    climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
-    climbToHeightButton.whileHeld(new ClimbHeight(m_climbSubsystem, 0));
-
+    //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
+    //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
+    //climbToHeightButton.whileHeld(new ClimbHeight(m_climbSubsystem, 0));
+    // gyroTurnButton.whileHeld(new GyroTurn(m_driveSubsystem, 180));
   }  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -123,7 +128,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+    return new ThreeBallAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+    //return new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
     //return null;
   }
 }

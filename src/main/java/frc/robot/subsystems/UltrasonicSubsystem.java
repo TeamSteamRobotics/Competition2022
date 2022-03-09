@@ -28,13 +28,7 @@ public class UltrasonicSubsystem extends SubsystemBase {
     return currentDistanceCentimeters; 
   }
 
-  public boolean isAtDistance(double distanceCM) {
-    if (getDistance() < distanceCM) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
 
   @Override
   public void periodic() {

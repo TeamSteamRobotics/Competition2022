@@ -46,7 +46,7 @@ public final class Constants {
         public static final double kPBY = .01; //ball yith for kPBY, kIBY, kDBY
         public static final double kIBY = 0;
         public static final double kDBY = 0;
-        public static final double velocityTolerance =0;
+        public static final double velocityTolerance = 0;
         public static final double positionTolerance = 0;
     }
 
@@ -108,8 +108,8 @@ public final class Constants {
 
     public final class GyroTurnConstants {
         public static final double kP = .01;
-        public static final double kI = 0;
-        public static final double kD = 0;
+        public static final double kI = .0;
+        public static final double kD = 0.002;
     }
 
     public final class FlywheelConstants {

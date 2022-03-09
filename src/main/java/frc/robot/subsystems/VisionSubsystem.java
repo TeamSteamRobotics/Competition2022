@@ -72,6 +72,14 @@ public class VisionSubsystem extends SubsystemBase {
    
   }
 
+  public boolean isThereABall(){
+    if(getBallAngle()==0){
+      return false;
+    }
+    else{return true;}
+  }
+  
+
   public double getGoalAngle() {
     camera.setPipelineIndex(3);
       PhotonPipelineResult pipelineResult = camera.getLatestResult();
