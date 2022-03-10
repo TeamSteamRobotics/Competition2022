@@ -42,7 +42,7 @@ public void drive(double speed, double rotation, boolean squareInputs, boolean a
   if(aimingForGoal){diffDrive.arcadeDrive(1*speed, 1*rotation, squareInputs);}
   else{
   diffDrive.arcadeDrive(-1*speed, 1*rotation, squareInputs);
-  System.out.println(getAngle());
+  System.out.println("yaw " + getAngle());
   //System.out.println(getDistance());
 }
   
@@ -54,7 +54,7 @@ public void resetGyro() {
 }
 
 public double getAngle() {
-  System.out.println(gyro.getAngle());
+ // System.out.println(gyro.getAngle());
   return gyro.getAngle();
 }
 

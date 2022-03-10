@@ -107,9 +107,11 @@ public final class Constants {
     }
 
     public final class GyroTurnConstants {
-        public static final double kP = .01;
+        public static final double kP = .003;
         public static final double kI = .0;
         public static final double kD = 0.002;
+        public static final double velocityTolerance = .5;
+        public static final double positionTolerance = 5;
     }
 
     public final class FlywheelConstants {

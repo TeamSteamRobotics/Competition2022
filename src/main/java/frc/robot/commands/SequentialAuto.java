@@ -62,17 +62,25 @@ public class SequentialAuto extends SequentialCommandGroup {
         
       ).withInterrupt(()->vision.isThereABall()),*/
 
-      
+      //new Shoot(shooter, () -> 25000, hopper, tracker),
       new ParallelRaceGroup(
         new WaitCommand(3),
+        //new Intake(intake, hopper, tracker),
         new VisionTurn(drive, vision, false)).withInterrupt(() -> tracker.isAtIntake()),
 
+        new GyroTurn(drive, 0).withInterrupt(() -> sonic.getDistance() <50)
       //new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <100),
+      /*
+      new ParallelRaceGroup(
+        new VisionTurn(drive, vision, true),
+        new WaitCommand(3)
+      ),*//*
       new ParallelRaceGroup(
         new WaitCommand(3),
         new GyroTurn(drive, 0)
         //new Drive(drive, () -> -0.3, () -> 0, false, sonic)
-      )
+      )*/
+      //new Shoot(shooter, () -> 25000, hopper, tracker)
 );
       
   }
