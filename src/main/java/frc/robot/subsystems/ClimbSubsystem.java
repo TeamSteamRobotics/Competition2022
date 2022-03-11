@@ -71,6 +71,10 @@ public class ClimbSubsystem extends SubsystemBase {
     return (Math.abs(pidController.getSmartMotionAllowedClosedLoopError(0)) < ClimbConstants.positionTolerance); //please look at this
   }
 
+  public boolean isRaised() {
+    return (getClimbPosition() < ClimbConstants.maximumClimbHeight && getClimbPosition() > ClimbConstants.maximumClimbHeight - ClimbConstants.positionTolerance); 
+  }
+
   public void setBrakeMode() {
     rightClimb.setIdleMode(IdleMode.kBrake);
     leftClimb.setIdleMode(IdleMode.kBrake);
