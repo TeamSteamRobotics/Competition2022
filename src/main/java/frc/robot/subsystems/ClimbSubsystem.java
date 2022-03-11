@@ -13,6 +13,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -52,8 +53,12 @@ public class ClimbSubsystem extends SubsystemBase {
     //rightEncoder.setPositionConversionFactor(factor) //you can use this to change the readings of position to a more sensible unit but I have no idea what number that would be
     return rightEncoder.getPosition();
   }
+
+  
   public void climbToPosition(double position) { //postition is rotations of the motor(ticks)
-    pidController.setReference(position, ControlType.kSmartMotion); //smart motion is the built in PID of the NEOs
+    //clamp the position value so that zero is the minimumClimbHeight and the other number is the maximumClimbHeight
+    double clampedPosition = MathUtil.clamp(position, ClimbConstants.minimumClimbHeight, ClimbConstants.maximumClimbHeight);
+    pidController.setReference(clampedPosition, ControlType.kPosition);
   }
 
   public void resetClimbPosition() {
