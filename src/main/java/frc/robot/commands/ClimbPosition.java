@@ -22,7 +22,8 @@ public class ClimbPosition extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climb.resetClimbPosition();
+    climb.setCoastMode();
+    //climb.resetClimbPosition();
   }
 
 
@@ -35,6 +36,7 @@ public class ClimbPosition extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    climb.setBrakeMode();
     climb.stopClimb();
   }
 
