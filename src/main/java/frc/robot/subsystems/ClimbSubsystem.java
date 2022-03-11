@@ -11,7 +11,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAnalogSensor.Mode;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -67,6 +69,16 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public boolean isAtClimbPosition() {
     return (Math.abs(pidController.getSmartMotionAllowedClosedLoopError(0)) < ClimbConstants.positionTolerance); //please look at this
+  }
+
+  public void setBrakeMode() {
+    rightClimb.setIdleMode(IdleMode.kBrake);
+    leftClimb.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setCoastMode() {
+    rightClimb.setIdleMode(IdleMode.kCoast);
+    leftClimb.setIdleMode(IdleMode.kCoast);
   }
 
   @Override
