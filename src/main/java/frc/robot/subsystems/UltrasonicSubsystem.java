@@ -13,7 +13,7 @@ public class UltrasonicSubsystem extends SubsystemBase {
 
 
   double rawValue; //voltage of pin representing distance
-  private final AnalogInput ultrasonic;  
+  public final AnalogInput ultrasonic;
 
   public UltrasonicSubsystem() {
     ultrasonic = new AnalogInput(0);

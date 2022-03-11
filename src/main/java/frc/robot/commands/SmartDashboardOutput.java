@@ -41,12 +41,13 @@ public class SmartDashboardOutput extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Shuffleboard");
     SmartDashboard.putNumber("Shooter Speed", shooter.getRPM());
-    SmartDashboard.putBoolean("Hopper Status", tracker.isHopperFull());
+    SmartDashboard.putBoolean("Hopper Full", tracker.isHopperFull());
     SmartDashboard.putData("Drivetrain", drive.diffDrive);;
     SmartDashboard.putBoolean("Ball Detected", vision.isThereABall());
     SmartDashboard.putData(drive.gyro);
-    SmartDashboard.putNumber("Ultrasonic Reading", sonic.getDistance());
+    SmartDashboard.putNumber("Ultrasonic", sonic.getDistance());
   }
 
   // Called once the command ends or is interrupted.
