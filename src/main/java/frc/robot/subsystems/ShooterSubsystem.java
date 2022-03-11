@@ -73,7 +73,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getRPM() {
-    return (rightFlywheelMotor.getSelectedSensorVelocity() / 10);
+    return (this.rightFlywheelMotor.getSelectedSensorVelocity() / 4096) * 10 * 60;
   }
 
   // SHould probably fill this out at some time

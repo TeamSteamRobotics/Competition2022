@@ -17,7 +17,7 @@ import frc.robot.Constants.MotorIDConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
-AHRS gyro = new AHRS();
+public AHRS gyro = new AHRS();
 
 WPI_TalonFX leftFrontMotor = new WPI_TalonFX(MotorIDConstants.leftFrontMotorID);
 WPI_TalonFX leftBackMotor = new WPI_TalonFX(MotorIDConstants.leftBackMotorID);

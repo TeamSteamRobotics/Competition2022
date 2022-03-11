@@ -55,7 +55,7 @@ public class RobotContainer {
   private final Joystick stick = new Joystick(0);
   //private final XboxController xbox = new XboxController()
 
-  SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem);
+  SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
 
   //JoystickButton shootButton = new JoystickButton(stick, 1);
   //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
