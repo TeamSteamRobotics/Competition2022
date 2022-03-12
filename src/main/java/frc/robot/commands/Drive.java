@@ -37,8 +37,6 @@ UltrasonicSubsystem sonic;
   @Override
   public void execute() {
     driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs, false);
-    
-   //System.out.println(sonic.getDistance());
   }
 
   // Called once the command ends or is interrupted.

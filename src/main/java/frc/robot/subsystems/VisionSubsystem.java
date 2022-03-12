@@ -47,31 +47,21 @@ public class VisionSubsystem extends SubsystemBase {
   public double getBallAngle() {
       if (isRedAlliance()) {
         camera.setPipelineIndex(1);
-        System.out.println("red");
         //switch to red pipeline
       } else {
         camera.setPipelineIndex(0); 
-        System.out.println("blue");
         //switch to blue pipeline
       }
-   // camera.setPipelineIndex(0);
     PhotonPipelineResult pipelineResult = camera.getLatestResult();
     PhotonTrackedTarget target = pipelineResult.getBestTarget();
-    //System.out.println("looking for targets");
     if(pipelineResult.hasTargets()) {
-      System.out.println("found targets");
-      System.out.println("Yaw:: " + target.getYaw());
       return -target.getYaw();
     } else {
-      System.out.println("no targets or something");
       return 0; 
-
-    
     }
     
    
   }
-
   public boolean isThereABall(){
     if(getBallAngle()==0){
       return false;
@@ -85,7 +75,6 @@ public class VisionSubsystem extends SubsystemBase {
       PhotonPipelineResult pipelineResult = camera.getLatestResult();
       if (pipelineResult.hasTargets()) {
         PhotonTrackedTarget target = pipelineResult.getBestTarget();
-        System.out.println(target.getYaw());
         return target.getYaw();
       }
          return 0;
@@ -103,31 +92,18 @@ public class VisionSubsystem extends SubsystemBase {
       PhotonPipelineResult pipelineResult = camera.getLatestResult();
     if(pipelineResult.hasTargets()) {
       PhotonTrackedTarget target = pipelineResult.getBestTarget();
-      System.out.println(target.getCameraToTarget().getX()); 
        return target.getCameraToTarget().getX();
-    
     }
   return 0;
   }
 
-  public double getHoopDistance() {
-    camera.setPipelineIndex(2); 
-    PhotonPipelineResult pipelineResult = camera.getLatestResult();
-    if(pipelineResult.hasTargets()) {
-      PhotonTrackedTarget target = pipelineResult.getBestTarget();
-      return Math.hypot(target.getCameraToTarget().getX(), target.getCameraToTarget().getY());
-    }
-    return 0; 
-  }
 
   public double getTargetDegrees(boolean aimingForGoal) {
     if(aimingForGoal){
-      System.out.println("running getGoalAngle");
       return getGoalAngle();
     }  
     else{
-        System.out.println("running getBallAngle");
-        return getBallAngle();}
+      return getBallAngle();}
     }
   
   

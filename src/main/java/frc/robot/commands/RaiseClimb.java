@@ -25,6 +25,7 @@ public class RaiseClimb extends CommandBase {
   @Override
   public void execute() {
     climb.raiseClimb();
+    System.out.println("Encoder: " + climb.getClimbPosition());
   }
 
   // Called once the command ends or is interrupted.

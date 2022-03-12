@@ -4,22 +4,34 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.UltrasonicSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class SmartDashboardOutput extends CommandBase {
   /** Creates a new SmartDashboardOutput. */
   ShooterSubsystem shooter;
   Joystick stick;
   DriveSubsystem drive;
-  public SmartDashboardOutput(ShooterSubsystem shooter, Joystick stick, DriveSubsystem drive) {
+  BallTrackingSubsystem tracker;
+  VisionSubsystem vision;
+  UltrasonicSubsystem sonic;
+  public SmartDashboardOutput(ShooterSubsystem shooter, Joystick stick, DriveSubsystem drive, BallTrackingSubsystem tracker, VisionSubsystem vision, UltrasonicSubsystem sonic) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
+    this.tracker = tracker;
+    this.sonic = sonic;
     this.stick = stick;
+    this.vision = vision;
     this.drive = drive;
+
   }
 
   // Called when the command is initially scheduled.
@@ -29,20 +41,12 @@ public class SmartDashboardOutput extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Shooter Speed", -shooter.getRPM());
-    SmartDashboard.putNumber("Throttle", (stick.getThrottle() + 1) * 20000); 
-
-    // If the shooter is within +/-100 the value that we want it to be at, be green
-    if((shooter.getSTUs() <= (((stick.getThrottle() - 1) * 20000) + 100) && shooter.getSTUs() >= (((stick.getThrottle() - 1) * 20000) - 100)) || 
-       (shooter.getSTUs() <= (shooter.getTargetSpeed() + 100) && shooter.getSTUs() >= shooter.getTargetSpeed() - 100)) {
-      SmartDashboard.putBoolean("Shooter At Speed", true);
-    }
-    else {
-      SmartDashboard.putBoolean("Shooter At Speed", false);
-    }
-
-    SmartDashboard.putData(drive.diffDrive);
-
+    SmartDashboard.putNumber("Shooter Speed", shooter.getRPM());
+    SmartDashboard.putBoolean("Hopper Full", tracker.isHopperFull());
+    SmartDashboard.putData("Drivetrain", drive.diffDrive);;
+    SmartDashboard.putBoolean("Ball Detected", vision.isThereABall());
+    SmartDashboard.putData(drive.gyro);
+    SmartDashboard.putNumber("Ultrasonic", sonic.getDistance());
   }
 
   // Called once the command ends or is interrupted.

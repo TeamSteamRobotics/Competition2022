@@ -1,23 +1,56 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "Talon SRX[9]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/BallTrackingSubsystem": "Subsystem",
+      "/LiveWindow/ClimbSubsystem": "Subsystem",
       "/LiveWindow/DriveSubsystem": "Subsystem",
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/HopperSubsystem": "Subsystem",
       "/LiveWindow/IntakeSubsystem": "Subsystem",
       "/LiveWindow/ShooterSubsystem": "Subsystem",
+      "/LiveWindow/UltrasonicSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[2]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[3]": "Digital Input",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[3]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[4]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[5]": "PIDController",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/LiveWindow/VisionSubsystem": "Subsystem",
-      "/SmartDashboard/DifferentialDrive[1]": "DifferentialDrive"
+      "/SmartDashboard/DifferentialDrive[1]": "DifferentialDrive",
+      "/SmartDashboard/Drivetrain": "DifferentialDrive",
+      "/SmartDashboard/navX-Sensor[4]": "Gyro"
+    }
+  },
+  "NetworkTables": {
+    "SmartDashboard": {
+      "Ultrasonic": {
+        "open": true
+      },
+      "navX-Sensor[4]": {
+        "open": true
+      },
+      "open": true
+    },
+    "photonvision": {
+      "Microsoft_LifeCam_HD-3000": {
+        "open": true
+      }
     }
   }
 }

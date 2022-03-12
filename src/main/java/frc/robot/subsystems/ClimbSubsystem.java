@@ -8,11 +8,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAnalogSensor.Mode;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -36,7 +39,7 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void raiseClimb() {
-    rightClimb.set(.5);
+    rightClimb.set(-.5);
   }
 
   public void retractClimb() {
@@ -45,18 +48,17 @@ public class ClimbSubsystem extends SubsystemBase {
   
   public void stopClimb() {
     rightClimb.set(0);
-    leftClimb.set(0);
   }
   public double getClimbPosition() { 
     //postiton is measured in rotations (of motor I think, so it would be the same as ticks on a motor)
-    //rightEncoder.setPositionConversionFactor(factor) //you can use this to change the readings of position to a more sensible unit but I have no idea what number that would be
-    return rightEncoder.getPosition();
+    //rightEncoder.setPositionConversionFactor(Con) //you can use this to change the readings of position to a more sensible unit but I have no idea what number that would be
+    return Math.abs(rightEncoder.getPosition());
   }
 
-  public void climbToPosition(double position) { //postition is rotations of the motor(ticks)
+  /*public void climbToPosition(double position) { //postition is rotations of the motor(ticks)
     pidController.setReference(position, com.revrobotics.CANSparkMax.ControlType.kSmartMotion);
     //pidController.set //smart motion is the built in PID of the NEOs
-  }
+  }*/
 
   public void resetClimbPosition() {
     rightEncoder.setPosition(0); 
@@ -64,6 +66,39 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public boolean isAtClimbHeight() {
     return (Math.abs(pidController.getSmartMotionAllowedClosedLoopError(0)) < ClimbConstants.positionTolerance); //please look at this
+  }
+  /*public double getClimbPosition() { 
+    //rightEncoder.setPositionConversionFactor(factor) //you can use this to change the readings of position to a more sensible unit but I have no idea what number that would be
+    return rightEncoder.getPosition();
+  }*/
+
+  
+  public void climbToPosition(double position) { //postition is rotations of the motor(ticks)
+    //clamp the position value so that zero is the minimumClimbHeight and the other number is the maximumClimbHeight
+    double clampedPosition = MathUtil.clamp(position, ClimbConstants.minimumClimbHeight, ClimbConstants.maximumClimbHeight);
+    pidController.setReference(clampedPosition, ControlType.kPosition);
+  }
+
+  /*public void resetClimbPosition() {
+    rightEncoder.setPosition(0); 
+  }*/
+
+  public boolean isAtClimbPosition() {
+    return (Math.abs(pidController.getSmartMotionAllowedClosedLoopError(0)) < ClimbConstants.positionTolerance); //please look at this
+  }
+
+  public boolean isRaised() {
+    return (getClimbPosition() < ClimbConstants.maximumClimbHeight && getClimbPosition() > ClimbConstants.minimumClimbHeight); 
+  }
+
+  public void setBrakeMode() {
+    rightClimb.setIdleMode(IdleMode.kBrake);
+    leftClimb.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setCoastMode() {
+    rightClimb.setIdleMode(IdleMode.kCoast);
+    leftClimb.setIdleMode(IdleMode.kCoast);
   }
 
   @Override

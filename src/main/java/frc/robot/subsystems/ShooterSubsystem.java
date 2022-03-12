@@ -54,7 +54,6 @@ public class ShooterSubsystem extends SubsystemBase {
   public void shoot(double speed){
     rightFlywheelMotor.set(ControlMode.Velocity, speed);
     backspinMotor.set(.2);
-    System.out.println("Shooter Speed: " + rightFlywheelMotor.getSelectedSensorVelocity(0));
   }
 
   public double getSTUs() {
@@ -73,7 +72,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getRPM() {
-    return (rightFlywheelMotor.getSelectedSensorVelocity() / 10);
+    return (this.rightFlywheelMotor.getSelectedSensorVelocity() / 4096) * 10 * 60;
   }
 
   // SHould probably fill this out at some time

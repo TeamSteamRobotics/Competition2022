@@ -46,6 +46,40 @@ public class ThreeBallAuto extends SequentialCommandGroup {
     addCommands(
       new InstantCommand(drive::resetGyro, drive),
 
+      new ParallelRaceGroup(
+        new WaitCommand(2.5),
+        //new Intake(intake, hopper, tracker),
+        new VisionTurn(drive, vision, false)).withInterrupt(() -> tracker.isAtIntake()),
+
+
+
+
+      new ParallelRaceGroup(
+        new WaitCommand(2.5),
+        //new Intake(intake, hopper, tracker),
+        new GyroTurn(drive, drive.getAngle()+115)).withInterrupt(() -> tracker.isAtIntake()),
+
+
+      new ParallelRaceGroup(
+        new WaitCommand(2.5),
+        //new Intake(intake, hopper, tracker),
+        new VisionTurn(drive, vision, false)).withInterrupt(() -> tracker.isAtIntake()),
+
+
+
+
+      new ParallelRaceGroup(
+        new WaitCommand(2.5),
+        //new Intake(intake, hopper, tracker),
+        new GyroTurn(drive, drive.getAngle()+8)).withInterrupt(() -> tracker.isAtIntake()),
+        
+        //new GyroTurn(drive, drive.getAngle()-60),
+
+      new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <50),
+
+      new GyroTurn(drive, 0)
+
+
       /*new SequentialCommandGroup(
         new ParallelRaceGroup(
           new WaitCommand(1),
@@ -69,7 +103,7 @@ public class ThreeBallAuto extends SequentialCommandGroup {
         new WaitCommand(2),
         new VisionTurn(drive, vision, false)),*/
 
-      new GyroTurn(drive, drive.getAngle()+60)
+      //new GyroTurn(drive, drive.getAngle()+60)
 
       //new Drive(drive, () -> -.2, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<40)),
 

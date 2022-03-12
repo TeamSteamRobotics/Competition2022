@@ -5,8 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.SmartDashboardOutput;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 /**
@@ -17,8 +20,8 @@ import frc.robot.subsystems.IntakeSubsystem;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -29,7 +32,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    
   }
 
   /**
@@ -81,6 +83,9 @@ public class Robot extends TimedRobot {
     }
     m_robotContainer.m_intakeSubsystem.deployIntake();
     m_robotContainer.m_intakeSubsystem.deployKicker();
+    m_robotContainer.m_climbSubsystem.resetClimbPosition();
+    
+    CommandScheduler.getInstance().schedule(m_robotContainer.m_smartDashboardOutput);
     //CommandScheduler.getInstance().schedule(m_robotContainer.m_smartDashboardOutput);
   }
 

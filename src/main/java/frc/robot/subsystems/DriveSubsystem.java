@@ -17,7 +17,7 @@ import frc.robot.Constants.MotorIDConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
-AHRS gyro = new AHRS();
+public AHRS gyro = new AHRS();
 
 WPI_TalonFX leftFrontMotor = new WPI_TalonFX(MotorIDConstants.leftFrontMotorID);
 WPI_TalonFX leftBackMotor = new WPI_TalonFX(MotorIDConstants.leftBackMotorID);
@@ -41,12 +41,8 @@ public DriveSubsystem() {
 public void drive(double speed, double rotation, boolean squareInputs, boolean aimingForGoal) {
   if(aimingForGoal){diffDrive.arcadeDrive(1*speed, 1*rotation, squareInputs);}
   else{
-  diffDrive.arcadeDrive(-1*speed, 1*rotation, squareInputs);
-  System.out.println(getAngle());
-  //System.out.println(getDistance());
-}
-  
-  
+  diffDrive.arcadeDrive(-1*speed, 1*rotation, squareInputs);  
+  }
 }
 
 public void resetGyro() {
@@ -54,7 +50,6 @@ public void resetGyro() {
 }
 
 public double getAngle() {
-  System.out.println(gyro.getAngle());
   return gyro.getAngle();
 }
 

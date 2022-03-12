@@ -13,7 +13,7 @@ public class UltrasonicSubsystem extends SubsystemBase {
 
 
   double rawValue; //voltage of pin representing distance
-  private final AnalogInput ultrasonic;  
+  public final AnalogInput ultrasonic;
 
   public UltrasonicSubsystem() {
     ultrasonic = new AnalogInput(0);
@@ -24,7 +24,6 @@ public class UltrasonicSubsystem extends SubsystemBase {
     rawValue = ultrasonic.getValue(); //get current voltage value
     double voltage_scale_factor = 5.0 / RobotController.getVoltage5V(); //convert it to fraction  
     double currentDistanceCentimeters = rawValue * voltage_scale_factor * 0.125; //convert fraction to cm
-    //System.out.println(currentDistanceCentimeters);
     return currentDistanceCentimeters; 
   }
 
