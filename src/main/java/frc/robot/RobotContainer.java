@@ -64,7 +64,7 @@ public class RobotContainer {
   JoystickButton intakeButton = new JoystickButton(stick, 2);
   //JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
-  //JoystickButton deployIntakeButton = new JoystickButton(stick, 8); 
+  JoystickButton deployIntakeButton = new JoystickButton(stick, 9); 
   JoystickButton shootButton = new JoystickButton(stick, 1);
   //JoystickButton maxShootButton = new JoystickButton(stick, 12);
   JoystickButton raiseClimbButton = new JoystickButton(stick, 6);
