@@ -27,7 +27,7 @@ import frc.robot.subsystems.VisionSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SequentialAuto extends SequentialCommandGroup {
+public class SequentialAutoJank extends SequentialCommandGroup {
   /** Creates a new SequentialAuto. */
   ShooterSubsystem shooter;
   DriveSubsystem drive;
@@ -38,7 +38,7 @@ public class SequentialAuto extends SequentialCommandGroup {
   UltrasonicSubsystem sonic;
   BooleanSupplier end = () -> (tracker.isAtHopper() || tracker.isAtIntake() || tracker.isAtKicker());
 
-  public SequentialAuto(ShooterSubsystem shooter, DriveSubsystem drive, IntakeSubsystem intake, HopperSubsystem hopper, BallTrackingSubsystem tracker, VisionSubsystem vision, UltrasonicSubsystem sonic) {
+  public SequentialAutoJank(ShooterSubsystem shooter, DriveSubsystem drive, IntakeSubsystem intake, HopperSubsystem hopper, BallTrackingSubsystem tracker, VisionSubsystem vision, UltrasonicSubsystem sonic) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
     this.drive = drive;
@@ -57,15 +57,13 @@ public class SequentialAuto extends SequentialCommandGroup {
           //new Intake(intake, hopper, tracker),
           new Shoot(shooter, () -> 25000, hopper, tracker)),
 
-      /*new SequentialCommandGroup(
+      new SequentialCommandGroup(
         new ParallelRaceGroup(
           new WaitCommand(1),
-          new Drive(drive, () -> 0, () -> -.2, false, sonic)),
-        new ParallelRaceGroup(
-          new WaitCommand(2),
           new Drive(drive, () -> 0, () -> .2, false, sonic))
         
-      ).withInterrupt(()->vision.isThereABall()),*/
+        
+      ).withInterrupt(()->vision.isThereABall()),
 
       
 

@@ -17,6 +17,7 @@ import frc.robot.Constants.MotorIDConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
+
 public AHRS gyro = new AHRS();
 
 WPI_TalonFX leftFrontMotor = new WPI_TalonFX(MotorIDConstants.leftFrontMotorID);
@@ -43,6 +44,8 @@ public void drive(double speed, double rotation, boolean squareInputs, boolean a
   else{
   diffDrive.arcadeDrive(-1*speed, 1*rotation, squareInputs);  
   }
+  
+  
 }
 
 public void resetGyro() {

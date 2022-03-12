@@ -19,6 +19,7 @@ public class UltrasonicSubsystem extends SubsystemBase {
     ultrasonic = new AnalogInput(0);
   } 
   
+  
   //returns current distance in cm
   public double getDistance() {
     rawValue = ultrasonic.getValue(); //get current voltage value

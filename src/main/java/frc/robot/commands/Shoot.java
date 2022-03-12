@@ -34,13 +34,17 @@ public class Shoot extends CommandBase {
   
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //shooter.resetIntegral();
+  }
 
   @Override
   public void execute() {
 
     shooter.shoot(m_speed.getAsDouble());
+    System.out.println(shooter.getSTUs());
     if(shooter.isAtSpeed()){
+      System.out.println("shooting");
       hopper.spinKickerWheel(0.6);
     } else if (!ballTrackingSubsystem.isAtKicker() && ballTrackingSubsystem.isAtHopper()) {
       hopper.moveBeltsForward();

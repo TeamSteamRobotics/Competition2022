@@ -20,7 +20,7 @@ public class BangBangClimb extends CommandBase {
   @Override
   public void initialize() {
     climb.setCoastMode();
-    climb.resetClimbPosition();
+    //climb.resetClimbPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

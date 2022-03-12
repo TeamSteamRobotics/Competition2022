@@ -60,14 +60,14 @@ public final class Constants {
     public final class ClimbConstants {
         public static final double positionTolerance = 0;
         public static final double velocityTolerance = 0;
-        public static final double minimumClimbHeight = 80;
-        public static final double maximumClimbHeight = 90;
+        public static final double minimumClimbHeight = 77;
+        public static final double maximumClimbHeight = 87;
     }
 
     public final class GyroTurnConstants {
         public static final double kP = .003;
         public static final double kI = .0;
-        public static final double kD = 0.002;
+        public static final double kD = 0.00;
         public static final double velocityTolerance = .5;
         public static final double positionTolerance = 5;
     }

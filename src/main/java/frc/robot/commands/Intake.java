@@ -36,6 +36,7 @@ public class Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  
     if (!ballTrackingSubsystem.isAtKicker()) {
       hopper.moveBeltsForward();
       hopper.spinKickerWheel(0.15);
