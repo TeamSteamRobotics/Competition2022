@@ -30,7 +30,7 @@ public class VisionSubsystem extends SubsystemBase {
   //NetworkTableEntry yawEntry = visionTable.getEntry("targetYaw");
 
   PhotonCamera camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
-  PhotonCamera camera2 = new PhotonCamera("Microsoft_LifeCam_HD-3000 (1)");
+  //PhotonCamera camera2 = new PhotonCamera("Microsoft_LifeCam_HD-3000 (1)");
   
   /*PhotonPipelineResult result = camera.getLatestResult();
   PhotonTrackedTarget target = result.getBestTarget();*/
