@@ -21,11 +21,14 @@ public class UltrasonicSubsystem extends SubsystemBase {
   
   
   //returns current distance in cm
+
   public double getDistance() {
     rawValue = ultrasonic.getValue(); //get current voltage value
     double voltage_scale_factor = 5.0 / RobotController.getVoltage5V(); //convert it to fraction  
     double currentDistanceCentimeters = rawValue * voltage_scale_factor * 0.125; //convert fraction to cm
     return currentDistanceCentimeters; 
+
+    //NEED TO FIX THE ULTRASONIC WIRING
   }
 
   
