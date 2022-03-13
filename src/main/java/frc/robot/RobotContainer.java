@@ -5,9 +5,13 @@
 package frc.robot;
 
 
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.RaiseClimb;
 import frc.robot.commands.BangBangClimb;
 import frc.robot.commands.DeployIntake;
@@ -54,28 +58,29 @@ public class RobotContainer {
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final UltrasonicSubsystem m_sonicSubsystem = new UltrasonicSubsystem();
   public final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+  private final SequentialAuto m_sequentialAuto = new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  private final SequentialAutoJank m_sequentialAutoJank = new SequentialAutoJank(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  private final ThreeBallAuto m_threeBallAuto = new ThreeBallAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   private final Joystick stick = new Joystick(0);
-  //private final XboxController xbox = new XboxController()
+
+
+
+
+
 
   SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
-
-  //JoystickButton shootButton = new JoystickButton(stick, 1);
-  //JoystickButton shootButton = new JoystickButton(stick, ButtonConstants.shootButton);
-
-  //JoystickButton spinUpFlywheelButton = new JoystickButton(stick, 1);
+  SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+ 
+  
   JoystickButton intakeButton = new JoystickButton(stick, 2);
   JoystickButton bangbang = new JoystickButton(stick, 3);
-
   //JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
   JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
   JoystickButton deployIntakeButton = new JoystickButton(stick, 9); 
   JoystickButton shootButton = new JoystickButton(stick, 1);
-  //JoystickButton maxShootButton = new JoystickButton(stick, 12);
   JoystickButton raiseClimbButton = new JoystickButton(stick, 6);
   JoystickButton lowerClimbButton = new JoystickButton(stick, 4);
   JoystickButton vomitButton = new JoystickButton(stick, 5);
-  //JoystickButton visionTurnButton = new JoystickButton(stick, 9);
-  //JoystickButton driveToBallButton = new JoystickButton(stick, 4);
   //JoystickButton climbUpButton = new JoystickButton(stick, 13);
   //JoystickButton climbDownButton = new JoystickButton(stick, 14);
   //JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
@@ -91,7 +96,11 @@ public class RobotContainer {
     //m_driveSubsystem.setDefaultCommand(new GyroTurn(m_driveSubsystem, 0));
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true, m_sonicSubsystem));
     //stick.setThrottleChannel(3);
+    m_autoChooser.addOption("Sequential Auto", m_sequentialAuto);
+    m_autoChooser.addOption("Sequential Auto Jank", m_sequentialAutoJank);
+    m_autoChooser.addOption("Three Ball Auto", m_threeBallAuto);
 
+    SmartDashboard.putData(m_autoChooser);
     
   }
 
@@ -132,9 +141,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    //return new ThreeBallAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
-    return new SequentialAutoJank(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
-    //return null;
+      /*return m_threeBallAuto;
+      return m_sequentialAuto;
+      return m_sequentialAutoJank;*/
+      return m_autoChooser.getSelected();
   }
 }
