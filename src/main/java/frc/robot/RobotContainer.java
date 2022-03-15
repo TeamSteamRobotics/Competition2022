@@ -128,7 +128,7 @@ public class RobotContainer {
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, () -> Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
                                                             
 
     //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));

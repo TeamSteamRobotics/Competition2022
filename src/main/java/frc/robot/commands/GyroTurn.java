@@ -25,7 +25,7 @@ public class GyroTurn extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          drive.drive(-.3, output, false, false);
+          drive.drive(-.3, output, false);
         });
        
     // Use addRequirements() here to declare subsystem dependencies.

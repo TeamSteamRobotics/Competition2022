@@ -36,7 +36,7 @@ UltrasonicSubsystem sonic;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs, false);
+    driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs);
    // System.out.println(sonic.getDistance());
   }
 

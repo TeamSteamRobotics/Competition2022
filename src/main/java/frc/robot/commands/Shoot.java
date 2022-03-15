@@ -20,10 +20,10 @@ public class Shoot extends CommandBase {
 
   /*test*/
   ShooterSubsystem shooter; 
-  DoubleSupplier m_speed;
+  double m_speed;
   HopperSubsystem hopper;
   BallTrackingSubsystem ballTrackingSubsystem;
-  public Shoot(ShooterSubsystem shooter, DoubleSupplier speed, HopperSubsystem hopper, BallTrackingSubsystem ballTrackingSubsystem) {
+  public Shoot(ShooterSubsystem shooter, double speed, HopperSubsystem hopper, BallTrackingSubsystem ballTrackingSubsystem) {
     this.shooter = shooter; 
     this.m_speed = speed;
     this.hopper = hopper;
@@ -35,14 +35,15 @@ public class Shoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //shooter.resetIntegral();
+    shooter.resetIntegral();
   }
 
   @Override
   public void execute() {
 
-    shooter.shoot(m_speed.getAsDouble());
+    shooter.shoot(m_speed);
     System.out.println(shooter.getSTUs());
+    System.out.println("closed loop error" + shooter.getLoopError());
     if(shooter.isAtSpeed()){
       System.out.println("shooting");
       hopper.spinKickerWheel(0.6);

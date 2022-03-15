@@ -45,10 +45,10 @@ public class ShooterSubsystem extends SubsystemBase {
     //backspinMotor.config_kF(0, .011);
 
     rightFlywheelMotor.config_kP(0, .21);
-    rightFlywheelMotor.config_kI(0, .00);
+    rightFlywheelMotor.config_kI(0, .0001);
     rightFlywheelMotor.config_kD(0, .001);
     rightFlywheelMotor.config_kF(0, .0174);
-    //rightFlywheelMotor.config_IntegralZone(0, 1000000);
+    rightFlywheelMotor.config_IntegralZone(0, 60);
   }
 
   public void shoot(double speed){
@@ -61,14 +61,19 @@ public class ShooterSubsystem extends SubsystemBase {
   }
   public void resetIntegral(){
     rightFlywheelMotor.setIntegralAccumulator(0);
-    rightFlywheelMotor.setIntegralAccumulator(1000000);
+    //rightFlywheelMotor.setIntegralAccumulator(1000000);
     //rightFlywheelMotor.config_kI(slotIdx, value, timeoutMs)
 
   }
 
+  public double getLoopError(){
+    return rightFlywheelMotor.getClosedLoopError();
+  }
   
   public boolean isAtSpeed() {
-    return (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.tolerance);
+    
+    if(this.getSTUs() <1000) {return false;}
+    else{return ( Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance);}
   }
 
   public double getRPM() {

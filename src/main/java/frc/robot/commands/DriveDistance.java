@@ -27,7 +27,7 @@ public class DriveDistance extends PIDCommand {
         distance,
         // This uses the output
         output -> {
-          drive.drive(output, 0, false, false);
+          drive.drive(output, 0, false);
           // Use the output here
         });
     // Use addRequirements() here to declare subsystem dependencies.

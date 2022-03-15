@@ -39,11 +39,10 @@ public DriveSubsystem() {
 
 }
 
-public void drive(double speed, double rotation, boolean squareInputs, boolean aimingForGoal) {
-  if(aimingForGoal){diffDrive.arcadeDrive(1*speed, 1*rotation, squareInputs);}
-  else{
+public void drive(double speed, double rotation, boolean squareInputs) {
+  
   diffDrive.arcadeDrive(-1*speed, 1*rotation, squareInputs);  
-  }
+  
   
   
 }

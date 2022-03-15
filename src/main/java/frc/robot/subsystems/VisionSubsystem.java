@@ -98,13 +98,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
 
-  public double getTargetDegrees(boolean aimingForGoal) {
-    if(aimingForGoal){
-      return getGoalAngle();
-    }  
-    else{
-      return getBallAngle();}
-    }
+  
   
   
   @Override

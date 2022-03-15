@@ -47,38 +47,67 @@ public class ThreeBallAuto extends SequentialCommandGroup {
       new InstantCommand(drive::resetGyro, drive),
 
       new ParallelRaceGroup(
-        new WaitCommand(2.5),
-        //new Intake(intake, hopper, tracker),
-        new VisionTurn(drive, vision, false)).withInterrupt(() -> tracker.isAtIntake()),
+          new WaitCommand(2),
+          //new Intake(intake, hopper, tracker),
+          new Shoot(shooter,  25000, hopper, tracker)),
+      
+
+      new ParallelRaceGroup(
+        //new WaitCommand(2.5),
+        new Intake(intake, hopper, tracker),
+        new VisionTurn(drive, vision, .4)).withInterrupt(() -> tracker.isAtHopper()),
 
 
 
 
       new ParallelRaceGroup(
-        new WaitCommand(2.5),
-        //new Intake(intake, hopper, tracker),
-        new GyroTurn(drive, drive.getAngle()+115)).withInterrupt(() -> tracker.isAtIntake()),
+        new WaitCommand(1.2),
+        new Intake(intake, hopper, tracker),
+        //new GyroTurn(drive, drive.getAngle()-115))
+        new Drive(drive, () -> 0, () -> .2, false, sonic)),//.withInterrupt(() -> tracker.isAtHopper()),
 
 
       new ParallelRaceGroup(
-        new WaitCommand(2.5),
-        //new Intake(intake, hopper, tracker),
-        new VisionTurn(drive, vision, false)).withInterrupt(() -> tracker.isAtIntake()),
+        //new WaitCommand(2.5),
+        new Intake(intake, hopper, tracker),
+        new VisionTurn(drive, vision, .4)).withInterrupt(() -> tracker.isAtHopper()),
 
 
 
+
+
+
+
+
+      
 
       new ParallelRaceGroup(
-        new WaitCommand(2.5),
-        //new Intake(intake, hopper, tracker),
-        new GyroTurn(drive, drive.getAngle()+8)).withInterrupt(() -> tracker.isAtIntake()),
+        new WaitCommand(.4),
+        new Intake(intake, hopper, tracker),
+        new Drive(drive, () -> 0, () -> -.2, false, sonic)),
         
         //new GyroTurn(drive, drive.getAngle()-60),
 
-      new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <50),
 
-      new GyroTurn(drive, 0)
 
+
+        new SequentialCommandGroup(
+          new ParallelRaceGroup( 
+            new Drive(drive, () -> -.3, () -> 0, false, sonic),
+            new WaitCommand(1.6),
+            new Intake(intake, hopper, tracker)
+          ),
+          new GyroTurn(drive, 0)).withInterrupt(() -> sonic.getDistance() <34),
+
+
+
+
+
+        new ParallelRaceGroup(
+          //new WaitCommand(4),
+          //new Intake(intake, hopper, tracker),
+          new Shoot(shooter,  25000, hopper, tracker))
+      
 
       /*new SequentialCommandGroup(
         new ParallelRaceGroup(
