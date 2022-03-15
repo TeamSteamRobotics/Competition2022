@@ -112,7 +112,7 @@ new SequentialCommandGroup(
         new SequentialCommandGroup(
           new ParallelRaceGroup( 
             new Drive(drive, () -> -.3, () -> 0, false, sonic),
-            new WaitCommand(1)
+            new WaitCommand(2.5)
           ),
           new GyroTurn(drive, 0)).withInterrupt(() -> sonic.getDistance() <34),
 

@@ -100,7 +100,7 @@ new SequentialCommandGroup(
     new VisionTurn(drive, vision, false),
     new Intake(intake, hopper, tracker),
     new WaitCommand(3)
-  ),
+  ).withInterrupt(() -> tracker.isAtHopper()),
   new ParallelRaceGroup( 
     new Drive(drive, () -> .3, () -> 0, false, sonic),
     new Intake(intake, hopper, tracker)
@@ -114,7 +114,7 @@ new SequentialCommandGroup(
         new SequentialCommandGroup(
           new ParallelRaceGroup( 
             new Drive(drive, () -> -.3, () -> 0, false, sonic),
-            new WaitCommand(1)
+            new WaitCommand(.7)
           ),
           new GyroTurn(drive, 0)).withInterrupt(() -> sonic.getDistance() <34),
 

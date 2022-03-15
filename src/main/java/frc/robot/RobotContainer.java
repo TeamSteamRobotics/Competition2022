@@ -69,7 +69,7 @@ public class RobotContainer {
 
 
   SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
-  SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+  SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
  
   
   JoystickButton intakeButton = new JoystickButton(stick, 2);
@@ -101,6 +101,7 @@ public class RobotContainer {
     m_autoChooser.addOption("Three Ball Auto", m_threeBallAuto);
 
     SmartDashboard.putData(m_autoChooser);
+    
     
   }
 

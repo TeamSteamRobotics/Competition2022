@@ -47,7 +47,7 @@ public class ShooterSubsystem extends SubsystemBase {
     rightFlywheelMotor.config_kP(0, .21);
     rightFlywheelMotor.config_kI(0, .00);
     rightFlywheelMotor.config_kD(0, .001);
-    rightFlywheelMotor.config_kF(0, .017);
+    rightFlywheelMotor.config_kF(0, .0174);
     //rightFlywheelMotor.config_IntegralZone(0, 1000000);
   }
 
