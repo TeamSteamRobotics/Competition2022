@@ -102,7 +102,7 @@ new SequentialCommandGroup(
     new WaitCommand(3)
   ).withInterrupt(() -> tracker.isAtHopper()),
   new ParallelRaceGroup( 
-    new Drive(drive, () -> .3, () -> 0, false, sonic),
+    new Drive(drive, () -> .3, () -> 0, false),
     new Intake(intake, hopper, tracker)
   )
   ).withInterrupt(() -> tracker.isAtHopper()),
@@ -113,7 +113,7 @@ new SequentialCommandGroup(
 */
         new SequentialCommandGroup(
           new ParallelRaceGroup( 
-            new Drive(drive, () -> -.3, () -> 0, false, sonic),
+            new Drive(drive, () -> -.3, () -> 0, false),
             new WaitCommand(.7),
             new Intake(intake, hopper, tracker)
           ),

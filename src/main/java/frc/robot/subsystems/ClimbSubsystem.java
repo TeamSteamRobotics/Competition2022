@@ -33,17 +33,14 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public ClimbSubsystem() {
     leftClimb.follow(rightClimb, true);
-    pidController.setP(0);
-    pidController.setI(0);
-    pidController.setD(0);
   }
 
   public void raiseClimb() {
-    rightClimb.set(-.5);
+    rightClimb.set(.5);
   }
 
   public void retractClimb() {
-    rightClimb.set(.5);
+    rightClimb.set(-.5);
   }
   
   public void stopClimb() {

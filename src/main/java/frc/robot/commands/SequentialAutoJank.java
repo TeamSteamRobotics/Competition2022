@@ -60,7 +60,7 @@ public class SequentialAutoJank extends SequentialCommandGroup {
       new SequentialCommandGroup(
         new ParallelRaceGroup(
           new WaitCommand(.35),
-          new Drive(drive, () -> 0, () -> .2, false, sonic))
+          new Drive(drive, () -> 0, () -> .2, false))
         
         
       ),//.withInterrupt(()->vision.isThereABall()),
@@ -100,7 +100,7 @@ new SequentialCommandGroup(
     new WaitCommand(3)
   ),
   new ParallelRaceGroup( 
-    new Drive(drive, () -> .3, () -> 0, false, sonic),
+    new Drive(drive, () -> .3, () -> 0, false),
     new Intake(intake, hopper, tracker)
   )
   ).withInterrupt(() -> tracker.isAtHopper()),
@@ -111,7 +111,7 @@ new SequentialCommandGroup(
 */
         new SequentialCommandGroup(
           new ParallelRaceGroup( 
-            new Drive(drive, () -> -.3, () -> 0, false, sonic),
+            new Drive(drive, () -> -.3, () -> 0, false),
             new WaitCommand(1.9),
             new Intake(intake, hopper, tracker)
           ),

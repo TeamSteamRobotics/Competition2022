@@ -75,12 +75,12 @@ public class RobotContainer {
   JoystickButton intakeButton = new JoystickButton(stick, 2);
   JoystickButton bangbang = new JoystickButton(stick, 3);
   //JoystickButton moveHopperForwardButton = new JoystickButton(stick, 6);
-  JoystickButton undeployIntakeButton = new JoystickButton(stick, 7);
-  JoystickButton deployIntakeButton = new JoystickButton(stick, 9); 
+  JoystickButton retractIntakeButton = new JoystickButton(stick, 5);
+  //JoystickButton deployIntakeButton = new JoystickButton(stick, 9); 
   JoystickButton shootButton = new JoystickButton(stick, 1);
-  JoystickButton raiseClimbButton = new JoystickButton(stick, 6);
+  JoystickButton raiseClimbButton = new JoystickButton(stick, 12);
   JoystickButton lowerClimbButton = new JoystickButton(stick, 4);
-  JoystickButton vomitButton = new JoystickButton(stick, 5);
+  JoystickButton vomitButton = new JoystickButton(stick, 6);
   //JoystickButton climbUpButton = new JoystickButton(stick, 13);
   //JoystickButton climbDownButton = new JoystickButton(stick, 14);
   //JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
@@ -94,10 +94,10 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     //m_driveSubsystem.setDefaultCommand(new GyroTurn(m_driveSubsystem, 0));
-    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true, m_sonicSubsystem));
+    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
     //stick.setThrottleChannel(3);
-    m_autoChooser.addOption("Sequential Auto", m_sequentialAuto);
-    m_autoChooser.addOption("Sequential Auto Jank", m_sequentialAutoJank);
+    m_autoChooser.addOption("Two Ball Auto", m_sequentialAuto);
+    m_autoChooser.addOption("Two Ball Auto with Turn", m_sequentialAutoJank);
     m_autoChooser.addOption("Three Ball Auto", m_threeBallAuto);
 
     SmartDashboard.putData(m_autoChooser);
@@ -116,8 +116,8 @@ public class RobotContainer {
       new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem, 0.4))
     );*/
     intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem));
-    // deployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
-    undeployIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
+    //undeployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
+    retractIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
     vomitButton.whileHeld(new VomitAll(m_hopperSubsystem, m_intakeSubsystem));
     raiseClimbButton.whileHeld(new RaiseClimb(m_climbSubsystem));
     lowerClimbButton.whileHeld(new LowerClimb(m_climbSubsystem));

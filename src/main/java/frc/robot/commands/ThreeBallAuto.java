@@ -64,7 +64,7 @@ public class ThreeBallAuto extends SequentialCommandGroup {
         new WaitCommand(1.2),
         new Intake(intake, hopper, tracker),
         //new GyroTurn(drive, drive.getAngle()-115))
-        new Drive(drive, () -> 0, () -> .2, false, sonic)),//.withInterrupt(() -> tracker.isAtHopper()),
+        new Drive(drive, () -> 0, () -> .2, false)),//.withInterrupt(() -> tracker.isAtHopper()),
 
 
       new ParallelRaceGroup(
@@ -84,7 +84,7 @@ public class ThreeBallAuto extends SequentialCommandGroup {
       new ParallelRaceGroup(
         new WaitCommand(.4),
         new Intake(intake, hopper, tracker),
-        new Drive(drive, () -> 0, () -> -.2, false, sonic)),
+        new Drive(drive, () -> 0, () -> -.2, false)),
         
         //new GyroTurn(drive, drive.getAngle()-60),
 
@@ -93,8 +93,8 @@ public class ThreeBallAuto extends SequentialCommandGroup {
 
         new SequentialCommandGroup(
           new ParallelRaceGroup( 
-            new Drive(drive, () -> -.3, () -> 0, false, sonic),
-            new WaitCommand(1.6),
+            new Drive(drive, () -> -.3, () -> 0, false),
+            new WaitCommand(1.4),
             new Intake(intake, hopper, tracker)
           ),
           new GyroTurn(drive, 0)).withInterrupt(() -> sonic.getDistance() <34),

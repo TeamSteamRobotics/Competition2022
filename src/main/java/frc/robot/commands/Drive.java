@@ -17,14 +17,14 @@ DriveSubsystem driveSubsystem;
 DoubleSupplier speed;
 DoubleSupplier rotation; 
 boolean squareInputs;
-UltrasonicSubsystem sonic;
-  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs, UltrasonicSubsystem sonic) {
+
+  public Drive(DriveSubsystem m_driveSubsystem, DoubleSupplier speed, DoubleSupplier rotation, boolean squareInputs) {
     driveSubsystem = m_driveSubsystem;
     addRequirements(driveSubsystem);
     this.speed = speed;
     this.rotation = rotation;
     this.squareInputs = squareInputs;
-    this.sonic = sonic;
+    
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +37,7 @@ UltrasonicSubsystem sonic;
   @Override
   public void execute() {
     driveSubsystem.drive(speed.getAsDouble(), rotation.getAsDouble(), squareInputs);
-   // System.out.println(sonic.getDistance());
+   
   }
 
   // Called once the command ends or is interrupted.
