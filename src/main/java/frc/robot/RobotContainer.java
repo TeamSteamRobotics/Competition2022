@@ -133,12 +133,7 @@ public class RobotContainer {
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
     shootButton.whileHeld(new Shoot(m_shooterSubsystem, Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
-    musicButton.whileHeld(
-      new SequentialCommandGroup(
-        new Music(m_driveSubsystem, "RickRoll.chrp"),
-        new WaitCommand(60)
-      )
-    );
+    musicButton.whileHeld(new Music(m_driveSubsystem, "RickRoll.chrp").withTimeout(60));
 
     //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
     //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
