@@ -6,6 +6,7 @@ package frc.robot;
 
 
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -19,6 +20,7 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.GyroTurn;
 import frc.robot.commands.Intake;
 import frc.robot.commands.LowerClimb;
+import frc.robot.commands.Music;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.SequentialAutoJank;
@@ -39,6 +41,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -81,6 +84,7 @@ public class RobotContainer {
   JoystickButton raiseClimbButton = new JoystickButton(stick, 12);
   JoystickButton lowerClimbButton = new JoystickButton(stick, 4);
   JoystickButton vomitButton = new JoystickButton(stick, 6);
+  JoystickButton musicButton = new JoystickButton(stick, 11);
   //JoystickButton climbUpButton = new JoystickButton(stick, 13);
   //JoystickButton climbDownButton = new JoystickButton(stick, 14);
   //JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
@@ -129,7 +133,12 @@ public class RobotContainer {
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
     shootButton.whileHeld(new Shoot(m_shooterSubsystem, Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
-                                                            
+    musicButton.whileHeld(
+      new SequentialCommandGroup(
+        new Music(m_driveSubsystem, "RickRoll.chrp"),
+        new WaitCommand(60)
+      )
+    );
 
     //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
     //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));

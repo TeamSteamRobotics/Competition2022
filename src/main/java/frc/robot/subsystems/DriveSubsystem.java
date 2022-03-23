@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 
+import java.util.Arrays;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.music.Orchestra;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -25,6 +28,7 @@ WPI_TalonFX leftBackMotor = new WPI_TalonFX(MotorIDConstants.leftBackMotorID);
 WPI_TalonFX rightBackMotor = new WPI_TalonFX(MotorIDConstants.rightBackMotorID);
 WPI_TalonFX rightFrontMotor = new WPI_TalonFX(MotorIDConstants.rightFrontMotorID);
 
+Orchestra orch = new Orchestra(Arrays.asList(leftFrontMotor, leftBackMotor, rightBackMotor, rightFrontMotor));
 
 MotorControllerGroup rightMotorController = new MotorControllerGroup(rightBackMotor, rightFrontMotor);
 MotorControllerGroup leftMotorController = new MotorControllerGroup(leftBackMotor, leftFrontMotor);
@@ -35,16 +39,22 @@ public DifferentialDrive diffDrive = new DifferentialDrive(leftMotorController, 
 public DriveSubsystem() {
   rightMotorController.setInverted(true); 
   resetGyro();
-  
-
 }
 
 public void drive(double speed, double rotation, boolean squareInputs) {
-  
   diffDrive.arcadeDrive(-1*speed, 1*rotation, squareInputs);  
-  
-  
-  
+}
+
+public void loadMusic(String songFilePath) {
+  orch.loadMusic(songFilePath);
+}
+
+public void playMusic() {
+  orch.play();
+}
+
+public void stopMusic() {
+  orch.stop();
 }
 
 public void resetGyro() {
