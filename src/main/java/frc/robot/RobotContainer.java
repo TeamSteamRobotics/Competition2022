@@ -73,6 +73,7 @@ public class RobotContainer {
 
   SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
+  SendableChooser<String> m_musicChoice = new SendableChooser<String>();
  
   
   JoystickButton intakeButton = new JoystickButton(stick, 2);
@@ -103,6 +104,13 @@ public class RobotContainer {
     m_autoChooser.addOption("Two Ball Auto", m_sequentialAuto);
     m_autoChooser.addOption("Two Ball Auto with Turn", m_sequentialAutoJank);
     m_autoChooser.addOption("Three Ball Auto", m_threeBallAuto);
+    
+    m_musicChoice.addOption("RickRoll", "RickRoll.chrp");
+    m_musicChoice.addOption("Imperial March", "ImperialMarch.chrp");
+    m_musicChoice.addOption("OneWeek", "OneWeek.chrp");
+    m_musicChoice.addOption("Closing Time", "ClosingTime.chrp");
+
+    SmartDashboard.putData(m_musicChoice);
 
     SmartDashboard.putData(m_autoChooser);
     
@@ -133,7 +141,7 @@ public class RobotContainer {
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
     shootButton.whileHeld(new Shoot(m_shooterSubsystem, Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
-    musicButton.whileHeld(new Music(m_driveSubsystem, "RickRoll.chrp").withTimeout(60));
+    musicButton.whileHeld(new Music(m_driveSubsystem, m_musicChoice.getSelected()).withTimeout(60));
 
     //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
     //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
