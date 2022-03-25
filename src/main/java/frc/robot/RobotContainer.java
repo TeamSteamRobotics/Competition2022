@@ -6,6 +6,7 @@ package frc.robot;
 
 
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -19,6 +20,7 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.GyroTurn;
 import frc.robot.commands.Intake;
 import frc.robot.commands.LowerClimb;
+import frc.robot.commands.Music;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.SequentialAutoJank;
@@ -42,6 +44,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -76,6 +79,7 @@ public class RobotContainer {
 
   SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
+  SendableChooser<String> m_musicChoice = new SendableChooser<String>();
  
   
   JoystickButton intakeButton = new JoystickButton(stick, 2);
@@ -89,6 +93,7 @@ public class RobotContainer {
   JoystickButton vomitButton = new JoystickButton(stick, 6);
   JoystickButton incrementSpeed = new JoystickButton(stick, 8);
   JoystickButton decrementSpeed = new JoystickButton(stick, 7);
+  JoystickButton musicButton = new JoystickButton(stick, 11);
   //JoystickButton climbUpButton = new JoystickButton(stick, 13);
   //JoystickButton climbDownButton = new JoystickButton(stick, 14);
   //JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
@@ -109,6 +114,14 @@ public class RobotContainer {
     m_autoChooser.addOption("Three Ball Auto", m_threeBallAuto);
     m_autoChooser.addOption("Taxi Auto", m_taxiAuto);
     m_autoChooser.addOption("Visionless Auto", m_visionlessAuto);
+    
+    m_musicChoice.addOption("RickRoll", "RickRoll.chrp");
+    m_musicChoice.addOption("Imperial March", "ImperialMarch.chrp");
+    m_musicChoice.addOption("OneWeek", "OneWeek.chrp");
+    m_musicChoice.addOption("Closing Time", "ClosingTime.chrp");
+
+    SmartDashboard.putData(m_musicChoice);
+
     SmartDashboard.putData(m_autoChooser);
     SmartDashboard.putNumber("Requested Speed", shooterSpeed);
     
@@ -142,6 +155,8 @@ public class RobotContainer {
     decrementSpeed.whenPressed(new InstantCommand(()->{shooterSpeed -=500; SmartDashboard.putNumber("Requested Speed", shooterSpeed);}));
     shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
                                                             
+    //shootButton.whileHeld(new Shoot(m_shooterSubsystem, Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
+    musicButton.whileHeld(new Music(m_driveSubsystem, m_musicChoice.getSelected()).withTimeout(60));
 
     //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
     //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
