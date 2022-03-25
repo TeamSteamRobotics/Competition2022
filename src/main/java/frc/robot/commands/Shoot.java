@@ -41,12 +41,8 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
 
-    shooter.shoot(m_speed.getAsDouble());
-    System.out.println(shooter.getSTUs());
-    System.out.println("closed loop error" + shooter.getLoopError());
-    
+    shooter.shoot(m_speed.getAsDouble()); 
     if(shooter.isAtSpeed()){
-      System.out.println("shooting");
       hopper.spinKickerWheel(0.4);
       
     } else if (!ballTrackingSubsystem.isAtKicker() && ballTrackingSubsystem.isAtHopper()) {

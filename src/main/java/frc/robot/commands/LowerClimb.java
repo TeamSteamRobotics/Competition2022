@@ -26,7 +26,6 @@ public class LowerClimb extends CommandBase {
   @Override
   public void execute() {
     climb.retractClimb();
-    System.out.println("Encoder: " + climb.getClimbPosition());
   }
 
   // Called once the command ends or is interrupted.

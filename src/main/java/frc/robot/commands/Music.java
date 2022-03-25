@@ -27,4 +27,9 @@ public class Music extends CommandBase {
   public void end(boolean interrupted) {
     drive.stopMusic();
   }
+
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 }

@@ -71,9 +71,7 @@ public class ShooterSubsystem extends SubsystemBase {
     return rightFlywheelMotor.getClosedLoopError();
   }
   public boolean getAccelerationError(){
-    System.out.println("acceleration error" + rightFlywheelMotor.getErrorDerivative());
-    return Math.abs(rightFlywheelMotor.getErrorDerivative()) < 20;
-    
+    return Math.abs(rightFlywheelMotor.getErrorDerivative()) < 20;    
   }
   
   public boolean isAtSpeed() {
