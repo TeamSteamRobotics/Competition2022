@@ -24,8 +24,10 @@ import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.SequentialAutoJank;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
+import frc.robot.commands.TaxiAuto;
 import frc.robot.commands.ThreeBallAuto;
 import frc.robot.commands.VisionTurn;
+import frc.robot.commands.VisionlessAuto;
 import frc.robot.commands.VomitAll;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -36,6 +38,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -48,6 +51,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private  double shooterSpeed = 21500;
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
@@ -61,7 +65,9 @@ public class RobotContainer {
   private final SequentialAuto m_sequentialAuto = new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   private final SequentialAutoJank m_sequentialAutoJank = new SequentialAutoJank(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   private final ThreeBallAuto m_threeBallAuto = new ThreeBallAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  private final TaxiAuto m_taxiAuto = new TaxiAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   private final Joystick stick = new Joystick(0);
+  private final VisionlessAuto m_visionlessAuto = new VisionlessAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
 
 
 
@@ -81,6 +87,8 @@ public class RobotContainer {
   JoystickButton raiseClimbButton = new JoystickButton(stick, 12);
   JoystickButton lowerClimbButton = new JoystickButton(stick, 4);
   JoystickButton vomitButton = new JoystickButton(stick, 6);
+  JoystickButton incrementSpeed = new JoystickButton(stick, 8);
+  JoystickButton decrementSpeed = new JoystickButton(stick, 7);
   //JoystickButton climbUpButton = new JoystickButton(stick, 13);
   //JoystickButton climbDownButton = new JoystickButton(stick, 14);
   //JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
@@ -99,8 +107,10 @@ public class RobotContainer {
     m_autoChooser.addOption("Two Ball Auto", m_sequentialAuto);
     m_autoChooser.addOption("Two Ball Auto with Turn", m_sequentialAutoJank);
     m_autoChooser.addOption("Three Ball Auto", m_threeBallAuto);
-
+    m_autoChooser.addOption("Taxi Auto", m_taxiAuto);
+    m_autoChooser.addOption("Visionless Auto", m_visionlessAuto);
     SmartDashboard.putData(m_autoChooser);
+    SmartDashboard.putNumber("Requested Speed", shooterSpeed);
     
     
   }
@@ -128,7 +138,9 @@ public class RobotContainer {
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
+    incrementSpeed.whenPressed(new InstantCommand(()->{shooterSpeed +=500; SmartDashboard.putNumber("Requested Speed", shooterSpeed);}));
+    decrementSpeed.whenPressed(new InstantCommand(()->{shooterSpeed -=500; SmartDashboard.putNumber("Requested Speed", shooterSpeed);}));
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
                                                             
 
     //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));

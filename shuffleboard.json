@@ -17,7 +17,7 @@
             ],
             "content": {
               "_type": "Camera Stream",
-              "_source0": "camera_server://Microsoft_LifeCam_HD-3000-input",
+              "_source0": "camera_server://Microsoft_LifeCam_HD-3000-output",
               "_title": "Camera Stream",
               "Crosshair/Show crosshair": true,
               "Crosshair/Crosshair color": "#FFFFFFFF",
@@ -118,6 +118,28 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Ultrasonic",
               "_title": "Ultrasonic"
+            }
+          },
+          "8,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shoot Spd",
+              "_title": "/SmartDashboard/Shoot Spd"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Requested Speed",
+              "_title": "SmartDashboard/Requested Speed"
             }
           }
         }
@@ -358,9 +380,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -8.0,
-    "y": -8.0,
-    "width": 1616.0,
-    "height": 876.0
+    "x": -7.0,
+    "y": 2.0,
+    "width": 1612.0,
+    "height": 865.0
   }
 }

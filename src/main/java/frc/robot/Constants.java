@@ -73,7 +73,7 @@ public final class Constants {
     }
 
     public final class FlywheelConstants {
-        public static final double shooterSpeed = 25000;
+        public static final double shooterSpeed = 21000;
         public static final double maxShooterSpeed = 40000;
         public static final double kP = 5;
         public static final double kI = 0;

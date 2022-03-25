@@ -55,57 +55,21 @@ public class SequentialAuto extends SequentialCommandGroup {
       new ParallelRaceGroup(
           new WaitCommand(4),
           //new Intake(intake, hopper, tracker),
-          new Shoot(shooter,  25000, hopper, tracker)),
-
-      /*new SequentialCommandGroup(
-        new ParallelRaceGroup(
-          new WaitCommand(1),
-          new Drive(drive, () -> 0, () -> -.2, false, sonic)),
-        new ParallelRaceGroup(
-          new WaitCommand(2),
-          new Drive(drive, () -> 0, () -> .2, false, sonic))
-        
-      ).withInterrupt(()->vision.isThereABall()),*/
-
-      
-
-      
-
-     /* new ParallelRaceGroup(
-        new WaitCommand(2),
-        new Intake(intake, hopper, tracker),
-        new VisionTurn(drive, vision, false)),
-
-      new Drive(drive,() -> 0.3, () -> 0, false, sonic).withInterrupt(()->tracker.isAtHopper()),
-      
-      new Drive(drive,() -> -0.3, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <50),
-
-
-      new ParallelRaceGroup(
-        new WaitCommand(2),
-        //new Intake(intake, hopper, tracker),
-        new GyroTurn(drive, 0)),
-*/
-        
-        
-        
+          new Shoot(shooter,  ()->21000, hopper, tracker)),
 
         
-
-
-
-
-new SequentialCommandGroup(
-  new ParallelRaceGroup( 
-    new VisionTurn(drive, vision, .3),
-    new Intake(intake, hopper, tracker),
-    new WaitCommand(3)
-  ).withInterrupt(() -> tracker.isAtHopper()),
-  new ParallelRaceGroup( 
-    new Drive(drive, () -> .3, () -> 0, false),
-    new Intake(intake, hopper, tracker)
-  )
-  ).withInterrupt(() -> tracker.isAtHopper()),
+        
+      new SequentialCommandGroup(
+        new ParallelRaceGroup( 
+          new VisionTurn(drive, vision, .3),
+          new Intake(intake, hopper, tracker),
+          new WaitCommand(3)
+        ).withInterrupt(() -> tracker.isAtHopper()),
+        new ParallelRaceGroup( 
+          new Drive(drive, () -> .3, () -> 0, false),
+          new Intake(intake, hopper, tracker)
+        )
+        ).withInterrupt(() -> tracker.isAtHopper()),
 
       /*  new ParallelRaceGroup(
           new Intake(intake, hopper, tracker),
@@ -126,7 +90,7 @@ new SequentialCommandGroup(
         new ParallelRaceGroup(
           //new WaitCommand(4),
           //new Intake(intake, hopper, tracker),
-          new Shoot(shooter,  25000, hopper, tracker))
+          new Shoot(shooter,  ()->21000, hopper, tracker))
     );
       
   }

@@ -49,7 +49,7 @@ public class ThreeBallAuto extends SequentialCommandGroup {
       new ParallelRaceGroup(
           new WaitCommand(2),
           //new Intake(intake, hopper, tracker),
-          new Shoot(shooter,  25000, hopper, tracker)),
+          new Shoot(shooter, ()-> 21000, hopper, tracker)),
       
 
       new ParallelRaceGroup(
@@ -61,7 +61,7 @@ public class ThreeBallAuto extends SequentialCommandGroup {
 
 
       new ParallelRaceGroup(
-        new WaitCommand(1.2),
+        new WaitCommand(2.4),
         new Intake(intake, hopper, tracker),
         //new GyroTurn(drive, drive.getAngle()-115))
         new Drive(drive, () -> 0, () -> .2, false)),//.withInterrupt(() -> tracker.isAtHopper()),
@@ -106,60 +106,9 @@ public class ThreeBallAuto extends SequentialCommandGroup {
         new ParallelRaceGroup(
           //new WaitCommand(4),
           //new Intake(intake, hopper, tracker),
-          new Shoot(shooter,  25000, hopper, tracker))
+          new Shoot(shooter, ()->  21000, hopper, tracker))
       
-
-      /*new SequentialCommandGroup(
-        new ParallelRaceGroup(
-          new WaitCommand(1),
-          new Drive(drive, () -> 0, () -> -.2, false, sonic)),
-        new ParallelRaceGroup(
-          new WaitCommand(2),
-          new Drive(drive, () -> 0, () -> .2, false, sonic))
-        
-      ).withInterrupt(()->vision.isThereABall()),
-
-      
-      new ParallelRaceGroup(
-        new WaitCommand(2),
-        new VisionTurn(drive, vision, false)),
-
-      new WaitCommand(3),
-
-      new Drive(drive, () -> 0, () -> .2, false, sonic).withInterrupt(()->vision.isThereABall()),
-
-      new ParallelRaceGroup(
-        new WaitCommand(2),
-        new VisionTurn(drive, vision, false)),*/
-
-      //new GyroTurn(drive, drive.getAngle()+60)
-
-      //new Drive(drive, () -> -.2, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<40)),
-
-      //new GyroTurn(drive, 0)
-      
-
-    
-    /*
-      new InstantCommand(drive::resetGyro, drive),
-      new ParallelRaceGroup(
-        new WaitCommand(3),
-        new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker)),
-      
-
-      new ParallelRaceGroup(
-        //new Drive(drive, () -> .5, () -> 0, false, sonic),
-        new VisionTurn(drive, vision, false),
-        new Intake(intake, hopper, tracker)
-      ).withInterrupt(tracker::isAtHopper),
-
-      new Drive(drive,() -> -0.2, () -> 0, false, sonic).withInterrupt(() -> sonic.getDistance() <40),
-      new GyroTurn(drive, 0),
-      //new VisionTurn(drive, vision, false).withInterrupt(() -> (sonic.getDistance()<40)),
-      //new Drive(drive, () -> -.4, () -> 0, true, sonic).withInterrupt(() -> (sonic.getDistance()<40)),
-      new ParallelDeadlineGroup(new WaitCommand(1), 
-      new Shoot(shooter, ()-> Constants.FlywheelConstants.shooterSpeed, hopper, tracker))*/
-);
+    );
       
   }
 }

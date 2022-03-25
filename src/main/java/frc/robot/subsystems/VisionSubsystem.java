@@ -13,6 +13,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class VisionSubsystem extends SubsystemBase {
@@ -37,6 +38,7 @@ public class VisionSubsystem extends SubsystemBase {
 
 
   public VisionSubsystem() {
+    PortForwarder.add(5800, "photonvision.local", 5800);
   }
 
   public boolean isRedAlliance() {

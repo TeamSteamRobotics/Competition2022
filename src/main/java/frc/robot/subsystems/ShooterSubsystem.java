@@ -45,15 +45,15 @@ public class ShooterSubsystem extends SubsystemBase {
     //backspinMotor.config_kF(0, .011);
 
     rightFlywheelMotor.config_kP(0, .21);
-    rightFlywheelMotor.config_kI(0, .0001);
+    rightFlywheelMotor.config_kI(0, .0002);
     rightFlywheelMotor.config_kD(0, .001);
-    rightFlywheelMotor.config_kF(0, .0174);
-    rightFlywheelMotor.config_IntegralZone(0, 60);
+    rightFlywheelMotor.config_kF(0, .017);
+    rightFlywheelMotor.config_IntegralZone(0, 200);
   }
 
   public void shoot(double speed){
     rightFlywheelMotor.set(ControlMode.Velocity, speed);
-    backspinMotor.set(.2);
+    backspinMotor.set(.2); //.4
   }
 
   public double getSTUs() {
@@ -65,15 +65,21 @@ public class ShooterSubsystem extends SubsystemBase {
     //rightFlywheelMotor.config_kI(slotIdx, value, timeoutMs)
 
   }
+  
 
   public double getLoopError(){
     return rightFlywheelMotor.getClosedLoopError();
+  }
+  public boolean getAccelerationError(){
+    System.out.println("acceleration error" + rightFlywheelMotor.getErrorDerivative());
+    return Math.abs(rightFlywheelMotor.getErrorDerivative()) < 20;
+    
   }
   
   public boolean isAtSpeed() {
     
     if(this.getSTUs() <1000) {return false;}
-    else{return ( Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance);}
+    else{return (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance);}
   }
 
   public double getRPM() {

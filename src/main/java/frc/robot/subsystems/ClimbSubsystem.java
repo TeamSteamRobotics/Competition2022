@@ -36,11 +36,11 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void raiseClimb() {
-    rightClimb.set(.5);
+    rightClimb.set(-.5);
   }
 
   public void retractClimb() {
-    rightClimb.set(-.5);
+    rightClimb.set(.5);
   }
   
   public void stopClimb() {
