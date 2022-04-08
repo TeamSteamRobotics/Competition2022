@@ -39,10 +39,10 @@ public class ShooterSubsystem extends SubsystemBase {
     backspinMotor.setNeutralMode(NeutralMode.Coast);
     backspinMotor.setSensorPhase(false);
     backspinMotor.selectProfileSlot(0, 0);
-    backspinMotor.config_kP(0, 0.01);
-    backspinMotor.config_kI(0, .0000);
-    backspinMotor.config_kD(0, 00);
-    //backspinMotor.config_kF(0, .011);
+    backspinMotor.config_kP(0, 0.05);
+    backspinMotor.config_kI(0, .00001);
+    backspinMotor.config_kD(0, .005);
+    backspinMotor.config_kF(0, .0229);
 
     rightFlywheelMotor.config_kP(0, .21);
     rightFlywheelMotor.config_kI(0, .0002);
@@ -53,7 +53,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void shoot(double speed){
     rightFlywheelMotor.set(ControlMode.Velocity, speed);
-    backspinMotor.set(.2); //.4
+    //backspinMotor.set(.2); //.4
+    backspinMotor.set(ControlMode.Velocity, 10000);
+    System.out.println(backspinMotor.getSelectedSensorVelocity());
+   // System.out.println(rightFlywheelMotor.getSelectedSensorVelocity());
+
   }
 
   public double getSTUs() {
@@ -71,13 +75,13 @@ public class ShooterSubsystem extends SubsystemBase {
     return rightFlywheelMotor.getClosedLoopError();
   }
   public boolean getAccelerationError(){
-    return Math.abs(rightFlywheelMotor.getErrorDerivative()) < 20;    
+    return (Math.abs(backspinMotor.getErrorDerivative()) < 20) && Math.abs(rightFlywheelMotor.getErrorDerivative()) < 20;    
   }
   
   public boolean isAtSpeed() {
     
     if(this.getSTUs() <1000) {return false;}
-    else{return (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance);}
+    else{return (Math.abs(backspinMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance) && (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance);}
   }
 
   public double getRPM() {

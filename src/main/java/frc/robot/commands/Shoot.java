@@ -42,7 +42,7 @@ public class Shoot extends CommandBase {
   public void execute() {
 
     shooter.shoot(m_speed.getAsDouble()); 
-    if(shooter.isAtSpeed()){
+    if(shooter.isAtSpeed() && shooter.getAccelerationError()){
       hopper.spinKickerWheel(0.4);
       
     } else if (!ballTrackingSubsystem.isAtKicker() && ballTrackingSubsystem.isAtHopper()) {
