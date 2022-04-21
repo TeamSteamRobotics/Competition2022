@@ -19,39 +19,44 @@ import frc.robot.Constants.MotorIDConstants;
 import frc.robot.commands.Intake;
 
 public class IntakeSubsystem extends SubsystemBase {
-  /** Creates a new IntakeSubsystem. */
-  
+
+  //Creates the solenoids that will pneumatically actuate our pistons to manage our kicker bar and our intake
   Solenoid intakeSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, Constants.IntakeSubsystemConstants.intakeSolenoidChannel);
   Solenoid kickerBarSolenoid = new Solenoid(10, PneumaticsModuleType.CTREPCM, Constants.IntakeSubsystemConstants.kickerBarSolenoidChannel);
+  //Creates the motor that will suck in the balls
   WPI_VictorSPX intakeMotor = new WPI_VictorSPX(MotorIDConstants.intakeMotorID);
 
+  /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {}
 
+  /** spins the intake to suck in a ball */
   public void intake(){
     intakeMotor.set(IntakeSubsystemConstants.intakeMotorSpeed);
   }
-
+/** sets the speed of the intake motor to zero */
   public void stop(){
     intakeMotor.set(0);
   }
-
+/** spins the intake in the oppose direction to eject an intaked ball */
   public void reverseIntake(){
     intakeMotor.set(-IntakeSubsystemConstants.intakeMotorSpeed);
   }
+  /** pneumatically actuates the pistons to deploy the intake */
   public void deployIntake(){
     intakeSolenoid.set(true);
   }
+  /** pneumatically actuates the pistons to deploy the kickerbar */
   public void deployKicker(){
     kickerBarSolenoid.set(true);
   }
+  /** pneumatically actuates the pistones to retract the intake */
   public void undeployIntake(){
     intakeSolenoid.set(false); 
   }
+  /**pneumatically actuates the pistons to retract the kickerbar */
   public void undeployKicker(){
     kickerBarSolenoid.set(false);
   }
-  
-  public void stopSolenoid(){}
 
   @Override
   public void periodic() {

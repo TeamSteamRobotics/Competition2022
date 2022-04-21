@@ -12,27 +12,26 @@ import edu.wpi.first.wpilibj.RobotController;
 public class UltrasonicSubsystem extends SubsystemBase {
 
 
-  double rawValue; //voltage of pin representing distance
+  //variable to store the voltage the ultrasonic is receiving
+  double rawValue; 
+  //declares an ultrasonic (MaxBotix) 
   public final AnalogInput ultrasonic;
 
+  /** Creates a new UltrasonicSubsystem */
   public UltrasonicSubsystem() {
-    ultrasonic = new AnalogInput(0);
+    ultrasonic = new AnalogInput(0); // instantiates the ultrasonic and maps it to an analog input port
   } 
   
-  
-  //returns current distance in cm
-
+  /**
+   * The Ultrasonic sends soundwaves all over the field and will detect when a soundwave returns to it should that soundwave hit an obstructive object
+   * @return the distance reading in cm from a conversion
+   */
   public double getDistance() {
     rawValue = ultrasonic.getValue(); //get current voltage value
     double voltage_scale_factor = 5.0 / RobotController.getVoltage5V(); //convert it to fraction  
     double currentDistanceCentimeters = rawValue * voltage_scale_factor * 0.125; //convert fraction to cm
     return currentDistanceCentimeters; 
-
-    //NEED TO FIX THE ULTRASONIC WIRING
   }
-
-  
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

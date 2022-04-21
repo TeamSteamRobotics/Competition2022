@@ -43,6 +43,6 @@ public class ClimbPosition extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   return climb.isAtClimbPosition();
+   return climb.isAtClimbHeight();
   }
 }

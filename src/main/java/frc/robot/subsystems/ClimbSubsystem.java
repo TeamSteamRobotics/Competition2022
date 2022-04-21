@@ -23,76 +23,83 @@ import frc.robot.Constants.ClimbConstants;
 import frc.robot.Constants.MotorIDConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
-  /** Creates a new ClimbSubsystem. */
-  
+ 
+  //Create the REV Spark Max controllers that will be in charge of the climb
   CANSparkMax leftClimb = new CANSparkMax(Constants.MotorIDConstants.leftClimbMotorID, MotorType.kBrushless);
   CANSparkMax rightClimb = new CANSparkMax(Constants.MotorIDConstants.rightClimbMotorID, MotorType.kBrushless);
 
   SparkMaxPIDController pidController = rightClimb.getPIDController(); //instantiate the PID of the rightClimbMotor
   RelativeEncoder rightEncoder = rightClimb.getEncoder(); //instaitiate the encoder of the rightClimbMotor
 
+ /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {
     leftClimb.follow(rightClimb, true);
   }
 
+  /** raises the climb */
   public void raiseClimb() {
     rightClimb.set(-.5);
   }
-
+  /** lowers the climb */
   public void retractClimb() {
     rightClimb.set(.5);
   }
-  
+  /** sets the motor speeds to zero */
   public void stopClimb() {
     rightClimb.set(0);
   }
+  /**
+   * gets the encoder reading of the climb motor's position encoder
+   * @return the position of the climb motor in rotations
+   */
   public double getClimbPosition() { 
-    //postiton is measured in rotations (of motor I think, so it would be the same as ticks on a motor)
-    //rightEncoder.setPositionConversionFactor(Con) //you can use this to change the readings of position to a more sensible unit but I have no idea what number that would be
     return Math.abs(rightEncoder.getPosition());
   }
 
-  /*public void climbToPosition(double position) { //postition is rotations of the motor(ticks)
-    pidController.setReference(position, com.revrobotics.CANSparkMax.ControlType.kSmartMotion);
-    //pidController.set //smart motion is the built in PID of the NEOs
-  }*/
-
+  /**
+   * sets the encoder reading of the climb motor to zero rotations
+   */
   public void resetClimbPosition() {
     rightEncoder.setPosition(0); 
   }
-
+  /**
+   * Using the position reading, if we are within our position tolerance, we are at the desired climb height
+   * @return if the climb is at the desired height
+   */
   public boolean isAtClimbHeight() {
     return (Math.abs(pidController.getSmartMotionAllowedClosedLoopError(0)) < ClimbConstants.positionTolerance); //please look at this
   }
-  /*public double getClimbPosition() { 
-    //rightEncoder.setPositionConversionFactor(factor) //you can use this to change the readings of position to a more sensible unit but I have no idea what number that would be
-    return rightEncoder.getPosition();
-  }*/
-
-  
+  /**
+   * due to mechanical limitations
+   * Sets the bounds that we can climb to and climb within those bounds
+   * @param position the desired position we want to climb to in rotations of the motor
+   */
   public void climbToPosition(double position) { //postition is rotations of the motor(ticks)
     //clamp the position value so that zero is the minimumClimbHeight and the other number is the maximumClimbHeight
     double clampedPosition = MathUtil.clamp(position, ClimbConstants.minimumClimbHeight, ClimbConstants.maximumClimbHeight);
     pidController.setReference(clampedPosition, ControlType.kPosition);
   }
 
-  /*public void resetClimbPosition() {
-    rightEncoder.setPosition(0); 
-  }*/
-
-  public boolean isAtClimbPosition() {
-    return (Math.abs(pidController.getSmartMotionAllowedClosedLoopError(0)) < ClimbConstants.positionTolerance); //please look at this
-  }
-
+  /**
+   * checks to see if we are within the bounds of our climb
+   * @return if we are climbed to the desired height and we are within the bounds of our climb
+   */
   public boolean isRaised() {
     return (getClimbPosition() < ClimbConstants.maximumClimbHeight && getClimbPosition() > ClimbConstants.minimumClimbHeight); 
   }
 
+/**
+ * sets the motors to brake mode
+ * Once the motors do not receive any input, voltage will be applied to counter the voltage of the motor to instantly stop function
+ */
   public void setBrakeMode() {
     rightClimb.setIdleMode(IdleMode.kBrake);
     leftClimb.setIdleMode(IdleMode.kBrake);
   }
-
+/**
+ * sets the motors to coast mode
+ * Once the motors do not receive any input, the motor will continue to function until it naturally stops
+ */
   public void setCoastMode() {
     rightClimb.setIdleMode(IdleMode.kCoast);
     leftClimb.setIdleMode(IdleMode.kCoast);

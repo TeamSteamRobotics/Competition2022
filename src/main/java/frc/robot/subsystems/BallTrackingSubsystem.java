@@ -8,33 +8,45 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BallTrackingSubsystem extends SubsystemBase {
-  /** Creates a new BallTrackingSubsystem. */
-
+ 
+  //Creates the sensors mapped on the DIO ports of the RIO that will tell us the presence of an object by inhibiting infrared beams
   DigitalInput hopperSensor = new DigitalInput(2);
   DigitalInput intakeSensor = new DigitalInput(1);
   DigitalInput kickerSensor = new DigitalInput(0);
 
+
+ /** Creates a new BallTrackingSubsystem. */
   public BallTrackingSubsystem() {
 
   }
 
+  /**
+   * Is a ball at the intake?
+   * @return if a ball is at the intake
+   */
   public boolean isAtIntake(){
     return !intakeSensor.get();
 
   }
-
+  /**
+   * Is a ball at the kicker wheel?
+   * @return if a ball is at the kicker wheel
+   */
   public boolean isAtKicker(){
     return !kickerSensor.get();
   }
 
-  /*public boolean isAtMiddle(){
-    return middleSensor.get();
-  }*/
-
+  /**
+   * Is a ball at the hopper in between the intake and the kicker?
+   * @return if a ball is at the hopper 
+   */
   public boolean isAtHopper(){
     return !hopperSensor.get();
   }
-
+  /**
+   * Is the hopper full?
+   * @return if the hopper is full
+   */
   public boolean isHopperFull() {
     return isAtKicker() && (isAtHopper());
   }
