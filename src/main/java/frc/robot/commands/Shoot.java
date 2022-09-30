@@ -40,6 +40,7 @@ public class Shoot extends CommandBase {
 
   @Override
   public void execute() {
+    System.out.println("Shooter Speed: " + shooter.getSTUs());
 
     shooter.shoot(m_speed.getAsDouble()); 
     if(shooter.isAtSpeed() && shooter.getAccelerationError()){
@@ -58,7 +59,6 @@ public class Shoot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     shooter.stop(); 
-    shooter.stopBackspin();
     hopper.stopBelt();
     hopper.stopKickerWheel();
   }

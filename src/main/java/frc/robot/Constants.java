@@ -12,11 +12,13 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public final class Constants 
+{
 
-    public final class MotorIDConstants {
-        public static final short leftBackMotorID = 1;
+    public final class MotorIDConstants 
+    {
         public static final short leftFrontMotorID = 0;
+        public static final short leftBackMotorID = 1;
         public static final short rightBackMotorID = 2;
         public static final short rightFrontMotorID = 3;
         public static final short leftFlywheelMotorID = 4;
@@ -30,13 +32,15 @@ public final class Constants {
         public static final short leftClimbMotorID = 11;
     }
 
-    public final class IntakeSubsystemConstants {
+    public final class IntakeSubsystemConstants 
+    {
         public static final float intakeMotorSpeed = 0.5f;
         public static final short intakeSolenoidChannel = 0;
         public static final short kickerBarSolenoidChannel = 1;
     }
 
-    public final class VisionTurnConstants {
+    public final class VisionTurnConstants
+    {
         //jerky but pretty solid PIDit
         public static final double kP = .005;
         public static final double kI = 0;
@@ -57,14 +61,16 @@ public final class Constants {
         public static final double ftPerTick = 6*Math.PI/(2048 * 10.75 *12);
     }
 
-    public final class ClimbConstants {
+    public final class ClimbConstants 
+    {
         public static final double positionTolerance = 0;
         public static final double velocityTolerance = 0;
         public static final double minimumClimbHeight = 85;
         public static final double maximumClimbHeight = 90;
     }
 
-    public final class GyroTurnConstants {
+    public final class GyroTurnConstants 
+    {
         public static final double kP = .003;
         public static final double kI = .0;
         public static final double kD = 0.00;
@@ -72,7 +78,8 @@ public final class Constants {
         public static final double positionTolerance = 5;
     }
 
-    public final class FlywheelConstants {
+    public final class FlywheelConstants 
+    {
         public static final double shooterSpeed = 21000;
         public static final double maxShooterSpeed = 40000;
         public static final double kP = 5;

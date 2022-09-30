@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-
 import java.beans.Encoder;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -30,25 +29,34 @@ public class ShooterSubsystem extends SubsystemBase {
   WPI_TalonSRX backspinMotor = new WPI_TalonSRX(MotorIDConstants.backspinMotorID);
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
-    rightFlywheelMotor.setNeutralMode(NeutralMode.Coast); //when the motor does not receive any input, have it naturally come to a stop
-    rightFlywheelMotor.setSensorPhase(true); //ensures that our perception of forward/backward agrees with motor directionality
-    rightFlywheelMotor.selectProfileSlot(0, 0); //the PID slot of the rightFlywheelMotor
-    leftFlywheelMotor.follow(rightFlywheelMotor); //creates the master(right) - follower(left) system
-    leftFlywheelMotor.setInverted(InvertType.OpposeMaster); //since motors are oriented oppositely, we want them spinning in opposite directions
+    // rightFlywheelMotor.setNeutralMode(NeutralMode.Coast); //when the motor does not receive any input, have it naturally come to a stop
+    // rightFlywheelMotor.setSensorPhase(true); //ensures that our perception of forward/backward agrees with motor directionality
+    // rightFlywheelMotor.selectProfileSlot(0, 0); //the PID slot of the rightFlywheelMotor
+    // leftFlywheelMotor.follow(rightFlywheelMotor); //creates the master(right) - follower(left) system
+    // leftFlywheelMotor.setInverted(InvertType.OpposeMaster); //since motors are oriented oppositely, we want them spinning in opposite directions
     
-    backspinMotor.setNeutralMode(NeutralMode.Coast); //when the motor does not receive any input, have it naturally come to a stop
-    backspinMotor.setSensorPhase(false); //invert the sensor phase so that motor directionality agrees with our perception of direction
-    backspinMotor.selectProfileSlot(0, 0); //the PID slot of the leftFlywheelMotor
-    backspinMotor.config_kP(0, 0.05); //kP - proportional error adjustment
-    backspinMotor.config_kI(0, .00001); //kI - integral keeps track of error built up over time and counters that build up especially near our setpoint
-    backspinMotor.config_kD(0, .005); //kD - adjusts the rate of change of the error 
-    backspinMotor.config_kF(0, .0229); //kF - out initial guess (in terms of voltage) to get near the setpoint and then PID will make us get to the setpoint from there
+    // backspinMotor.setNeutralMode(NeutralMode.Coast); //when the motor does not receive any input, have it naturally come to a stop
+    // backspinMotor.setSensorPhase(false); //invert the sensor phase so that motor directionality agrees with our perception of direction
+    // backspinMotor.selectProfileSlot(0, 0); //the PID slot of the leftFlywheelMotor
+    // backspinMotor.config_kP(0, 0.05); //kP - proportional error adjustment
+    // backspinMotor.config_kI(0, .00001); //kI - integral keeps track of error built up over time and counters that build up especially near our setpoint
+    // backspinMotor.config_kD(0, .005); //kD - adjusts the rate of change of the error 
+    // backspinMotor.config_kF(0, .0229); //kF - out initial guess (in terms of voltage) to get near the setpoint and then PID will make us get to the setpoint from there
 
-    rightFlywheelMotor.config_kP(0, .21); //kP - proportional error adjustment
-    rightFlywheelMotor.config_kI(0, .0002); //kI - integral keeps track of error built up over time and counters that build up especially near our setpoint
-    rightFlywheelMotor.config_kD(0, .001); //kD - adjusts the rate of change of the error 
-    rightFlywheelMotor.config_kF(0, .017); //kF - out initial guess (in terms of voltage) to get near the setpoint and then PID will make us get to the setpoint from there
-    rightFlywheelMotor.config_IntegralZone(0, 200); //ask Anand idk man
+    // rightFlywheelMotor.config_kP(0, .21); //kP - proportional error adjustment
+    // rightFlywheelMotor.config_kI(0, .0002); //kI - integral keeps track of error built up over time and counters that build up especially near our setpoint
+    // rightFlywheelMotor.config_kD(0, .001); //kD - adjusts the rate of change of the error 
+    // rightFlywheelMotor.config_kF(0, .017); //kF - out initial guess (in terms of voltage) to get near the setpoint and then PID will make us get to the setpoint from there
+    // rightFlywheelMotor.config_IntegralZone(0, 200); //ask Anand idk man
+    rightFlywheelMotor.setNeutralMode(NeutralMode.Coast);
+    rightFlywheelMotor.setSensorPhase(true);    
+    rightFlywheelMotor.selectProfileSlot(0, 0);
+    leftFlywheelMotor.follow(rightFlywheelMotor);
+    leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
+
+    rightFlywheelMotor.config_kP(0, .21);
+    rightFlywheelMotor.config_kI(0, .0002);
+    rightFlywheelMotor.config_kD(0, .001);
   }
 
   /**
@@ -117,12 +125,6 @@ public class ShooterSubsystem extends SubsystemBase {
    */
   public void stop(){
     rightFlywheelMotor.set(0);
-    backspinMotor.set(0);
-  }
-  /**
-   * sets the backspin motor to zero percent output
-   */
-  public void stopBackspin(){
     backspinMotor.set(0);
   }
 

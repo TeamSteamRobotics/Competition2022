@@ -27,8 +27,6 @@ WPI_TalonFX leftFrontMotor = new WPI_TalonFX(MotorIDConstants.leftFrontMotorID);
 WPI_TalonFX leftBackMotor = new WPI_TalonFX(MotorIDConstants.leftBackMotorID);
 WPI_TalonFX rightBackMotor = new WPI_TalonFX(MotorIDConstants.rightBackMotorID);
 WPI_TalonFX rightFrontMotor = new WPI_TalonFX(MotorIDConstants.rightFrontMotorID);
-//an interface that allows us to use the falcons to play audio
-Orchestra orch = new Orchestra(Arrays.asList(leftFrontMotor, leftBackMotor, rightBackMotor, rightFrontMotor));
 //structures the falcons into left and right side groups that are controlled by motor controllers
 MotorControllerGroup rightMotorController = new MotorControllerGroup(rightBackMotor, rightFrontMotor);
 MotorControllerGroup leftMotorController = new MotorControllerGroup(leftBackMotor, leftFrontMotor);
@@ -58,21 +56,7 @@ public DriveSubsystem() {
 public void drive(double speed, double rotation, boolean squareInputs) {
   diffDrive.arcadeDrive(-1*speed, 1*rotation, squareInputs);  
 }
-/**
- * loads music onto the falcons
- * @param songFilePath the path of the audio file to load
- */
-public void loadMusic(String songFilePath) {
-  orch.loadMusic(songFilePath);
-}
-/** plays the music loaded */
-public void playMusic() {
-  orch.play();
-}
-/** stops the played music */
-public void stopMusic() {
-  orch.stop();
-}
+
 /** resets the gyro readings */
 public void resetGyro() {
   gyro.reset();

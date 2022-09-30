@@ -4,23 +4,16 @@
 
 package frc.robot;
 
-
-import edu.wpi.first.util.sendable.SendableRegistry;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.RaiseClimb;
 import frc.robot.commands.BangBangClimb;
-import frc.robot.commands.DeployIntake;
 import frc.robot.commands.Drive;
-import frc.robot.commands.GyroTurn;
 import frc.robot.commands.Intake;
 import frc.robot.commands.LowerClimb;
-import frc.robot.commands.Music;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.SequentialAuto;
 import frc.robot.commands.SequentialAutoJank;
@@ -28,7 +21,6 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.TaxiAuto;
 import frc.robot.commands.ThreeBallAuto;
-import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VisionlessAuto;
 import frc.robot.commands.VomitAll;
 import frc.robot.subsystems.BallTrackingSubsystem;
@@ -40,11 +32,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -53,12 +40,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
-  private  double shooterSpeed = 21500;
+public class RobotContainer 
+{
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
-  //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem(); 
   private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
   public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
@@ -91,39 +77,24 @@ public class RobotContainer {
   JoystickButton raiseClimbButton = new JoystickButton(stick, 12);
   JoystickButton lowerClimbButton = new JoystickButton(stick, 4);
   JoystickButton vomitButton = new JoystickButton(stick, 6);
-  JoystickButton incrementSpeed = new JoystickButton(stick, 8);
-  JoystickButton decrementSpeed = new JoystickButton(stick, 7);
-  JoystickButton musicButton = new JoystickButton(stick, 11);
-  //JoystickButton climbUpButton = new JoystickButton(stick, 13);
-  //JoystickButton climbDownButton = new JoystickButton(stick, 14);
-  //JoystickButton climbToHeightButton = new JoystickButton(stick, 3);
- // JoystickButton gyroTurnButton = new JoystickButton(stick, 11);
+
 
 
 
  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  public RobotContainer() 
+  {
     // Configure the button bindings
     configureButtonBindings();
     //m_driveSubsystem.setDefaultCommand(new GyroTurn(m_driveSubsystem, 0));
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
-    //stick.setThrottleChannel(3);
-    m_autoChooser.addOption("Two Ball Auto", m_sequentialAuto);
-    m_autoChooser.addOption("Two Ball Auto with Turn", m_sequentialAutoJank);
-    m_autoChooser.addOption("Three Ball Auto", m_threeBallAuto);
-    m_autoChooser.addOption("Taxi Auto", m_taxiAuto);
-    m_autoChooser.addOption("Visionless Auto", m_visionlessAuto);
     
-    m_musicChoice.addOption("RickRoll", "RickRoll.chrp");
-    m_musicChoice.addOption("Imperial March", "ImperialMarch.chrp");
-    m_musicChoice.addOption("OneWeek", "OneWeek.chrp");
-    m_musicChoice.addOption("Closing Time", "ClosingTime.chrp");
 
     SmartDashboard.putData(m_musicChoice);
 
     SmartDashboard.putData(m_autoChooser);
-    SmartDashboard.putNumber("Requested Speed", shooterSpeed);
+    //SmartDashboard.putNumber("Requested Speed", shooterSpeed);
     
     
   }
@@ -135,9 +106,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    /*intakeButton.whileHeld(
-      new ParallelCommandGroup(new Intake(m_intakeSubsystem), new MoveBelts(m_hopperSubsystem, 0.4))
-    );*/
     intakeButton.whileHeld(new Intake(m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem));
     //undeployIntakeButton.toggleWhenPressed(new DeployIntake(m_intakeSubsystem)); 
     retractIntakeButton.toggleWhenPressed(new RetractIntake(m_intakeSubsystem)); 
@@ -145,30 +113,21 @@ public class RobotContainer {
     raiseClimbButton.whileHeld(new RaiseClimb(m_climbSubsystem));
     lowerClimbButton.whileHeld(new LowerClimb(m_climbSubsystem));
     bangbang.whenPressed(new BangBangClimb(m_climbSubsystem));
-    // visionTurnButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem, false));                                                            
     /*allInOneButton.whileHeld(
         new ParallelCommandGroup(
           new Shoot(m_shooterSubsystem, () -> 25000, m_hopperSubsystem),
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
-    incrementSpeed.whenPressed(new InstantCommand(()->{shooterSpeed +=500; SmartDashboard.putNumber("Requested Speed", shooterSpeed);}));
-    decrementSpeed.whenPressed(new InstantCommand(()->{shooterSpeed -=500; SmartDashboard.putNumber("Requested Speed", shooterSpeed);}));
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
-                                                            
-    //shootButton.whileHeld(new Shoot(m_shooterSubsystem, Constants.FlywheelConstants.shooterSpeed, m_hopperSubsystem, m_ballTrackingSubsystem));
-    musicButton.whileHeld(new Music(m_driveSubsystem, m_musicChoice.getSelected()).withTimeout(60));
-
-    //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
-    //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
-    //climbToHeightButton.whileHeld(new ClimbHeight(m_climbSubsystem, 0));
-    // gyroTurnButton.whileHeld(new GyroTurn(m_driveSubsystem, 180));
+   
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> 20000, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
   }  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() 
+  {
       /*return m_threeBallAuto;
       return m_sequentialAuto;
       return m_sequentialAutoJank;*/

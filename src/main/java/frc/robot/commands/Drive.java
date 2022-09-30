@@ -25,6 +25,7 @@ boolean squareInputs;
     this.rotation = rotation;
     this.squareInputs = squareInputs;
     
+    
   }
 
   // Called when the command is initially scheduled.
