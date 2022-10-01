@@ -110,7 +110,8 @@ public class ShooterSubsystem extends SubsystemBase {
     if(this.getSTUs() <1000) {
       return false;
     } else {
-      return (Math.abs(backspinMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance) && (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance);}
+      return (Math.abs(rightFlywheelMotor.getClosedLoopError()) < Constants.FlywheelConstants.velocityTolerance);
+    }
   }
 
   /**

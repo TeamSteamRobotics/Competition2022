@@ -43,7 +43,7 @@ public class Shoot extends CommandBase {
     System.out.println("Shooter Speed: " + shooter.getSTUs());
 
     shooter.shoot(m_speed.getAsDouble()); 
-    if(shooter.isAtSpeed() && shooter.getAccelerationError()){
+    if(shooter.isAtSpeed()){
       hopper.spinKickerWheel(0.4);
       
     } else if (!ballTrackingSubsystem.isAtKicker() && ballTrackingSubsystem.isAtHopper()) {

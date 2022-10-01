@@ -44,28 +44,27 @@ public class RobotContainer
 {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+  //private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem(); 
   private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
   public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final UltrasonicSubsystem m_sonicSubsystem = new UltrasonicSubsystem();
   public final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
-  private final SequentialAuto m_sequentialAuto = new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
-  private final SequentialAutoJank m_sequentialAutoJank = new SequentialAutoJank(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
-  private final ThreeBallAuto m_threeBallAuto = new ThreeBallAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
-  private final TaxiAuto m_taxiAuto = new TaxiAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  //private final SequentialAuto m_sequentialAuto = new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  //private final SequentialAutoJank m_sequentialAutoJank = new SequentialAutoJank(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  //private final ThreeBallAuto m_threeBallAuto = new ThreeBallAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  //private final TaxiAuto m_taxiAuto = new TaxiAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   private final Joystick stick = new Joystick(0);
-  private final VisionlessAuto m_visionlessAuto = new VisionlessAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  //private final VisionlessAuto m_visionlessAuto = new VisionlessAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
 
 
 
 
 
 
-  SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
+  //SmartDashboardOutput m_smartDashboardOutput = new SmartDashboardOutput(m_shooterSubsystem, stick, m_driveSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
-  SendableChooser<String> m_musicChoice = new SendableChooser<String>();
  
   
   JoystickButton intakeButton = new JoystickButton(stick, 2);
@@ -90,8 +89,6 @@ public class RobotContainer
     //m_driveSubsystem.setDefaultCommand(new GyroTurn(m_driveSubsystem, 0));
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, () -> stick.getY(), () -> stick.getX(), true));
     
-
-    SmartDashboard.putData(m_musicChoice);
 
     SmartDashboard.putData(m_autoChooser);
     //SmartDashboard.putNumber("Requested Speed", shooterSpeed);

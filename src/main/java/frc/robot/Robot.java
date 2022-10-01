@@ -95,7 +95,7 @@ public class Robot extends TimedRobot
     m_robotContainer.m_intakeSubsystem.deployKicker();
     m_robotContainer.m_climbSubsystem.resetClimbPosition();
     
-    CommandScheduler.getInstance().schedule(m_robotContainer.m_smartDashboardOutput);
+    //CommandScheduler.getInstance().schedule(m_robotContainer.m_smartDashboardOutput);
     //CommandScheduler.getInstance().schedule(m_robotContainer.m_smartDashboardOutput);
   }
 

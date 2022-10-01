@@ -34,6 +34,7 @@ public class ClimbSubsystem extends SubsystemBase {
  /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {
     leftClimb.follow(rightClimb, true);
+    setBrakeMode();
   }
 
   /** raises the climb */
@@ -61,23 +62,6 @@ public class ClimbSubsystem extends SubsystemBase {
    */
   public void resetClimbPosition() {
     rightEncoder.setPosition(0); 
-  }
-  /**
-   * Using the position reading, if we are within our position tolerance, we are at the desired climb height
-   * @return if the climb is at the desired height
-   */
-  public boolean isAtClimbHeight() {
-    return (Math.abs(pidController.getSmartMotionAllowedClosedLoopError(0)) < ClimbConstants.positionTolerance); //please look at this
-  }
-  /**
-   * due to mechanical limitations
-   * Sets the bounds that we can climb to and climb within those bounds
-   * @param position the desired position we want to climb to in rotations of the motor
-   */
-  public void climbToPosition(double position) { //postition is rotations of the motor(ticks)
-    //clamp the position value so that zero is the minimumClimbHeight and the other number is the maximumClimbHeight
-    double clampedPosition = MathUtil.clamp(position, ClimbConstants.minimumClimbHeight, ClimbConstants.maximumClimbHeight);
-    pidController.setReference(clampedPosition, ControlType.kPosition);
   }
 
   /**
