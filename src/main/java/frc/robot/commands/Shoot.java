@@ -41,6 +41,7 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     System.out.println("Shooter Speed: " + shooter.getSTUs());
+    System.out.println("Error: " + shooter.getLoopError());
 
     shooter.shoot(m_speed.getAsDouble()); 
     if(shooter.isAtSpeed()){

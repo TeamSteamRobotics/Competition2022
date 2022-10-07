@@ -54,9 +54,10 @@ public class ShooterSubsystem extends SubsystemBase {
     leftFlywheelMotor.follow(rightFlywheelMotor);
     leftFlywheelMotor.setInverted(InvertType.OpposeMaster);
 
-    rightFlywheelMotor.config_kP(0, .21);
-    rightFlywheelMotor.config_kI(0, .0002);
-    rightFlywheelMotor.config_kD(0, .001);
+    rightFlywheelMotor.config_kF(0, 0.0);
+    rightFlywheelMotor.config_kP(0, .1);
+    rightFlywheelMotor.config_kI(0, .0005);
+    rightFlywheelMotor.config_kD(0, .5);
   }
 
   /**

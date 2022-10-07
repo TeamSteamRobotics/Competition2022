@@ -116,7 +116,7 @@ public class RobotContainer
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
    
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> 20000, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> 17000, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
   }  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
