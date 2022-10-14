@@ -22,6 +22,7 @@ import frc.robot.commands.SmartDashboardOutput;
 import frc.robot.commands.TaxiAuto;
 import frc.robot.commands.ThreeBallAuto;
 import frc.robot.commands.VisionlessAuto;
+import frc.robot.commands.VisionlessTaxiAutoGood;
 import frc.robot.commands.VomitAll;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -51,6 +52,7 @@ public class RobotContainer
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final UltrasonicSubsystem m_sonicSubsystem = new UltrasonicSubsystem();
   public final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+  //private final VisionlessTaxiAutoGood m_visionlessTaxiAutoGood = new VisionlessTaxiAutoGood(m_driveSubsystem, m_shooterSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem);
   //private final SequentialAuto m_sequentialAuto = new SequentialAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   //private final SequentialAutoJank m_sequentialAutoJank = new SequentialAutoJank(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
   //private final ThreeBallAuto m_threeBallAuto = new ThreeBallAuto(m_shooterSubsystem, m_driveSubsystem, m_intakeSubsystem, m_hopperSubsystem, m_ballTrackingSubsystem, m_visionSubsystem, m_sonicSubsystem);
@@ -116,7 +118,7 @@ public class RobotContainer
           new MoveBelts(m_hopperSubsystem, .3) 
           )); */
    
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> 17000, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, ()-> 18500, m_hopperSubsystem, m_ballTrackingSubsystem)); //19000 -> 19000 and .4 had shots that barely
   }  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -128,6 +130,8 @@ public class RobotContainer
       /*return m_threeBallAuto;
       return m_sequentialAuto;
       return m_sequentialAutoJank;*/
-      return m_autoChooser.getSelected();
+      //return m_autoChooser.getSelected();
+     // return m_visionlessTaxiAutoGood;
+     return null;
   }
 }
